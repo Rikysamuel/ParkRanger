@@ -1,0 +1,44 @@
+.btn-laporan, .btn-user {
+	float:left;
+	margin-right: 10px;
+}
+
+.btn-taman{
+		float: left;
+		line-height: 38px;
+}
+
+.sort-menu {
+	float:right;
+}
+
+.panel {
+    box-shadow: 1px 1px 2px black;
+}
+
+.deskripsi-wrapper{
+	padding: 0;
+	margin-bottom: 0px;
+	position: relative;
+}
+
+.deskripsi-wrapper > .col-xs-1 {
+	padding: 0;
+	margin: 0;
+}
+
+.deskripsi-wrapper > .col-xs-1 > .thumbnail {
+	margin: 0;
+}
+
+.deskripsi > h2 {
+	margin-bottom:0;
+}
+
+.deskripsi > p {
+	margin:0;
+}
+
+.deskripsi > .col-xs-9, .deskripsi > .col-xs-3 {
+	padding: 0;
+}

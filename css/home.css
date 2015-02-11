@@ -1,0 +1,62 @@
+
+.panel {
+    box-shadow: 1px 1px 2px black;
+}
+
+.deskripsi-wrapper{
+	padding-left: 0;
+	position: relative;
+}
+
+.deskripsi-wrapper > .col-xs-3 {
+    padding-left: 0;
+}
+
+.deskripsi-wrapper > .col-xs-3 > .thumbnail {
+    margin-bottom:0;
+}
+
+.deskripsi > h2 {
+    margin:0;
+}
+
+.deskripsi > h2 > a:hover {
+    text-decoration: none;
+}
+
+.deskripsi > p {
+    margin-top: 0;
+}
+
+.deskripsi > p {
+	margin-top: 0;
+}
+
+.status-box{
+	position: absolute;
+	bottom: 0;
+}
+
+.status{
+	padding-left: 0;
+}
+
+.vote {
+    font-size: 28px;
+    padding-right: 0;
+}
+
+.vote > a {
+    text-decoration: none;
+    color: #7f7f7f;
+}
+
+.vote > a:hover {color:#1d91e3;}
+
+.pagination a {
+    color: #1d91e3 !important;
+}
+
+.pagination a:hover{
+    color:#0675c3 !important;
+}

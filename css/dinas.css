@@ -1,0 +1,102 @@
+
+.panel {
+    box-shadow: 1px 1px 2px black;
+}
+
+.deskripsi-wrapper{
+	padding-left: 0;
+	margin-bottom: 0px;
+	position: relative;
+}
+
+.panel-body > .deskripsi-wrapper > .col-xs-3:first-child {
+    padding-left: 0px;
+}
+
+.panel-body > .deskripsi-wrapper > .col-xs-3:first-child > .thumbnail {
+    margin-bottom:0;
+}
+
+.deskripsi{
+	padding-right: 0;
+}
+
+.deskripsi > h2 {
+    margin:0;
+}
+
+.deskripsi > h2 > a:hover {
+    text-decoration: none;
+}
+
+.deskripsi > p {
+	margin-top: 0;
+}
+
+.deskripsi > div {
+    margin-top: 0;
+}
+
+.status-box {
+	position: absolute;
+	bottom: 0;
+}
+
+.status-box > .btn {
+
+}
+
+.status{
+	padding-left: 0;
+}
+
+.status > p{margin: 0;}
+
+.status-box > .col-xs-3 {
+	padding-right: 0;
+}
+
+.status-box > .col-xs-1 {
+	padding: 0;
+}
+.status-box > .col-xs-1 > h1{
+	margin: 0;
+}
+
+.komentar{
+    padding-left: 0;
+}
+
+.vote{
+	position: absolute;
+	bottom: 9px;
+	right: 0;
+}
+
+.vote > h1 {margin:0;}
+
+.konfirm {
+	margin-top: 10px;
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.konfirmasi-btn {
+    height: 78px;
+        line-height: 78px;
+}
+
+.konfirmasi-btn > span {
+        line-height: normal;
+        display: inline-block;
+        vertical-align: middle;
+        width: 100%;
+}
+
+.pagination a {
+    color: #1d91e3 !important;
+}
+
+.pagination a:hover{
+    color:#0675c3 !important;
+}
