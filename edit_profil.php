@@ -14,60 +14,68 @@
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="css/lapor.css">
+        <link rel="stylesheet" href="css/edit_profil.css">
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
     <body>
     	<div class="container">
 	        <div class="top">
         	    <h1 class="text-muted"><a href="index.php">Park Ranger</a></h1>
-		    	<p class="text-right">Logged in as <a href="#">Edmund</a></p>
+		    	<p class="text-right">Logged in as <a href="edit_profil.php">Edmund</a></p>
 			    <div class="clearfix"></div>
 		        <ul class="nav nav-justified" role="navigation">
 		        	<li><a href="index.php">Home</a></li>
-		        	<li class="active"><a href="lapor.php">Kirim Laporan</a></li>
+		        	<li><a href="lapor.php">Kirim Laporan</a></li>
 		        	<li><a href="about.php">About</a></li>
 		        	<li><a href="logout.php">Log Out</a></li>
 		        </ul>
 	       	</div>
-	       	<h2 class="text-primary subtitle col-xs-6">Kirim Laporan</h2>
+	       	<h2 class="text-primary subtitle col-xs-6">Edit Profil</h2>
 	       	<div class="clearfix"></div>
 	       	<form action="#" method="POST" class="form-horizontal col-xs-6 col-xs-offsets-3">
 	       		<div class="form-group">
-		       		<label for="taman" class="col-xs-3 control-label">Taman</label>
-		       		<div class="col-xs-9">
-			       		<select class="form-control" id="taman">
-			       			<option>Pasupati</option>
-			       			<option>Siswa</option>
-			       			<option>Kedamaian</option>
-			       			<option>Jomblo</option>
-			       		</select>
-		       		</div>
-		       	</div>
-		       	<div class="form-group">
-		       		<label for="jenis" class="col-xs-3 control-label">Jenis laporan</label>
-		       		<div class="col-xs-9">
-			       		<select class="form-control" id="jenis">
-			       			<option>Kerusakan</option>
-			       			<option>Ketertiban</option>
-			       			<option>Kebersihan</option>
-			       			<option>Keamanan</option>
-			       		</select>
-			       	</div>
+	       			<label for="username" class="col-xs-4 control-label">Username</label>
+	       			<div class="col-xs-8">
+	       				<input type="text" name="username" id="username" class="form-control" placeholder="edmund.ophie">
+       				</div>
 	       		</div>
 	       		<div class="form-group">
-	       			<label for="gambar" class="col-xs-3 control-label">Gambar</label>
-		       		<div class="col-xs-9">
-		       			<input type="file" name="gambar" id="gambar" class="form-control">
-		       		</div>
+	       			<label for="email" class="col-xs-4 control-label">Email</label>
+	       			<div class="col-xs-8">
+	       				<input type="email" name="email" id="email" class="form-control" placeholder="edmund.ophie@yahoo.com">
+       				</div>
 	       		</div>
 	       		<div class="form-group">
-	       			<label for="deskripsi" class="col-xs-3 control-label">Deskripsi</label>
-		       		<div class="col-xs-9">
-		       			<textarea class="form-control" rows="4"></textarea>
-	       			</div>
+	       			<label for="nama" class="col-xs-4 control-label">Nama</label>
+	       			<div class="col-xs-8">
+	       				<input type="text" name="nama" id="nama" class="form-control" placeholder="Edmund Ophie">
+       				</div>
 	       		</div>
-	       		<input type="submit" value="Laporkan!" class="btn btn-primary btn-block">
+	       		<div class="form-group">
+	       			<label for="oldPassword" class="col-xs-4 control-label">Password lama</label>
+	       			<div class="col-xs-8">
+	       				<input type="password" name="oldPassword" id="oldPassword" class="form-control" >
+       				</div>
+	       		</div>
+	       		<div class="form-group">
+	       			<label for="newPassword" class="col-xs-4 control-label">Password baru</label>
+	       			<div class="col-xs-8">
+	       				<input type="password" name="newPassword" id="newPassword" class="form-control">
+       				</div>
+	       		</div>
+	       		<div class="form-group">
+	       			<label for="confirmPassword" id="label-confirm" 	class="col-xs-4 control-label">Konfirmasi password</label>
+	       			<div class="col-xs-8">
+	       				<input type="password" name="confirmPassword" id="confirmPassword" class="form-control">
+       				</div>
+	       		</div>
+	       		<div class="form-group">
+	       			<label for="avatar" class="col-xs-4 control-label">Avatar</label>
+		       		<div class="col-xs-8">
+		       			<input type="file" name="avatar" id="avatar" class="form-control">
+		       		</div>
+	       		</div>
+	       		<input type="submit" value="Edit" class="btn btn-primary btn-block">
 	       	</form>
 	       	<div class="clearfix"></div>
 			<p class="text-center footer">

@@ -97,6 +97,10 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
+.container{
+  width: 1024px !important;
+}
+
 a:hover{text-decoration: none;}
 .top {padding-top: 20px;}
 .top > h1 {display: inline;}
