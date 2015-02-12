@@ -4,7 +4,7 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> 
 <?php
-	$sort;
+	$sort = 0;
 ?>
 <html class="no-js"> <!--<![endif]-->
     <head>
@@ -25,94 +25,53 @@
     	<div class="container">
 	        <div class="top">
 		        <h1 class="text-muted"><a href="index.php">Park Ranger</a></h1>
-			    <p class="text-right">Logged in as <a href="#">Satpol PP</a></p>
+			    <p class="text-right">Masuk sebagai <a href="#">Satpol PP</a></p>
 			    <div class="clearfix"></div>
 		        <ul class="nav nav-justified" role="navigation">
-		        	<li><a href="index.php">Home</a></li>
+		        	<li><a href="index.php">Halaman Utama</a></li>
 		        	<li><a href="lapor.php">Kirim Laporan</a></li>
-		        	<li><a href="about.php">About</a></li>
-		        	<li><a href="logout.php">Log Out</a></li>
+		        	<li><a href="about.php">Tentang</a></li>
+		        	<li><a href="logout.php">Keluar</a></li>
 		        </ul>
 	       	</div>
 	       	<br/>
 	       	<div class="dropdown text-right">
-	       	<input type="hidden" id="temp1" name="temp1"></input>
-	       	Sort by : &nbsp;
+
+	       	<!-- tambahin hidden form dummy buat sorting-->
+	       	<form name="tempform" id="tempform" method="post">
+				<input id="temp1" NAME="temp1" type="hidden"></input>
+			</form>
+
+	       	Urut sesuai : &nbsp;
 				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-					Most recent
+					Terbaru
 					<span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
-					<li role="presentation" name="sort" id="recent" onclick="$('#temp1').val('0');"><a role="menuitem" tabindex="-1" href="#">Most recent</a></li>
-					<li role="presentation" name="sort" id="votes" onclick="$('#temp1').val('1');"><a role="menuitem" tabindex="-1" href="#">Top votes</a></li>
-					<li role="presentation" name="sort" id="handled" onclick="$('#temp1').val('2');"><a role="menuitem" tabindex="-1" href="#">Recently handled</a></li>
+					<li role="presentation" name="sort" id="recent" onclick="$('#temp1').val('0'); $('#tempform').submit()" selected><a role="menuitem" tabindex="-1" href="#">Terbaru</a></li>
+					<li role="presentation" name="sort" id="votes" onclick="$('#temp1').val('1'); $('#tempform').submit()"><a role="menuitem" tabindex="-1" href="#">Terfavorit</a></li>
+					<li role="presentation" name="sort" id="handled" onclick="$('#temp1').val('2'); $('#tempform').submit()"><a role="menuitem" tabindex="-1" href="#">Baru ditangani</a></li>
+					<li class="divider"></li> 
+					<li role="presentation" name="sort" id="handled" onclick="$('#temp1').val('3'); $('#tempform').submit()"><a role="menuitem" tabindex="-1" href="#">Taman</a></li>
+					<li role="presentation" name="sort" id="handled" onclick="$('#temp1').val('4'); $('#tempform').submit()"><a role="menuitem" tabindex="-1" href="#">Kategori</a></li>
 				</ul>
 			</div>
 			<br />
-			<?php
-				$sort=$_POST['temp1'];
-				echo 'sort: ';
-				echo $sort;
-                $link=mysqli_connect("localhost","root","","park_ranger");
-                // Cek koneksi ke database
-                if (mysqli_connect_errno()) {
-                  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-                }
+			<?php include("InformasiDinas.php");
+				$link = init();
 
-                $id = 0;
-
-                //ambil data ke dalam array row dari database
-                $result = mysqli_query($link,"SELECT * FROM pengaduan ORDER BY pengaduan.id_laporan DESC");
-                while($row[] = mysqli_fetch_array($result));
-
-                $res = mysqli_query($link,"SELECT nama FROM user WHERE id_user='$id'");
-				$name = $res->fetch_assoc();
+				// writeMsg();
+				if(isset($_POST['temp1'])){
+					$sort = $_POST['temp1'];
+				}
+                $row = fetchPost($link);
 
                 //data dalam array diprint ke halaman html
                 for($it=0;$it<sizeof($row)-1;$it++){
-                  echo '<div class="panel panel-default">';
-                  echo '<div class="panel-body">
-					<div class="col-xs-12 deskripsi-wrapper">
-						<div class="col-xs-3">
-							<a href="#" class="thumbnail">
-								<img src="img/taman1.jpg" alt="'.$row[$it][4].'">
-							</a>
-						</div>
-						<div class="col-xs-9 deskripsi">
-							<h2><a href="#"><strong>ID:'.$row[$it][5].'</strong></a></h2>
-							<p class="text-warning">Jenis laporan : '.$row[$it][9].'</p>
-							<p style="min-height:60px">
-							'.$row[$it][8].'</p>
-							<div class="col-xs-9 status">
-								<p>
-									<span class="text-danger"><span class="glyphicon glyphicon-remove"></span> '.$row[$it][3].'</span><br />';
-									$id=$row[$it][7];
-									$res = mysqli_query($link,"SELECT nama FROM user WHERE id_user='$id'");
-									$name = $res->fetch_assoc();
-									echo '<small>Pelapor : <a href="profile.html" class="text-primary"> '.$name['nama'].' </a> <a href="#"><span class="text-danger glyphicon glyphicon-exclamation-sign"></span></a></small>
-								</p>
-							</div>
-							<div class="col-xs-3">
-								<button id="bt'.$row[$it][0].'" type="button" class="btn btn-primary btn-block" data-toggle="collapse" data-target="#post'.$row[$it][0].'" style="visibility:hidden" onclick="this.style.visibility=\'hidden\'">Tanggapi</button>
-						    </div>
-						</div>
-						</div>
-						<div id="post'.$row[$it][0].'" class="collapse in">
-							<div class="col-xs-9 komentar">
-								<textarea name="komentar" rows="3" class="form-control" placeholder="Tanggapan"></textarea>
-							</div>
-							<div class="col-xs-3 konfirmasi-btn">
-								<span>
-									<input type="submit" value="Konfirmasi" class="btn btn-block btn-primary" data-toggle="collapse" data-target="#post'.$row[$it][0].'" onclick="bt'.$row[$it][0].'.style.visibility=\'visible\'">
-								</span>
-							</div>
-
-						</div>
-	        		</div>
-	        	</div>';
+                  echo reports($link, $row,$it);
                 }
                 //tutup koneksi
-                mysqli_close($link);
+                closeConnection($link);
             ?>
 
       		<div class="panel panel-default">
@@ -168,7 +127,7 @@
 			<br/>
 		</p>
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <!-- // <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="js/plugins.js"></script>
