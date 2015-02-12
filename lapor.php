@@ -25,6 +25,10 @@
 
 			$nama_taman = mysql_query("SELECT nama FROM taman",$link);
 			$kategori_kerusakan = mysql_query("SELECT kategori FROM pihak_berwenang",$link);
+			while ($row = mysql_fetch_array($kategori_kerusakan)) {
+				echo "<script> console.log(".$row["kategori"].");</script>";
+			}
+
 			$uploadOK = 1;
 
 			if(isset($_POST['simpan'])) {
@@ -95,7 +99,7 @@
 			       			<?php
 			                    while ($row = mysql_fetch_array($nama_taman)) {
 			                ?>
-			                	<option><? php echo $nama_taman['nama'] ?></option>
+			                	<option><? php echo $row["nama"] ?></option>
 			       			<?php } ?>
 			       		</select>
 		       		</div>
@@ -106,9 +110,8 @@
 			       		<select class="form-control" id="jenis" required>
 			       			<?php
 			                    while ($row = mysql_fetch_array($kategori_kerusakan)) {
-			                ?>
-			                	<option><? php echo $kategori_kerusakan['kategori'] ?></option>
-			       			<?php } ?>
+			                	echo '<option value ="'.$row["kategori"].'">'.$row["kategori"].'</option>';
+			       			 } ?>
 			       		</select>
 			       	</div>
 	       		</div>
