@@ -44,37 +44,66 @@
 				</ul>
 			</div>
 			<br />
+      		<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="col-xs-12 deskripsi-wrapper">
+						<div class="col-xs-3">
+							<a href="#" class="thumbnail">
+								<img src="img/taman1.jpg" alt="taman">
+							</a>
+						</div>
+						<div class="col-xs-9 deskripsi">
+							<h2><a href="#"><strong>Taman Kedamaian</strong></a></h2>
+							<p class="text-warning">Jenis laporan : kerusakan</p>
+							<p>
+							Donec id elit non mi porta gravida at eget metus. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.Aenean lacinia bibendum nulla sed consectetur. Nulla vitae elit libero, a pharetra augue. Vestibulum id ligula porta felis euismod semper. </p>
+						</div>
+						<div class="col-xs-9 col-xs-offset-3 status-box">
+								<div class="col-xs-8 status">
+									<span class="text-success"><span class="glyphicon glyphicon-remove"></span> Belum ditindaklanjuti</span><br />
+									<small>Pelapor : <a href="profile.html" class="text-primary">joko.wi </a> <a href="#"><span class="text-danger glyphicon glyphicon-exclamation-sign"></span></a></small>
+								</div>
+								<div class=" col-xs-1 text-right">
+									<h1><span class="label label-success">19</span></h1>
+								</div>
+								<div class="col-xs-3">
+									<button class="btn btn-primary btn-block">Konfirmasi Laporan</button>
+								</div>
+						</div>
+					</div>
+	        	</div>
+      		</div><!-- End of Panel -->
 	       	<div class="panel panel-default">
 				<div class="panel-body">
 					<div class="col-xs-12 deskripsi-wrapper">
 						<div class="col-xs-3">
 							<a href="#" class="thumbnail">
-								<img src="img/taman1.jpg" alt="GAMBAR TAMAN">
+								<img src="img/taman1.jpg" alt="taman">
 							</a>
 						</div>
 						<div class="col-xs-9 deskripsi">
-							<h2><a href="#"><strong>NAMA TAMAN</strong></a></h2>
-							<p class="text-warning">Jenis laporan : JENIS KERUSAKAN</p>
+							<h2><a href="#"><strong>Taman Kedamaian</strong></a></h2>
+							<p class="text-warning">Jenis laporan : kerusakan</p>
 							<p>
-							ISI LAPORAN(substr aja)</p>
-							<div class="col-xs-9 status" style="padding: 60px 0px 0px">
-								<p>
-									<span class="text-danger"><span class="glyphicon glyphicon-remove"></span> STATUS LAPORAN</span><br />
-									<small>Pelapor : <a href="profile.html" class="text-primary">YANG MELAPOR </a> <a href="#"><span class="text-danger glyphicon glyphicon-exclamation-sign"></span></a></small>
-								</p>
+							Donec id elit non mi porta gravida at eget metus. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.Aenean lacinia bibendum nulla sed consectetur. Nulla vitae elit libero, a pharetra augue. Vestibulum id ligula porta felis euismod semper. </p>
+						</div>
+						<div class="col-xs-9 col-xs-offset-3 status-box">
+							<div class="col-xs-9 status">
+								<span class="text-danger"><span class="glyphicon glyphicon-remove"></span> Belum ditindaklanjuti</span><br />
+								<small>Pelapor : <a href="profile.html" class="text-primary">joko.wi </a> <a href="#"><span class="text-danger glyphicon glyphicon-exclamation-sign"></span></a></small>
 							</div>
-							<div class="col-xs-3">
-								<button id="bt1" type="button" class="btn btn-primary btn-block" data-toggle="collapse" data-target="#demo1" style="visibility:hidden" onclick="this.style.visibility='hidden'">Komentar</button>
-						    </div>
+						</div>
+						<div class="vote col-xs-3 text-right">
+							<h1><span class="label label-success">19</span></h1>
 						</div>
 					</div>
-					<div id="demo1" class="collapse in">
+					<div class="col-xs-12 konfirm">
 						<div class="col-xs-9 komentar">
-							<textarea name="komentar" rows="3" class="form-control" placeholder="Komentar">ISI TANGGAPAN</textarea>
+							<textarea name="komentar" rows="3" class="form-control">Terima kasih atas laporannya. Barusan sudah ditangani oleh petugas kami.</textarea>
 						</div>
 						<div class="col-xs-3 konfirmasi-btn">
 							<span>
-								<input type="submit" value="Konfirmasi" class="btn btn-block btn-primary" data-toggle="collapse" data-target="#demo1" onclick="bt1.style.visibility='visible'">
+								<input type="submit" value="Konfirmasi laporan" class="btn btn-block btn-primary">
 							</span>
 						</div>
 					</div>
@@ -89,60 +118,52 @@
 							</a>
 						</div>
 						<div class="col-xs-9 deskripsi">
-							<h2><a href="#" class="text-primary"><strong>Taman Kedamaian</strong></a></h2>
+							<h2><a href="#"><strong>Taman Kedamaian</strong></a></h2>
 							<p class="text-warning">Jenis laporan : kerusakan</p>
 							<p>
-							Donec id elit non mi porta gravida at eget metus. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.Aenean lacinia bibendum nulla sed consectetur. Nulla vitae elit libero, a pharetra augue. Vestibulum id ligula porta felis euismod semper. Donec id elit non mi porta gravida at eget metus Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras justo odio, dapibus ac facilisis in.</p>
-							<div class="col-xs-9 status">
-								<p>
+							Donec id elit non mi porta gravida at eget metus. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.Aenean lacinia bibendum nulla sed consectetur. Nulla vitae elit libero, a pharetra augue. Vestibulum id ligula porta felis euismod semper. </p>
+						</div>
+						<div class="col-xs-9 col-xs-offset-3 status-box">
+								<div class="col-xs-8 status">
 									<span class="text-success"><span class="glyphicon glyphicon-ok"></span> Sudah ditindaklanjuti</span><br />
 									<small>Pelapor : <a href="profile.html" class="text-primary">joko.wi </a> <a href="#"><span class="text-danger glyphicon glyphicon-exclamation-sign"></span></a></small>
-								</p>
-							</div>
-							<div class="col-xs-3">
-								<button id="bt2" type="button" class="btn btn-primary btn-block" data-toggle="collapse" data-target="#demo2" onclick="this.style.visibility='hidden'">Komentar</button>
-						    </div>
+								</div>
+						</div>
+						<div class="vote col-xs-3 text-right">
+							<h1><span class="label label-success">19</span></h>
 						</div>
 					</div>
-					<div id="demo2" class="collapse out">
-						<div class="col-xs-9 komentar">
-							<textarea name="komentar" rows="3" class="form-control" placeholder="Komentar"></textarea>
-						</div>
-						<div class="col-xs-3 konfirmasi-btn">
-							<span>
-								<input type="submit" value="Konfirmasi" class="btn btn-block btn-primary" data-toggle="collapse" data-target="#demo2" onclick="bt2.style.visibility='visible'">
-							</span>
-						</div>
-					</div>
-				</div>
-        	</div>
-  		</div><!-- End of Panel -->
-		<nav class="text-center">
-			<ul class="pagination">
-				<li class="disabled">
-					<a href="#" aria-label="Previous">
-						<span aria-hidden="true">&laquo;</span>
-					</a>
-				</li>
-				<li class="active"><a href="#">1</a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">3</a></li>
-				<li><a href="#">4</a></li>
-				<li><a href="#">5</a></li>
-				<li>
-					<a href="#" aria-label="Next">
-						<span aria-hidden="true">&raquo;</span>
-					</a>
-				</li>
-			</ul>
-		</nav>
-		<p class="text-center footer">
-			<br/>
-			Copyright &copy; 2014. ParkRanger. All rights reserved.<br/>
-			<br/>
-		</p>
+	        	</div>
+      		</div><!-- End of Panel -->
+			<nav class="text-center">
+				<ul class="pagination">
+					<li class="disabled">
+						<a href="#" aria-label="Previous">
+							<span aria-hidden="true">&laquo;</span>
+						</a>
+					</li>
+					<li class="active"><a href="#">1</a></li>
+					<li><a href="#">2</a></li>
+					<li><a href="#">3</a></li>
+					<li><a href="#">4</a></li>
+					<li><a href="#">5</a></li>
+					<li>
+						<a href="#" aria-label="Next">
+							<span aria-hidden="true">&raquo;</span>
+						</a>
+					</li>
+				</ul>
+			</nav>
+			<p class="text-center footer">
+				<br/>
+				Copyright &copy; 2014. ParkRanger. All rights reserved.<br/>
+				Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.<br/>
+				Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+				<br/>
+			</p>
+	    </div>
 
-        <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="js/plugins.js"></script>

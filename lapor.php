@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Kirim Pengaduan</title>
+        <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/lapor.css">
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+<<<<<<< HEAD
 
         <?php
 
@@ -75,6 +76,8 @@
 
 		?>
 
+=======
+>>>>>>> 713012de4906a79652c7fbc5c3b6487766b7f1a0
     </head>
     <body>
     	<div class="container">
@@ -91,44 +94,59 @@
 	       	</div>
 	       	<h2 class="text-primary subtitle col-xs-6">Kirim Laporan</h2>
 	       	<div class="clearfix"></div>
-	       	<form action="lapor.php" method="POST" class="form-horizontal col-xs-6 col-xs-offsets-3" onsubmit = "return validateForm()">
+	       	<form action="#" method="POST" class="form-horizontal col-xs-6 col-xs-offsets-3">
 	       		<div class="form-group">
 		       		<label for="taman" class="col-xs-3 control-label">Taman</label>
 		       		<div class="col-xs-9">
+<<<<<<< HEAD
 			       		<select class="form-control" id="taman" required>
 			       			<?php
 			                    while ($row = mysql_fetch_array($nama_taman)) {
 			                ?>
 			                	<option><? php echo $row["nama"] ?></option>
 			       			<?php } ?>
+=======
+			       		<select class="form-control" id="taman">
+			       			<option>Pasupati</option>
+			       			<option>Siswa</option>
+			       			<option>Kedamaian</option>
+			       			<option>Jomblo</option>
+>>>>>>> 713012de4906a79652c7fbc5c3b6487766b7f1a0
 			       		</select>
 		       		</div>
 		       	</div>
 		       	<div class="form-group">
 		       		<label for="jenis" class="col-xs-3 control-label">Jenis laporan</label>
 		       		<div class="col-xs-9">
+<<<<<<< HEAD
 			       		<select class="form-control" id="jenis" required>
 			       			<?php
 			                    while ($row = mysql_fetch_array($kategori_kerusakan)) {
 			                	echo '<option value ="'.$row["kategori"].'">'.$row["kategori"].'</option>';
 			       			 } ?>
+=======
+			       		<select class="form-control" id="jenis">
+			       			<option>Kerusakan</option>
+			       			<option>Ketertiban</option>
+			       			<option>Kebersihan</option>
+			       			<option>Keamanan</option>
+>>>>>>> 713012de4906a79652c7fbc5c3b6487766b7f1a0
 			       		</select>
 			       	</div>
 	       		</div>
 	       		<div class="form-group">
-	       			<label for="gambar" class="col-xs-3 control-label">Gambar <br/> (max 2MB)</label>
+	       			<label for="gambar" class="col-xs-3 control-label">Gambar</label>
 		       		<div class="col-xs-9">
-		       			<input type="file" name="gambar" id="gambar" class="form-control" required>
+		       			<input type="file" name="gambar" id="gambar" class="form-control">
 		       		</div>
 	       		</div>
 	       		<div class="form-group">
 	       			<label for="deskripsi" class="col-xs-3 control-label">Deskripsi</label>
 		       		<div class="col-xs-9">
-		       			<textarea id="keterangan" class="form-control" rows="4" required></textarea>
+		       			<textarea class="form-control" rows="4"></textarea>
 	       			</div>
 	       		</div>
-	       		
-	       		<input type="submit" value="Laporkan!" name="simpan" class="btn btn-primary btn-block">
+	       		<input type="submit" value="Laporkan!" class="btn btn-primary btn-block">
 	       	</form>
 	       	<div class="clearfix"></div>
 			<p class="text-center footer">
@@ -145,30 +163,6 @@
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
-
-        <script type="text/javascript">
-        function validateForm() {
-            var taman = document.getElementById("taman").value;
-            var jenis = document.getElementById("jenis").value;
-            var deskripsi = document.getElementById("deskripsi").value;
-            if (taman == "") {
-                alert("Pilih lokasi taman");
-                return false;
-            }
-            else if (jenis == "") {
-                alert("Pilih kategori pengaduan");
-                return false;
-            }
-            else if (deskripsi == "") {
-                alert("Deskripsi harus diisi");
-                return false;
-            }
-            else {
-            	return true;
-            }
-
-        }
-    </script>
 
     </body>
 </html>

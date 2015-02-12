@@ -1,0 +1,15 @@
+.subtitle{
+	margin-left: 20px;
+	padding-left: 0px;
+	margin-top: 20px;
+	margin-bottom: 5px;
+}
+
+form{
+	margin-left: 20px;
+    border:1px solid ;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 1px 1px 2px black;
+}
