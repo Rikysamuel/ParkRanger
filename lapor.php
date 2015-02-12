@@ -16,8 +16,6 @@
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/lapor.css">
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
-<<<<<<< HEAD
-
         <?php
 
 			include 'DBConfig.php';
@@ -26,9 +24,6 @@
 
 			$nama_taman = mysql_query("SELECT nama FROM taman",$link);
 			$kategori_kerusakan = mysql_query("SELECT kategori FROM pihak_berwenang",$link);
-			while ($row = mysql_fetch_array($kategori_kerusakan)) {
-				echo "<script> console.log(".$row["kategori"].");</script>";
-			}
 
 			$uploadOK = 1;
 
@@ -75,9 +70,6 @@
 			mysql_close($link);
 
 		?>
-
-=======
->>>>>>> 713012de4906a79652c7fbc5c3b6487766b7f1a0
     </head>
     <body>
     	<div class="container">
@@ -98,39 +90,28 @@
 	       		<div class="form-group">
 		       		<label for="taman" class="col-xs-3 control-label">Taman</label>
 		       		<div class="col-xs-9">
-<<<<<<< HEAD
 			       		<select class="form-control" id="taman" required>
 			       			<?php
+			       				$value = 0;
 			                    while ($row = mysql_fetch_array($nama_taman)) {
 			                ?>
-			                	<option><? php echo $row["nama"] ?></option>
-			       			<?php } ?>
-=======
-			       		<select class="form-control" id="taman">
-			       			<option>Pasupati</option>
-			       			<option>Siswa</option>
-			       			<option>Kedamaian</option>
-			       			<option>Jomblo</option>
->>>>>>> 713012de4906a79652c7fbc5c3b6487766b7f1a0
+			                	<option value = <?php $value?>><?php echo $row["nama"] ?></option>
+			       			<?php  $value++;
+			       				} ?>
 			       		</select>
 		       		</div>
 		       	</div>
 		       	<div class="form-group">
 		       		<label for="jenis" class="col-xs-3 control-label">Jenis laporan</label>
 		       		<div class="col-xs-9">
-<<<<<<< HEAD
-			       		<select class="form-control" id="jenis" required>
+		       			<select class="form-control" id="jenis" required>
+			       			<option value = 0> Tidak Tahu </option>
 			       			<?php
-			                    while ($row = mysql_fetch_array($kategori_kerusakan)) {
-			                	echo '<option value ="'.$row["kategori"].'">'.$row["kategori"].'</option>';
+			       				$value = 1;
+			                    while ($row = mysql_fetch_array($kategori_kerusakan)) { ?>
+			                    <option value = <?php $value?>><?php echo $row["kategori"] ?></option>
+			       			 <?php $value++;
 			       			 } ?>
-=======
-			       		<select class="form-control" id="jenis">
-			       			<option>Kerusakan</option>
-			       			<option>Ketertiban</option>
-			       			<option>Kebersihan</option>
-			       			<option>Keamanan</option>
->>>>>>> 713012de4906a79652c7fbc5c3b6487766b7f1a0
 			       		</select>
 			       	</div>
 	       		</div>
