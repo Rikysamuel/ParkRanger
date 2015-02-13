@@ -1,17 +1,4 @@
-<?php
-$servername = "localhost";
-$dbusername = "root";
-$dbpassword = "";
-$dbname = "parkranger";
 
-// Create connection
-$conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-} 
-?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -66,89 +53,68 @@ if ($conn->connect_error) {
 			<div class="clearfix"></div>
 			<br />
 			<?php
-				$sql = "SELECT * FROM user";
+			extract($_POST);
+			$servername = "localhost";
+			$dbusername = "root";
+			$dbpassword = "";
+			$dbname = "parkranger";
 
-				if ($conn->query($sql) === TRUE) {
-					$result = $conn->query($sql);
-					if($result->num_rows > 0) {
-						$row = $result->fetch_assoc();
-						while($row = $result->fetch_assoc()) {
+			// Create connection
+			$conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
+			// Check connection
+			if ($conn->connect_error) {
+			    die("Connection failed: " . $conn->connect_error);
+			} 
+
+			// 1:admin, 2:dinas, 3:member
+			$sql = "SELECT * FROM user WHERE role=3";
+			$result = $conn->query($sql);
+			
+			if($result->num_rows > 0) {
+				while($row= $result->fetch_assoc()) {
+					// Get user id and status
+					$uid = $row['id_user'];
+					$sql2 = "SELECT jumlah_report, status FROM member WHERE id_user=$uid";
+					$result2 = $conn->query($sql2);
+					if($result2->num_rows > 0) {
+						$row2 = $result2->fetch_assoc();
+						$status = $row2['status'];
+						$jumlah_report = $row2['jumlah_report'];
+					}
+
+					// Set status and css-coloring
+					$color = ($status=="unbanned")?"success":"danger";
+					$color2 = ($color=="success")?"danger":"success";
+					$btnText = ($color2=="success")?"Unbanned user":"Banned user";
+					$btnIcon = ($color2=="success")?"ok":"ban";
 			?>
       		<div class="panel panel-default">
 				<div class="panel-body">
 					<div class="col-xs-12 deskripsi-wrapper">
-						<div class="col-xs-1">
-							<a href="#" class="thumbnail">
-								<img src="img/avatars/<?php echo $row['picture']?>" alt="taman">
-							</a>
-						</div>
-						<div class="col-xs-11 deskripsi">
-							<h2><a href="#"><strong><?php echo $row['username']?></strong></a></h2>
-							<p class="text-warning">Reported :  12 kali</p>
+						<div class="col-xs-12 deskripsi">
+							<h2 class="text-primary"><strong><?php echo $row['username']?></strong></h2>
+							<p class="text-warning">Dilaporkan :  <?php echo $jumlah_report ?> kali</p>
 						
 							<div class="col-xs-9">
-								<span class="text-success">Status : unbanned</span><br />
+								<span class="text-<?php echo $color ?>">Status : <?php echo $status ?></span><br />
 							</div>
-							<div class="col-xs-3">
-								<button class="btn btn-danger btn-sm btn-block"><span class="glyphicon glyphicon-ban-circle"></span> Ban user</button>
-							</div>
+							<form class="col-xs-3" action="banned_user.php" method="POST">
+								<input type="hidden" name="id_user" value="<?php echo $uid ?>">
+								<input type="hidden" name="aksi" value="<?php echo $btnText ?>">
+								<button class="btn btn-<?php echo $color2 ?> btn-sm btn-block"><span class="glyphicon glyphicon-<?php echo $btnIcon ?>-circle"></span> <?php echo $btnText ?></button>
+							</form>
 						</div>
 					</div>
 	        	</div>
       		</div><!-- End of Panel -->
-      		<?php
-						}
-					}
-				} else {
-				    echo "Error: " . $sql . "<br>" . $conn->error;
+			<?php
 				}
-
-				$conn->close();
-      		?>
-      		<div class="panel panel-default">
-				<div class="panel-body">
-					<div class="col-xs-12 deskripsi-wrapper">
-						<div class="col-xs-1">
-							<a href="#" class="thumbnail">
-								<img src="img/avatar.jpg" alt="taman">
-							</a>
-						</div>
-						<div class="col-xs-11 deskripsi">
-							<h2><a href="#"><strong>joko.wi</strong></a></h2>
-							<p class="text-warning">Reported :  0 kali</p>
-						
-							<div class="col-xs-9">
-								<span class="text-success">Status : unbanned</span><br />
-							</div>
-							<div class="col-xs-3">
-								<button class="btn btn-danger btn-sm btn-block"><span class="glyphicon glyphicon-ban-circle"></span> Ban user</button>
-							</div>
-						</div>
-					</div>
-	        	</div>
-      		</div><!-- End of Panel -->
-      		<div class="panel panel-default">
-				<div class="panel-body">
-					<div class="col-xs-12 deskripsi-wrapper">
-						<div class="col-xs-1">
-							<a href="#" class="thumbnail">
-								<img src="img/avatar.jpg" alt="taman">
-							</a>
-						</div>
-						<div class="col-xs-11 deskripsi">
-							<h2><a href="#"><strong>ahok.basuki</strong></a></h2>
-							<p class="text-warning">Reported :  50 kali</p>
-						
-							<div class="col-xs-9">
-								<span class="text-danger">Status : banned</span><br />
-							</div>
-							<div class="col-xs-3">
-								<button class="btn btn-success btn-sm btn-block"><span class="glyphicon glyphicon-ok-circle"></span> Unban user</button>
-							</div>
-						</div>
-					</div>
-	        	</div>
-      		</div><!-- End of Panel -->
+			}
+			else {
+				echo "Tidak ada user terdaftar";
+			}
+			$conn->close();
+			?>
 			<nav class="text-center">
 				<ul class="pagination">
 					<li class="disabled">
