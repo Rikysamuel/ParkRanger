@@ -1,3 +1,17 @@
+<?php
+$servername = "localhost";
+$dbusername = "root";
+$dbpassword = "";
+$dbname = "parkranger";
+
+// Create connection
+$conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
+?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -51,16 +65,25 @@
 			</div>
 			<div class="clearfix"></div>
 			<br />
+			<?php
+				$sql = "SELECT * FROM user";
+
+				if ($conn->query($sql) === TRUE) {
+					$result = $conn->query($sql);
+					if($result->num_rows > 0) {
+						$row = $result->fetch_assoc();
+						while($row = $result->fetch_assoc()) {
+			?>
       		<div class="panel panel-default">
 				<div class="panel-body">
 					<div class="col-xs-12 deskripsi-wrapper">
 						<div class="col-xs-1">
 							<a href="#" class="thumbnail">
-								<img src="img/avatar.jpg" alt="taman">
+								<img src="img/avatars/<?php echo $row['picture']?>" alt="taman">
 							</a>
 						</div>
 						<div class="col-xs-11 deskripsi">
-							<h2><a href="#"><strong>edmundophie</strong></a></h2>
+							<h2><a href="#"><strong><?php echo $row['username']?></strong></a></h2>
 							<p class="text-warning">Reported :  12 kali</p>
 						
 							<div class="col-xs-9">
@@ -73,6 +96,15 @@
 					</div>
 	        	</div>
       		</div><!-- End of Panel -->
+      		<?php
+						}
+					}
+				} else {
+				    echo "Error: " . $sql . "<br>" . $conn->error;
+				}
+
+				$conn->close();
+      		?>
       		<div class="panel panel-default">
 				<div class="panel-body">
 					<div class="col-xs-12 deskripsi-wrapper">
@@ -145,7 +177,6 @@
 			</p>
 	    </div>
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="js/plugins.js"></script>
