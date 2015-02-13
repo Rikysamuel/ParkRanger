@@ -1,6 +1,6 @@
 <?php
 	function init(){
-		$link=mysqli_connect("localhost","root","","park_ranger");
+		$link=mysqli_connect("localhost","root","","parkranger");
         // Cek koneksi ke database
         if (mysqli_connect_errno()) {
           echo "Failed to connect to MySQL: " . mysqli_connect_error();
@@ -19,7 +19,7 @@
 	}
 
 	function fetchKategori($link){
-		$result = mysqli_query($link,"SELECT kategori FROM pihak_berwenang",$link);
+		$result = mysqli_query($link,"SELECT kategori FROM pihak_berwenang");
         while($row[] = mysqli_fetch_array($result));
         return $row;
 	}
@@ -63,7 +63,7 @@
 	    $pelapor=$_SESSION["user_id"];
 	    $uploadOk = uploadFoto($link);
 
-	    if (uploadOk == 1)
+	    if ($uploadOk == 1)
 	    	$query = mysql_query("INSERT INTO pengaduan(rank_vote, waktu, file_foto, id_taman, ditangani_by, pelapor, keterangan) 
 	    					  VALUES (0, ’$waktu’, ’$targetFile’, ’$id_taman’, ’$ditangani_by’, ’$pelapor’, ’$keterangan’;");
 

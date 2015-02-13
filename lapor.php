@@ -18,57 +18,21 @@
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
         <?php
 
-			include 'DBConfig.php';
+			include 'pengaduan.php';
 
 			session_start();
 
-			$nama_taman = mysql_query("SELECT nama FROM taman",$link);
-			$kategori_kerusakan = mysql_query("SELECT kategori FROM pihak_berwenang",$link);
+			$link = init();
+			$daftar_taman = fetchTaman($link);
+			$kategori_kerusakan = fetchKategori($link);
 
 			$uploadOK = 1;
 
 			if(isset($_POST['simpan'])) {
-				
-			// 	$fileName = $_FILES['gambar']['name'];
-			// 	$targetFile = "gambar/" . basename($_FILES['gambar']['name']);
-				
-			// 	$characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-			// 	$check = getimagesize($_FILES["gambar"]["tmp_name"]);
-			// 	    if($check !== false) {
-			// 	        $uploadOk = 1;
-			// 	    } else {
-			// 	        $uploadOk = 0;
-			// 	}
-			// 	if (file_exists($targetFile)) {
-			// 		$targetFile = $targetFile . $characters[mt_rand(0, 61)];
-			// 	}
-			// 	if ($_FILES["gambar"]["size"] > 2000) {
-			// 	    $uploadOk = 0;
-			// 	}
-
-			// 	if ($uploadOk == 0) {
-			// 	    echo "Sorry, your file was not uploaded.";
-			// 	} else {
-			// 	    if (move_uploaded_file($_FILES["gambar"]["tmp_name"], $target_file)) {
-			// 	        echo "The file ". basename( $_FILES["gambar"]["name"]). " has been uploaded.";
-			// 	    } else {
-			// 	        echo "Sorry, there was an error uploading your file.";
-			// 	    }
-			// 	}
-				
-			// 	$Taman =$_POST['taman'];
-			// 	$id_taman = mysql_query("SELECT id_taman from taman where nama='$Taman'"); 
-			//     $kategori=$_POST['jenis'];
-			//     $ditangani_by = mysql_query("SELECT id_user from pihak_berwenang where kategori='$kategori'");
-			//     $keterangan=$_POST['keterangan'];
-			//     $waktu=time();
-			//     $pelapor=$_SESSION["user_id"];
-
-			//     $query = mysql_query("INSERT INTO pengaduan(rank_vote, waktu, file_foto, id_taman, ditangani_by, pelapor, keterangan) 
-			//     					  VALUES (0, ’$waktu’, ’$targetFile’, ’$id_taman’, ’$ditangani_by’, ’$pelapor’, ’$keterangan’;");
+				tambahLaporan($link, $_POST['taman'], $_POST['jenis'], $_POST['deskripsi'], 1, $_POST['gambar']);
 			    header('Location: index.php');
 			}
-			mysql_close($link);
+			closeConnection($link);
 
 		?>
     </head>
@@ -91,12 +55,12 @@
 	       		<div class="form-group">
 		       		<label for="taman" class="col-xs-3 control-label">Taman</label>
 		       		<div class="col-xs-9">
-			       		<select class="form-control" id="taman" required>
+			       		<select class="form-control" id="taman" >
 			       			<?php
 			       				$value = 0;
-			                    while ($row = mysql_fetch_array($nama_taman)) {
+			                    while ($value<count($daftar_taman)-1) {
 			                ?>
-			                	<option value = <?php $value?>><?php echo $row["nama"] ?></option>
+			                	<option value = <?php $value?>><?php echo $daftar_taman[$value][0] ?></option>
 			       			<?php  $value++;
 			       				} ?>
 			       		</select>
@@ -105,13 +69,14 @@
 		       	<div class="form-group">
 		       		<label for="jenis" class="col-xs-3 control-label">Jenis laporan</label>
 		       		<div class="col-xs-9">
-		       			<select class="form-control" id="jenis" required>
+		       			<select class="form-control" id="jenis" >
 			       			<option value = 0> Tidak Tahu </option>
 			       			<?php
 			       				$value = 1;
-			                    while ($row = mysql_fetch_array($kategori_kerusakan)) { ?>
-			                    <option value = <?php $value?>><?php echo $row["kategori"] ?></option>
-			       			 <?php $value++;
+			       				$it = 0;
+			                    while ($it < count($kategori_kerusakan)-1) { ?>
+			                    <option value = <?php $value?>><?php echo $kategori_kerusakan[$it][0] ?></option>
+			       			 <?php $value++; $it++;
 			       			 } ?>
 			       		</select>
 			       	</div>
@@ -125,7 +90,7 @@
 	       		<div class="form-group">
 	       			<label for="deskripsi" class="col-xs-3 control-label">Deskripsi</label>
 		       		<div class="col-xs-9">
-		       			<textarea class="form-control" rows="4"></textarea>
+		       			<textarea class="form-control" rows="4" id="deskripsi"></textarea>
 	       			</div>
 	       		</div>
 	       		<input type="submit" value="Laporkan!" class="btn btn-primary btn-block">
