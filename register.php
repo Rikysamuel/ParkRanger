@@ -16,6 +16,45 @@
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/register.css">
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+        <script>
+        	function doRegister() {
+        		var nama = $("#nama").val();
+        		var email = $("#email").val();
+        		var username = $("#username").val();
+        		var password = $("#password").val();
+        		$.post("do_register.php", {nama:nama,email:email,username:username,password:password}, 
+        			function(result) {
+        				if(result==1) {
+        					$(".subtitle,.form").css("display","none");
+        					$(".box-warning").addClass("box-success");
+        					$(".box-success").removeClass("box-warning");
+        					$(".box-success").html("<p><span class='glyphicon glyphicon-ok-circle'></span> Pendaftaran berhasil.</p><p>Anda sekarang bisa <a href='login.php'><strong>login</strong></a> sebagai member.</p>");
+        				}
+        				else {
+        					$(".box-warning").append("<p><span class='glyphicon glyphicon-remove-circle'> </span> Pendaftaran gagal.<br/>Terjadi kesalahan pada sistem.</p>")
+        				}
+    			});
+    		}
+
+        	jQuery(function(){
+        		$("input[type='submit']").click(function(){
+					var password = document.getElementById("password").value;
+	        		var confirmPassword = document.getElementById("confirmPassword").value;
+        			console.log(password);
+        			console.log(confirmPassword);
+        			if(password==confirmPassword) {
+        				doRegister();
+        			}
+        			else {
+        				$(".box-warning").css("display","block");
+        				$(".box-warning").append("<p><span class='glyphicon glyphicon-remove-circle'> </span> Password tidak cocok</p>")
+        				return false;
+        			}
+        		});
+        	});
+        </script>
     </head>
     <body>
     	<div class="container">
@@ -32,29 +71,31 @@
 	       	</div>
 	       	<h2 class="text-primary subtitle col-xs-6">Pendaftaran</h2>
 	       	<div class="clearfix"></div>
-	       	<form action="#" method="POST" class="col-xs-4 col-xs-offsets-3">
+	       	<div class="col-xs-4 col-xs-offsets-3 form">
 	       		<div class="form-group">	
 		       		<label for="nama" class="control-label">Nama</label>
-	          		<input type="text" name="nama" class="form-control" placeholder="Nama">
+	          		<input type="text" name="nama" id="nama" class="form-control" placeholder="Nama">
 		       	</div>
 		       	<div class="form-group">	
 		       		<label for="email" class="control-label">Email</label>
-	       			<input type="email" name="email" class="form-control" placeholder="Email">
+	       			<input type="email" name="email" id="email" class="form-control" placeholder="Email">
 		       	</div>
 	       		<div class="form-group">	
 		       		<label for="username" class="control-label">Username</label>
-	          		<input type="text" name="username" class="form-control" placeholder="Pick a username">
+	          		<input type="text" name="username" id="username" class="form-control" placeholder="Pick a username">
 		       	</div>
 		       	<div class="form-group">	
 		       		<label for="password" class="control-label">Password</label>
-		       		<input type="password" name="password" class="form-control" placeholder="Password">
+		       		<input type="password" name="password" id="password" class="form-control" placeholder="Password">
 		       	</div>
 		       	<div class="form-group">	
-		       		<label for="password" class="control-label">Confirm password</label>
-	       			<input type="password" name="password" class="form-control" placeholder="Retype password">
+		       		<label for="confirmPassword" class="control-label">Confirm password</label>
+	       			<input type="password" name="passwordConfirm" id="confirmPassword" class="form-control" placeholder="Re-type password">	       			
 		       	</div>
 	       		<input type="submit" value="Daftar" class="btn btn-primary btn-block">
-	       	</form>
+	       	</div>
+	       	<div class="col-xs-4 box-warning">
+	       	</div>
 	       	<div class="clearfix"></div>
 			<p class="text-center footer">
 				<br/>
@@ -65,8 +106,7 @@
 			</p>
 	    </div>
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+        
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
