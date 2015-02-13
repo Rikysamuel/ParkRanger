@@ -21,12 +21,7 @@
     	<div class="container">
 	        <div class="top">
 		        <h1 class="text-muted"><a href="index.php">Park Ranger</a></h1>
-				<?php include ('koneksi.php'); 
-					$online = mysql_query("select * from user where role = 1");
-					while($tabel_user = mysql_fetch_array($online)){
-					    echo '<p class="text-right">Logged in as <a href="#">'.$tabel_user["nama"].'</a></p>';
-					}
-			    ?>
+				<p class="text-right">Belum login? <a href="#">login</a> or <a href="#">register</a></p>	
 			    <div class="clearfix"></div>
 		        <ul class="nav nav-justified" role="navigation">
 		        	<li class="active"><a href="index.php">Home</a></li>
