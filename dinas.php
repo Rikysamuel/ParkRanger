@@ -4,7 +4,7 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> 
 <?php
-	$sort = 0;
+	$_SESSION["sort"] = 0;
 	$page = 0;
 ?>
 <html class="no-js"> <!--<![endif]-->
@@ -65,7 +65,7 @@
 				$link = init();
 
 				if(isset($_POST['temp1'])){
-					$sort = $_POST['temp1'];
+					$_SESSION["sort"] = $_POST['temp1'];
 				}
 
 				if(isset($_POST['temp2'])){
@@ -74,7 +74,7 @@
 				$start = $page * 5;
 
 				//fetch data dari sql database
-                $row = fetchPost($link,$sort);
+                $row = fetchPost($link,$_SESSION["sort"]);
 
                 //data dalam array diprint ke halaman html
                 for($it=$start;$it<$start+5;$it++){
@@ -86,34 +86,6 @@
                 closeConnection($link);
             ?>
 
-      		<!-- <div class="panel panel-default">
-				<div class="panel-body">
-					<div class="col-xs-12 deskripsi-wrapper">
-						<div class="col-xs-3">
-							<a href="#" class="thumbnail">
-								<img src="img/taman1.jpg" alt="taman">
-							</a>
-						</div>
-						<div class="col-xs-9 deskripsi">
-							<h2><a href="#"><strong>Taman Kedamaian</strong></a></h2>
-							<p class="text-warning">Jenis laporan : kerusakan</p>
-							<p>
-							Donec id elit non mi porta gravida at eget metus. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.Aenean lacinia bibendum nulla sed consectetur. Nulla vitae elit libero, a pharetra augue. Vestibulum id ligula porta felis euismod semper. </p>
-						</div>
-						<div class="col-xs-9 col-xs-offset-3 status-box">
-								<div class="col-xs-8 status">
-									<span class="text-success"><span class="glyphicon glyphicon-ok"></span> Sudah ditindaklanjuti</span><br />
-									<small>Pelapor : <a href="profile.html" class="text-primary">joko.wi </a> <a href="#"><span class="text-danger glyphicon glyphicon-exclamation-sign"></span></a></small>
-								</div>
-						</div>
-						<div class="vote col-xs-3 text-right">
-							<h1><span class="label label-success">19</span></h>
-						</div>
-					</div>
-				</div>
-  			</div><!-- End of Panel -->
-
-
 		<nav class="text-center">
 			<ul class="pagination">
 				<?php
@@ -122,7 +94,8 @@
 						 		<span aria-hidden=\"true\">&laquo;</span>
 							 </a>
 						 </li>";
-					
+					echo $page;
+					echo $_SESSION["sort"];
 					$max = countPagination($row);
 					for($i=0;$i<$max;$i++){
 						$j = $i+1;

@@ -27,9 +27,11 @@
 			$uploadOK = 1;
 
 			if(isset($_POST["simpan"]) && isset($_FILES['gambar'])) {
-				$res = tambahLaporan($link, $_POST["taman"], $_POST["jenis"], $_POST["deskripsi"], 1, $_FILES["gambar"]);
-				echo 'asdasdsad';
-			    // if ($res=1) {
+				echo 'taman : '.$_POST["taman"]." jenis : ".$_POST["jenis"]." desk: ".$_POST["deskripsi"];
+
+				$res = tambahLaporan($link, $_POST["taman"], $_POST["jenis"], $_POST["deskripsi"], 3, $_FILES["gambar"]);
+				
+				// if ($res=1) {
 			    // 	header('Location: index.php');
 			    // }
 			    // else {
@@ -55,7 +57,7 @@
 	       	</div>
 	       	<h2 class="text-primary subtitle col-xs-6">Kirim Laporan</h2>
 	       	<div class="clearfix"></div>
-	       	<form id="lapor" name ="post" action="lapor.php" method="POST" class="form-horizontal col-xs-6 col-xs-offsets-3">
+	       	<form id="lapor" name ="post" action="lapor.php" method="POST" enctype="multipart/form-data" class="form-horizontal col-xs-6 col-xs-offsets-3">
 	       		<div class="form-group">
 		       		<label for="taman" class="col-xs-3 control-label">Taman</label>
 		       		<div class="col-xs-9">
@@ -64,7 +66,7 @@
 			       				$value = 0;
 			                    while ($value<count($daftar_taman)-1) {
 			                ?>
-			                	<option value = <?php $daftar_taman[$value][0]?>><?php echo $daftar_taman[$value][0] ?></option>
+			                	<option value = "<?php echo $daftar_taman[$value][0]?>"><?php echo $daftar_taman[$value][0] ?></option>
 			       			<?php  $value++;
 			       				} ?>
 			       		</select>
@@ -78,7 +80,7 @@
 			       			<?php
 			       				$it = 0;
 			                    while ($it < count($kategori_kerusakan)-1) { ?>
-			                    <option value = <?php $kategori_kerusakan[$it][0]?>><?php echo $kategori_kerusakan[$it][0] ?></option>
+			                    <option value = "<?php echo $kategori_kerusakan[$it][0]?>"><?php echo $kategori_kerusakan[$it][0] ?></option>
 			       			 <?php $it++;
 			       			 } ?>
 			       		</select>
