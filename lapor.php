@@ -20,17 +20,21 @@
 
 			include 'pengaduan.php';
 
-			session_start();
-
 			$link = init();
 			$daftar_taman = fetchTaman($link);
 			$kategori_kerusakan = fetchKategori($link);
 
 			$uploadOK = 1;
 
-			if(isset($_POST['simpan'])) {
-				tambahLaporan($link, $_POST['taman'], $_POST['jenis'], $_POST['deskripsi'], 1, $_POST['gambar']);
-			    header('Location: index.php');
+			if(isset($_POST["simpan"]) && isset($_FILES['gambar'])) {
+				$res = tambahLaporan($link, $_POST["taman"], $_POST["jenis"], $_POST["deskripsi"], 1, $_FILES["gambar"]);
+				echo 'asdasdsad';
+			    // if ($res=1) {
+			    // 	header('Location: index.php');
+			    // }
+			    // else {
+			    // 	echo 'insert error';
+			    // }
 			}
 			closeConnection($link);
 
@@ -51,16 +55,16 @@
 	       	</div>
 	       	<h2 class="text-primary subtitle col-xs-6">Kirim Laporan</h2>
 	       	<div class="clearfix"></div>
-	       	<form action="#" method="POST" class="form-horizontal col-xs-6 col-xs-offsets-3">
+	       	<form id="lapor" name ="post" action="lapor.php" method="POST" class="form-horizontal col-xs-6 col-xs-offsets-3">
 	       		<div class="form-group">
 		       		<label for="taman" class="col-xs-3 control-label">Taman</label>
 		       		<div class="col-xs-9">
-			       		<select class="form-control" id="taman" >
+			       		<select class="form-control" id="taman" name="taman">
 			       			<?php
 			       				$value = 0;
 			                    while ($value<count($daftar_taman)-1) {
 			                ?>
-			                	<option value = <?php $value?>><?php echo $daftar_taman[$value][0] ?></option>
+			                	<option value = <?php $daftar_taman[$value][0]?>><?php echo $daftar_taman[$value][0] ?></option>
 			       			<?php  $value++;
 			       				} ?>
 			       		</select>
@@ -69,14 +73,13 @@
 		       	<div class="form-group">
 		       		<label for="jenis" class="col-xs-3 control-label">Jenis laporan</label>
 		       		<div class="col-xs-9">
-		       			<select class="form-control" id="jenis" >
-			       			<option value = 0> Tidak Tahu </option>
+		       			<select class="form-control" id="jenis" name="jenis">
+			       			<option value = "Tidak tahu"> Tidak Tahu </option>
 			       			<?php
-			       				$value = 1;
 			       				$it = 0;
 			                    while ($it < count($kategori_kerusakan)-1) { ?>
-			                    <option value = <?php $value?>><?php echo $kategori_kerusakan[$it][0] ?></option>
-			       			 <?php $value++; $it++;
+			                    <option value = <?php $kategori_kerusakan[$it][0]?>><?php echo $kategori_kerusakan[$it][0] ?></option>
+			       			 <?php $it++;
 			       			 } ?>
 			       		</select>
 			       	</div>
@@ -90,10 +93,10 @@
 	       		<div class="form-group">
 	       			<label for="deskripsi" class="col-xs-3 control-label">Deskripsi</label>
 		       		<div class="col-xs-9">
-		       			<textarea class="form-control" rows="4" id="deskripsi"></textarea>
+		       			<textarea class="form-control" rows="4" id="deskripsi" name="deskripsi"></textarea>
 	       			</div>
 	       		</div>
-	       		<input type="submit" value="Laporkan!" class="btn btn-primary btn-block">
+	       		<input type="submit" value="simpan" name ="simpan" class="btn btn-primary btn-block">
 	       	</form>
 	       	<div class="clearfix"></div>
 			<p class="text-center footer">

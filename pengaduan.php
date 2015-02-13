@@ -24,13 +24,13 @@
         return $row;
 	}
 
-	function uploadFoto($link){
+	function uploadFoto($gambar){
 		$uploadOk = 1;
-		$fileName = $_FILES['gambar']['name'];
-		$targetFile = "gambar/" . basename($_FILES['gambar']['name']);
+		$fileName = $gambar['name'];
+		$targetFile = "gambar/" . basename($gambar['name']);
 		
 		$characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-		$check = getimagesize($_FILES["gambar"]["tmp_name"]);
+		$check = getimagesize($gambar["tmp_name"]);
 		    if($check !== false) {
 		        $uploadOk = 1;
 		    } else {
@@ -39,15 +39,15 @@
 		if (file_exists($targetFile)) {
 			$targetFile = $targetFile . $characters[mt_rand(0, 61)];
 		}
-		if ($_FILES["gambar"]["size"] > 2000) {
+		if ($gambar["size"] > 2000) {
 		    $uploadOk = 0;
 		}
 
 		if ($uploadOk == 0) {
 		    echo "Sorry, your file was not uploaded.";
 		} else {
-		    if (move_uploaded_file($_FILES["gambar"]["tmp_name"], $target_file)) {
-		        echo "The file ". basename( $_FILES["gambar"]["name"]). " has been uploaded.";
+		    if (move_uploaded_file($gambar["tmp_name"], $target_file)) {
+		        echo "The file ". basename($gambar["name"]). " has been uploaded.";
 		    } else {
 		        echo "Sorry, there was an error uploading your file.";
 		    }
@@ -55,17 +55,22 @@
 		return $uploadOk;
 	}
 
-	function tambahLaporan($link, $taman, $jenis, $keterangan, $user_id){
-		session_start();
+	function tambahLaporan($link, $taman, $jenis, $keterangan, $user_id, $gambar){
+		echo 'masuk';
 		$id_taman = mysql_query("SELECT id_taman from taman where nama='$taman'"); 
 	    $ditangani_by = mysql_query("SELECT id_user from pihak_berwenang where kategori='$jenis'");
 	    $waktu=time();
-	    $pelapor=$_SESSION["user_id"];
-	    $uploadOk = uploadFoto($link);
+	    // $pelapor=$_SESSION["user_id"];
+	    $uploadOk = uploadFoto($gambar);
 
-	    if ($uploadOk == 1)
+	    if ($uploadOk == 1) {
 	    	$query = mysql_query("INSERT INTO pengaduan(rank_vote, waktu, file_foto, id_taman, ditangani_by, pelapor, keterangan) 
-	    					  VALUES (0, ’$waktu’, ’$targetFile’, ’$id_taman’, ’$ditangani_by’, ’$pelapor’, ’$keterangan’;");
+	    					  VALUES (0, ’$waktu’, ’$targetFile’, ’$id_taman’, ’$ditangani_by’, ’$user_id’, ’$keterangan’;");
+	    	return 1;
+	    }
+	    else {
+	    	return 0;
+	    }
 
 	}
 

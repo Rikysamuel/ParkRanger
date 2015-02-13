@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 13 Feb 2015 pada 05.05
+-- Generation Time: 13 Feb 2015 pada 07.00
 -- Versi Server: 5.5.36
 -- PHP Version: 5.4.25
 
@@ -69,7 +69,6 @@ CREATE TABLE IF NOT EXISTS `pengaduan` (
   `ditangani_by` int(11) NOT NULL,
   `pelapor` int(11) NOT NULL,
   `keterangan` text NOT NULL,
-  `jenis_laporan` varchar(50) NOT NULL,
   PRIMARY KEY (`id_laporan`),
   KEY `id_taman` (`id_taman`),
   KEY `ditangani_by` (`ditangani_by`),
@@ -80,8 +79,8 @@ CREATE TABLE IF NOT EXISTS `pengaduan` (
 -- Dumping data untuk tabel `pengaduan`
 --
 
-INSERT INTO `pengaduan` (`id_laporan`, `rank_vote`, `waktu`, `status`, `file_foto`, `id_taman`, `ditangani_by`, `pelapor`, `keterangan`, `jenis_laporan`) VALUES
-(3, 0, '0000-00-00 00:00:00', 0, '', 2, 2, 3, 'klkl', '');
+INSERT INTO `pengaduan` (`id_laporan`, `rank_vote`, `waktu`, `status`, `file_foto`, `id_taman`, `ditangani_by`, `pelapor`, `keterangan`) VALUES
+(3, 0, '0000-00-00 00:00:00', 0, '', 2, 2, 3, 'klkl');
 
 -- --------------------------------------------------------
 
@@ -152,7 +151,6 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` varchar(20) NOT NULL,
   `id_user` int(11) NOT NULL AUTO_INCREMENT,
   `role` int(11) NOT NULL,
-  `picture` varchar(50) NOT NULL,
   PRIMARY KEY (`id_user`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
@@ -160,10 +158,10 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Dumping data untuk tabel `user`
 --
 
-INSERT INTO `user` (`nama`, `email`, `username`, `password`, `id_user`, `role`, `picture`) VALUES
-('Satpol PP', 'satpolppbdg@email.co', 'satpolpp', 'satpolpp', 1, 2, ''),
-('Dinas Kebersihan', 'kebersihanbdg@email.', 'dinaskebersihan', 'dinaskebersihan', 2, 2, ''),
-('afik', 'afik@mail.com', 'afik', 'afik', 3, 3, '');
+INSERT INTO `user` (`nama`, `email`, `username`, `password`, `id_user`, `role`) VALUES
+('Satpol PP', 'satpolppbdg@email.co', 'satpolpp', 'satpolpp', 1, 2),
+('Dinas Kebersihan', 'kebersihanbdg@email.', 'dinaskebersihan', 'dinaskebersihan', 2, 2),
+('afik', 'afik@mail.com', 'afik', 'afik', 3, 3);
 
 -- --------------------------------------------------------
 
