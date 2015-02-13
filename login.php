@@ -40,7 +40,12 @@
         			else 
         				echo 'role not found';
 					//echo "user; ".$_SESSION["id_user"]." : ".$_SESSION["role"];
-					header('Location: index.php');
+					if ($role==1)	
+						header('Location: manage_user.php');
+					else if ($role==2)
+						header('Location: dinas.php');
+					else if($role==3)
+						header('Location: index.php');
         		}
         		else {
         			echo 'Username dan password salah';
