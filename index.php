@@ -98,7 +98,7 @@
 						echo			'<p class="text-warning">Jenis laporan : '.$data["jenis_laporan"].' </p>';
 						echo			'<p>'.$data["keterangan"].'</p>';
 						echo			'<p id="status">';
-							if($data["status"]==NULL){
+							if($data["status"]==0){
 								echo	'<span class="text-danger"><span class="glyphicon glyphicon-remove"></span> Belum ditindaklanjuti</span><br />';
 							}else{
 								echo	'<span class="text-success"><span class="glyphicon glyphicon-ok"></span> Sudah ditindaklanjuti</span><br />';

@@ -36,19 +36,19 @@
 		        $uploadOk = 1;
 		    } else {
 		        $uploadOk = 0;
-		        echo "check false";
+		        echo "check image false <br/>";
 		}
 		if (file_exists($targetFile)) {
 			$targetFile = "gambar/".$characters[mt_rand(0, 61)].$fileName;
 		}
 
 		if ($uploadOk == 0) {
-		    echo "Sorry, your file was not uploaded.";
+		    echo "Sorry, your file was not uploaded. <br/>";
 		} else {
 		    if (move_uploaded_file($gambar["tmp_name"], $targetFile)) {
-		        echo "The file ". basename($gambar["name"]). " has been uploaded.";
+		        echo "The file ". basename($gambar["name"]). " has been uploaded. <br/>";
 		    } else {
-		        echo "Sorry, there was an error uploading your file.";
+		        echo "Sorry, there was an error uploading your file. <br/>";
 		    }
 		}
 		$result[0] = $uploadOk;
@@ -64,7 +64,7 @@
 		        $id_taman = $row["id_taman"];
 		    }
 		} else {
-		    echo "0 results";
+		    echo "Select id_taman from nama_taman return no result <br/>";
 		}
 
 
@@ -79,7 +79,7 @@
 			        $ditangani_by = $row["id_user"];
 			    }
 			} else {
-			    echo "0 results";
+			    echo "Select dinas from kategori return no result <br/>";
 			}
 		}
 
@@ -91,16 +91,46 @@
 	    	$query = "INSERT INTO pengaduan(rank_vote, waktu, file_foto, id_taman, ditangani_by, pelapor, keterangan) 
 	    					  VALUES (0, '$waktu', '$targetFile', $id_taman, $ditangani_by, $user_id, '$keterangan')";
 	    	if (mysqli_query($link, $query)) {
-			    echo "New record created successfully";
-			    return 1;
+			    echo "New record created successfully <br/>";
+			    $ret = 1;
 			} else {
-			    echo "Error: " . $query . "<br>" . mysqli_error($link);
+			    echo "Error: " . $query . "<br/>" . mysqli_error($link);
+			    $ret = 0;
 			}
 	    }
 	    else {
-	    	return 0;
+	    	$ret = 0;
 	    }
+
+	    sendEmail($link, $ditangani_by, $taman, $keterangan);
+
+	    return $ret;
 
 	}
 
+	function sendEmail($link, $id_dinas, $nama_taman, $keterangan){
+		// $result = mysqli_query($link, "SELECT email from user where id_user='$id_dinas'");
+		// if (mysqli_num_rows($result) > 0) {
+		//     // output data of each row
+		//     while($row = mysqli_fetch_assoc($result)) {
+		//         $email = $row["email"];
+		//     }
+		// } else {
+		//     echo "Select email return no result <br/>";
+		// }
+
+		// $subject = "ParkRanger";
+		// $message = "Anda menerima pengaduan : <br> Lokasi taman :  ". $nama_taman." <br> Deskripsi : ".$keterangan;
+		// $headers = "";
+
+		// mail("13512077@std.stei.itb.ac.id",$subject,$message,$headers);
+		// echo 'mail sent';
+		$to = "13512077@std.stei.itb.ac.id";
+		$subject = "My subject";
+		$txt = "Hello world!";
+		$headers = "From: diezzzy@gmail.com" . "\r\n" .
+		"CC: 13512077@std.stei.itb.ac.id";
+
+		mail($to,$subject,$txt,$headers);
+	}
 ?>

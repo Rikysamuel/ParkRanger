@@ -1,6 +1,6 @@
 <?php
 	function init(){
-		$link=mysqli_connect("localhost","root","","park_ranger");
+		$link=mysqli_connect("localhost","root","","parkranger");
         // Cek koneksi ke database
         if (mysqli_connect_errno()) {
           echo "Failed to connect to MySQL: " . mysqli_connect_error();
