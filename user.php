@@ -28,26 +28,32 @@
 
 	//return -1 if not found, else return id_user
 	function getId($link, $username) {
-		$query = "SELECT id_user FROM user WHERE username=$username";
-		$result = mysql_query($query,$link);
-        while($row = mysql_fetch_array($result));
-        if (sizeof($row)!=0)
+		$query = "SELECT id_user FROM user WHERE username='$username'";
+		$result = mysqli_query($link,$query);
+        if ($result) {
+        	while($row[] = mysqli_fetch_array($result));
         	return $row[0]["id_user"];
-        else {
-        	return -1;
         }
+        else {
+    		echo "Error: " . $query . "<br/>" . mysqli_error($link);
+    		return $row[0]["id_user"];
+    	}
+        
 	}
 
 	//return -1 if not found, else return role
 	function getRole($link, $username) {
-		$query = "SELECT role FROM user WHERE username=$username";
+		$query = "SELECT role FROM user WHERE username='$username'";
 		$result = mysqli_query($link,$query);
-        while($row[] = mysqli_fetch_array($result));
-        if (sizeof($row)!=0)
+        if ($result){
+        	while($row[] = mysqli_fetch_array($result));
         	return $row[0]["role"];
-        else {
+        }
+        else{
+        	echo "Error: " . $query . "<br/>" . mysqli_error($link);
         	return -1;
         }
+        	
 	}
 
 ?>

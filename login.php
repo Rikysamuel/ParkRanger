@@ -39,7 +39,8 @@
         				$_SESSION["role"] = $role;
         			else 
         				echo 'role not found';
-					//header('Location: index.php');
+					//echo "user; ".$_SESSION["id_user"]." : ".$_SESSION["role"];
+					header('Location: index.php');
         		}
         		else {
         			echo 'Username dan password salah';
