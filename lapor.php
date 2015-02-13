@@ -30,6 +30,7 @@
 				echo 'taman : '.$_POST["taman"]." jenis : ".$_POST["jenis"]." desk: ".$_POST["deskripsi"];
 
 				$res = tambahLaporan($link, $_POST["taman"], $_POST["jenis"], $_POST["deskripsi"], 3, $_FILES["gambar"]);
+				
 				// if ($res=1) {
 			    // 	header('Location: index.php');
 			    // }
