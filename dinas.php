@@ -5,6 +5,7 @@
 <!--[if gt IE 8]><!--> 
 <?php
 	$sort = 0;
+	$page = 0;
 ?>
 <html class="no-js"> <!--<![endif]-->
     <head>
@@ -41,40 +42,51 @@
 	       	<form name="tempform" id="tempform" method="post">
 				<input id="temp1" NAME="temp1" type="hidden"></input>
 			</form>
+				<form name="tempform2" id="tempform2" method="post">
+				<input id="temp2" NAME="temp2" type="hidden"></input>
+			</form>
 
 	       	Urut sesuai : &nbsp;
 				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-					Terbaru
+					Pilih
 					<span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
-					<li role="presentation" name="sort" id="recent" onclick="$('#temp1').val('0'); $('#tempform').submit()" selected><a role="menuitem" tabindex="-1" href="#">Terbaru</a></li>
-					<li role="presentation" name="sort" id="votes" onclick="$('#temp1').val('1'); $('#tempform').submit()"><a role="menuitem" tabindex="-1" href="#">Terfavorit</a></li>
-					<li role="presentation" name="sort" id="handled" onclick="$('#temp1').val('2'); $('#tempform').submit()"><a role="menuitem" tabindex="-1" href="#">Baru ditangani</a></li>
+					<li role="presentation" onclick="$('#temp1').val('0'); $('#tempform').submit()"><a role="menuitem" tabindex="-1" href="#">Terbaru</a></li>
+					<li role="presentation" onclick="$('#temp1').val('1'); $('#tempform').submit()"><a role="menuitem" tabindex="-1" href="#">Terfavorit</a></li>
+					<li role="presentation" onclick="$('#temp1').val('2'); $('#tempform').submit()"><a role="menuitem" tabindex="-1" href="#">Baru ditangani</a></li>
 					<li class="divider"></li> 
-					<li role="presentation" name="sort" id="handled" onclick="$('#temp1').val('3'); $('#tempform').submit()"><a role="menuitem" tabindex="-1" href="#">Taman</a></li>
-					<li role="presentation" name="sort" id="handled" onclick="$('#temp1').val('4'); $('#tempform').submit()"><a role="menuitem" tabindex="-1" href="#">Kategori</a></li>
+					<li role="presentation" onclick="$('#temp1').val('3'); $('#tempform').submit()"><a role="menuitem" tabindex="-1" href="#">Taman</a></li>
+					<li role="presentation" onclick="$('#temp1').val('4'); $('#tempform').submit()"><a role="menuitem" tabindex="-1" href="#">Kategori</a></li>
 				</ul>
 			</div>
 			<br />
 			<?php include("InformasiDinas.php");
 				$link = init();
 
-				// writeMsg();
 				if(isset($_POST['temp1'])){
 					$sort = $_POST['temp1'];
 				}
-                $row = fetchPost($link);
+
+				if(isset($_POST['temp2'])){
+					$page = $_POST['temp2'];
+				}
+				$start = $page * 5;
+
+				//fetch data dari sql database
+                $row = fetchPost($link,$sort);
 
                 //data dalam array diprint ke halaman html
-                for($it=0;$it<sizeof($row)-1;$it++){
-                  echo reports($link, $row,$it);
+                for($it=$start;$it<$start+5;$it++){
+            		if(isset($row[$it])){
+            			echo reports($link, $row,$it);
+                	}
                 }
                 //tutup koneksi
                 closeConnection($link);
             ?>
 
-      		<div class="panel panel-default">
+      		<!-- <div class="panel panel-default">
 				<div class="panel-body">
 					<div class="col-xs-12 deskripsi-wrapper">
 						<div class="col-xs-3">
@@ -104,21 +116,25 @@
 
 		<nav class="text-center">
 			<ul class="pagination">
-				<li class="disabled">
-					<a href="#" aria-label="Previous">
-						<span aria-hidden="true">&laquo;</span>
-					</a>
-				</li>
-				<li class="active"><a href="#">1</a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">3</a></li>
-				<li><a href="#">4</a></li>
-				<li><a href="#">5</a></li>
-				<li>
-					<a href="#" aria-label="Next">
-						<span aria-hidden="true">&raquo;</span>
-					</a>
-				</li>
+				<?php
+					echo "<li onclick=\"$('#temp2').val('0'); $('#tempform2').submit()\">
+							 <a href=\"#\" aria-label=\"Previous\">
+						 		<span aria-hidden=\"true\">&laquo;</span>
+							 </a>
+						 </li>";
+					
+					$max = countPagination($row);
+					for($i=0;$i<$max;$i++){
+						$j = $i+1;
+						echo "<li onclick=\"$('#temp2').val('$i'); $('#tempform2').submit()\"><a href=\"#\">$j</a></li>";
+					}
+					$j--;
+					echo "<li onclick=\"$('#temp2').val('$j'); $('#tempform2').submit()\">
+							<a href=\"#\" aria-label=\"Next\">
+								<span aria-hidden=\"true\">&raquo;</span>
+							</a>
+						 </li>";
+				?>
 			</ul>
 		</nav>
 		<p class="text-center footer">
@@ -127,7 +143,7 @@
 			<br/>
 		</p>
 
-        <!-- // <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="js/plugins.js"></script>

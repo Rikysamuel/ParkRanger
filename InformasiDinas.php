@@ -12,9 +12,28 @@
 		mysqli_close($link);
 	}
 
-	function fetchPost($link) {
+	function fetchPost($link, $opt) {
         //ambil data ke dalam array row dari database
-        $result = mysqli_query($link,"SELECT * FROM pengaduan ORDER BY pengaduan.id_laporan DESC");
+        switch($opt){
+        	case 0:
+        		$query = "SELECT * FROM pengaduan ORDER BY waktu DESC";
+        		break;
+        	case 1:	
+        		$query = "SELECT * FROM pengaduan ORDER BY rank_vote DESC";
+        		break;
+        	case 2:	
+        		$query = "";
+        		break;
+        	case 3:	
+        		$query = "SELECT * FROM pengaduan ORDER BY id_taman LIMIT";
+        		break;
+        	case 4:	
+        		$query = "SELECT * FROM pengaduan ORDER BY jenis_laporan LIMIT";
+        		break;
+        	default:
+        		break;
+        }
+        $result = mysqli_query($link,$query);
         while($row[] = mysqli_fetch_array($result));
         return $row;
 	}
@@ -29,6 +48,13 @@
         $res = mysqli_query($link,"SELECT nama FROM user WHERE id_user='$id'");
 		$name = $res->fetch_assoc();
 		return $name;
+	}
+
+	function comment($link, $id_tanggapan,$komen,$id_penanggap){
+		$sql = "INSERT INTO tanggapan (id_tanggapan, keterangan, id_penanggap) VALUES ('$id_tanggapan', '$komen', '$id_penanggap')";
+		if (!mysqli_query($link,$sql)) {
+			die('Error: ' . mysqli_error($db_link));
+		}
 	}
 
 	function reports($link, $row, $it){
@@ -70,5 +96,9 @@
 	        		</div>
 	        	</div>';
 	    return $posts;
+	}
+
+	function countPagination($row){
+		return (sizeof($row)-1)/5;
 	}
 ?>
