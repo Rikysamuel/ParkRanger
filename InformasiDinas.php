@@ -24,7 +24,7 @@
         	case 2:	
         		$query = "";
         		break;
-        	case 3:	
+        	case 3:
         		$query = "SELECT * FROM pengaduan ORDER BY id_taman";
         		break;
         	case 4:	

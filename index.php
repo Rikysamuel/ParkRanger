@@ -2,7 +2,13 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!--[if gt IE 8]><!-->
+<?php include("InformasiDinas.php");
+	$sort = 0;
+	$sort2 = $sort;
+	$page = 0;
+?>
+<html class="no-js"> <!--<![endif]-->
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,27 +35,57 @@
 			    ?>
 			    <div class="clearfix"></div>
 		        <ul class="nav nav-justified" role="navigation">
-		        	<li class="active"><a href="index.php">Home</a></li>
+		        	<li><a href="index.php">Halaman Utama</a></li>
 		        	<li><a href="lapor.php">Kirim Laporan</a></li>
-		        	<li><a href="about.php">About</a></li>
-		        	<li><a href="logout.php">Log Out</a></li>
+		        	<li><a href="about.php">Tentang</a></li>
+		        	<li><a href="logout.php">Keluar</a></li>
 		        </ul>
 	       	</div>
 	       	<br/>
+       		
+       		<!-- tambahin hidden form dummy buat sorting-->
+	       	<form name="tempform" id="tempform" method="post">
+				<input id="temp1" NAME="temp1" type="hidden"></input>
+			</form>
+			<!-- tambahin hidden form dummy buat paginating-->
+			<form name="tempform2" id="tempform2" method="post">
+				<input id="temp2" NAME="temp2" type="hidden"></input>
+				<input id="temp3" NAME="temp3" type="hidden"></input>				
+			</form>
+
 	       	<div class="dropdown text-right">
-	       	Sort by : &nbsp;
+	       	Urut sesuai : &nbsp;
 				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-					Most recent
+					Pilih
 					<span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Most recent</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Top votes</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Recently handled</a></li>
+					<li role="presentation" onclick="$('#temp1').val('0'); $('#tempform').submit()"><a role="menuitem" tabindex="-1" href="#">Terbaru</a></li>
+					<li role="presentation" onclick="$('#temp1').val('1'); $('#tempform').submit()"><a role="menuitem" tabindex="-1" href="#">Terfavorit</a></li>
+					<li role="presentation" onclick="$('#temp1').val('2'); $('#tempform').submit()"><a role="menuitem" tabindex="-1" href="#">Baru ditangani</a></li>
+					<li class="divider"></li> 
+					<li role="presentation" onclick="$('#temp1').val('3'); $('#tempform').submit()"><a role="menuitem" tabindex="-1" href="#">Taman</a></li>
+					<li role="presentation" onclick="$('#temp1').val('4'); $('#tempform').submit()"><a role="menuitem" tabindex="-1" href="#">Kategori</a></li>
 				</ul>
 			</div>
 			<br />
 			  <?php include ('koneksi.php'); 
+				  	
+				  	if(isset($_POST['temp1'])){
+						$sort = $_POST['temp1'];
+						$sort2 = $sort;
+					}
+
+					if(isset($_POST['temp3'])){
+						$sort2 = $_POST['temp3'];
+					}
+
+					if(isset($_POST['temp2'])){
+						$page = $_POST['temp2'];
+					}
+
+
+
 					$query = mysql_query("select * from pengaduan natural join taman order by waktu desc");
 					while ($data = mysql_fetch_array($query)){
 				       	echo '<div class="panel panel-default">';
@@ -101,21 +137,25 @@
       			?>
 			<nav class="text-center">
 				<ul class="pagination">
-					<li class="disabled">
-						<a href="#" aria-label="Previous">
-							<span aria-hidden="true">&laquo;</span>
-						</a>
-					</li>
-					<li class="active"><a href="#">1</a></li>
-					<li><a href="#">2</a></li>
-					<li><a href="#">3</a></li>
-					<li><a href="#">4</a></li>
-					<li><a href="#">5</a></li>
-					<li>
-						<a href="#" aria-label="Next">
-							<span aria-hidden="true">&raquo;</span>
-						</a>
-					</li>
+					<?php
+						echo "<li onclick=\"$('#temp2').val('0');$('#temp3').val('$sort'); $('#tempform2').submit()\">
+								 <a href=\"#\" aria-label=\"Previous\">
+							 		<span aria-hidden=\"true\">&laquo;</span>
+								 </a>
+							 </li>";
+						$max = countPagination($data);
+						echo sizeof($data);
+						for($i=0;$i<$max;$i++){
+							$j = $i+1;
+							echo "<li onclick=\"$('#temp2').val('$i');$('#temp3').val('$sort'); $('#tempform2').submit()\"><a href=\"#\">$j</a></li>";
+						}
+						// $j=$j-1;
+						// echo "<li onclick=\"$('#temp2').val('$j');$('#temp3').val('$sort'); $('#tempform2').submit()\">
+								// <a href=\"#\" aria-label=\"Next\">
+									// <span aria-hidden=\"true\">&raquo;</span>
+								// </a>
+							 // </li>";
+					?>
 				</ul>
 			</nav>
 			<p class="text-center footer">
