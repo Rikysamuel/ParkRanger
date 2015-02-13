@@ -33,6 +33,7 @@
         					$(".box-success").html("<p><span class='glyphicon glyphicon-ok-circle'></span> Pendaftaran berhasil.</p><p>Anda sekarang bisa <a href='login.php'><strong>login</strong></a> sebagai member.</p>");
         				}
         				else {
+                            $(".box-warning").empty();
         					$(".box-warning").append("<p><span class='glyphicon glyphicon-remove-circle'> </span> Pendaftaran gagal.<br/>Terjadi kesalahan pada sistem.</p>")
         				}
     			});
@@ -49,6 +50,7 @@
         			}
         			else {
         				$(".box-warning").css("display","block");
+                        $(".box-warning").empty();
         				$(".box-warning").append("<p><span class='glyphicon glyphicon-remove-circle'> </span> Password tidak cocok</p>")
         				return false;
         			}
