@@ -1,8 +1,8 @@
 <?php
 	function init(){
-		$link=mysqli_connect("localhost","root","","parkranger");
+		$link= mysqli_connect("localhost","root","","parkranger");
         // Cek koneksi ke database
-        if (mysqli_connect_errno()) {
+        if ($link->connect_error) {
           echo "Failed to connect to MySQL: " . mysqli_connect_error();
         }
         return $link;
@@ -25,6 +25,7 @@
 	}
 
 	function uploadFoto($gambar){
+		$result = array();
 		$uploadOk = 1;
 		$fileName = $gambar['name'];
 		$targetFile = "gambar/" . basename($gambar['name']);
@@ -35,38 +36,66 @@
 		        $uploadOk = 1;
 		    } else {
 		        $uploadOk = 0;
+		        echo "check false";
 		}
 		if (file_exists($targetFile)) {
-			$targetFile = $targetFile . $characters[mt_rand(0, 61)];
-		}
-		if ($gambar["size"] > 2000) {
-		    $uploadOk = 0;
+			$targetFile = "gambar/".$characters[mt_rand(0, 61)].$fileName;
 		}
 
 		if ($uploadOk == 0) {
 		    echo "Sorry, your file was not uploaded.";
 		} else {
-		    if (move_uploaded_file($gambar["tmp_name"], $target_file)) {
+		    if (move_uploaded_file($gambar["tmp_name"], $targetFile)) {
 		        echo "The file ". basename($gambar["name"]). " has been uploaded.";
 		    } else {
 		        echo "Sorry, there was an error uploading your file.";
 		    }
 		}
-		return $uploadOk;
+		$result[0] = $uploadOk;
+		$result[1] = $targetFile;
+		return $result;
 	}
 
 	function tambahLaporan($link, $taman, $jenis, $keterangan, $user_id, $gambar){
-		echo 'masuk';
-		$id_taman = mysql_query("SELECT id_taman from taman where nama='$taman'"); 
-	    $ditangani_by = mysql_query("SELECT id_user from pihak_berwenang where kategori='$jenis'");
-	    $waktu=time();
-	    // $pelapor=$_SESSION["user_id"];
-	    $uploadOk = uploadFoto($gambar);
+		$result = mysqli_query($link, "SELECT id_taman from taman where nama='$taman'"); 
+		if (mysqli_num_rows($result) > 0) {
+		    // output data of each row
+		    while($row = mysqli_fetch_assoc($result)) {
+		        $id_taman = $row["id_taman"];
+		    }
+		} else {
+		    echo "0 results";
+		}
 
-	    if ($uploadOk == 1) {
-	    	$query = mysql_query("INSERT INTO pengaduan(rank_vote, waktu, file_foto, id_taman, ditangani_by, pelapor, keterangan) 
-	    					  VALUES (0, ’$waktu’, ’$targetFile’, ’$id_taman’, ’$ditangani_by’, ’$user_id’, ’$keterangan’;");
-	    	return 1;
+
+		if ($jenis=="Tidak tahu") {
+			$ditangani_by = 4;
+		}
+		else {
+			$result = mysqli_query($link, "SELECT id_user from pihak_berwenang where kategori='$jenis'");
+			if (mysqli_num_rows($result) > 0) {
+			    // output data of each row
+			    while($row = mysqli_fetch_assoc($result)) {
+			        $ditangani_by = $row["id_user"];
+			    }
+			} else {
+			    echo "0 results";
+			}
+		}
+
+	    $upgambar = uploadFoto($gambar);
+	    $targetFile = $upgambar[1];
+	    $waktu = date('Y-m-d H:i:s');
+
+	    if ($upgambar[0] == 1) {
+	    	$query = "INSERT INTO pengaduan(rank_vote, waktu, file_foto, id_taman, ditangani_by, pelapor, keterangan) 
+	    					  VALUES (0, '$waktu', '$targetFile', $id_taman, $ditangani_by, $user_id, '$keterangan')";
+	    	if (mysqli_query($link, $query)) {
+			    echo "New record created successfully";
+			    return 1;
+			} else {
+			    echo "Error: " . $query . "<br>" . mysqli_error($link);
+			}
 	    }
 	    else {
 	    	return 0;
