@@ -5,6 +5,10 @@
 <!--[if gt IE 8]><!--> 
 <?php
 	$sort = 0;
+<<<<<<< HEAD
+=======
+	$sort2 = $sort;
+>>>>>>> 582a7e08937a60d8eef6cb6d518ab2cc0e07525b
 	$page = 0;
 ?>
 <html class="no-js"> <!--<![endif]-->
@@ -42,8 +46,10 @@
 	       	<form name="tempform" id="tempform" method="post">
 				<input id="temp1" NAME="temp1" type="hidden"></input>
 			</form>
-				<form name="tempform2" id="tempform2" method="post">
+			<!-- tambahin hidden form dummy buat paginating-->
+			<form name="tempform2" id="tempform2" method="post">
 				<input id="temp2" NAME="temp2" type="hidden"></input>
+				<input id="temp3" NAME="temp3" type="hidden"></input>				
 			</form>
 
 	       	Urut sesuai : &nbsp;
@@ -66,6 +72,14 @@
 
 				if(isset($_POST['temp1'])){
 					$sort = $_POST['temp1'];
+<<<<<<< HEAD
+=======
+					$sort2 = $sort;
+				}
+
+				if(isset($_POST['temp3'])){
+					$sort2 = $_POST['temp3'];
+>>>>>>> 582a7e08937a60d8eef6cb6d518ab2cc0e07525b
 				}
 
 				if(isset($_POST['temp2'])){
@@ -74,7 +88,11 @@
 				$start = $page * 5;
 
 				//fetch data dari sql database
+<<<<<<< HEAD
                 $row = fetchPost($link,$sort);
+=======
+                $row = fetchPost($link,$sort2);
+>>>>>>> 582a7e08937a60d8eef6cb6d518ab2cc0e07525b
 
                 //data dalam array diprint ke halaman html
                 for($it=$start;$it<$start+5;$it++){
@@ -117,19 +135,22 @@
 		<nav class="text-center">
 			<ul class="pagination">
 				<?php
-					echo "<li onclick=\"$('#temp2').val('0'); $('#tempform2').submit()\">
+					echo "<li onclick=\"$('#temp2').val('0');$('#temp3').val('$sort'); $('#tempform2').submit()\">
 							 <a href=\"#\" aria-label=\"Previous\">
 						 		<span aria-hidden=\"true\">&laquo;</span>
 							 </a>
 						 </li>";
+<<<<<<< HEAD
 					
+=======
+>>>>>>> 582a7e08937a60d8eef6cb6d518ab2cc0e07525b
 					$max = countPagination($row);
 					for($i=0;$i<$max;$i++){
 						$j = $i+1;
-						echo "<li onclick=\"$('#temp2').val('$i'); $('#tempform2').submit()\"><a href=\"#\">$j</a></li>";
+						echo "<li onclick=\"$('#temp2').val('$i');$('#temp3').val('$sort'); $('#tempform2').submit()\"><a href=\"#\">$j</a></li>";
 					}
 					$j--;
-					echo "<li onclick=\"$('#temp2').val('$j'); $('#tempform2').submit()\">
+					echo "<li onclick=\"$('#temp2').val('$j');$('#temp3').val('$sort'); $('#tempform2').submit()\">
 							<a href=\"#\" aria-label=\"Next\">
 								<span aria-hidden=\"true\">&raquo;</span>
 							</a>

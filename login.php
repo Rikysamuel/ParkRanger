@@ -16,6 +16,44 @@
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/login.css">
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+
+        <?php 
+        	include 'user.php';
+
+        	if (isset($_POST["login"])) {
+        		$username = $_POST["username"];
+        		$password = $_POST["password"];
+
+        		session_start();
+        		$link = init();
+
+        		$valid = isValid($link, $username, $password);
+        		if ($valid == 1) {
+        			$id_user = getId($link, $username);
+        			if ($id_user!=-1)
+        				$_SESSION["id_user"] = $id_user;
+        			else
+        				echo 'id not found';
+        			$role = getRole($link, $username);
+        			if ($role!=-1)
+        				$_SESSION["role"] = $role;
+        			else 
+        				echo 'role not found';
+					//echo "user; ".$_SESSION["id_user"]." : ".$_SESSION["role"];
+					if ($role==1)	
+						header('Location: manage_user.php');
+					else if ($role==2)
+						header('Location: dinas.php');
+					else if($role==3)
+						header('Location: index.php');
+        		}
+        		else {
+        			echo 'Username dan password salah';
+        		}
+        		closeConnection($link);
+        	}
+
+        ?>
     </head>
     <body>
     	<div class="container">
@@ -34,15 +72,15 @@
 	       	<div class="clearfix"></div>
 	       	<form action="#" method="POST" class="col-xs-4 col-xs-offsets-3">
 	       		<div class="form-group">	
-		       		<label for="email" class="control-label">Email</label>
-	       			<input type="email" name="email" class="form-control" placeholder="Email">
+		       		<label for="username" class="control-label">Username</label>
+	       			<input type="username" name="username" class="form-control" placeholder="Username">
 		       	</div>
 		       	<div class="form-group">	
 		       		<label for="password" class="control-label">Password</label>
 		       		<input type="password" name="password" class="form-control" placeholder="Password">
 		       	</div>
 		       	<p>Belum menjadi anggota? Daftar <a href="register.php">disini</a>.</p>
-		       	<input type="submit" value="LOGIN" class="btn btn-primary btn-block">
+		       	<input type="submit" value="LOGIN" name ="login" action="login.php" class="btn btn-primary btn-block">
 	       	</form>
 	       	<div class="clearfix"></div>
 			<p class="text-center footer">

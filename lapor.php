@@ -27,6 +27,7 @@
 			$uploadOK = 1;
 
 			if(isset($_POST["simpan"]) && isset($_FILES['gambar'])) {
+<<<<<<< HEAD
 				$res = tambahLaporan($link, $_POST["taman"], $_POST["jenis"], $_POST["deskripsi"], 1, $_FILES["gambar"]);
 				echo 'asdasdsad';
 			    // if ($res=1) {
@@ -35,6 +36,18 @@
 			    // else {
 			    // 	echo 'insert error';
 			    // }
+=======
+				echo 'taman : '.$_POST["taman"]." jenis : ".$_POST["jenis"]." desk: ".$_POST["deskripsi"];
+
+				$res = tambahLaporan($link, $_POST["taman"], $_POST["jenis"], $_POST["deskripsi"], 3, $_FILES["gambar"]);
+				
+				if ($res=1) {
+			    	header('Location: index.php');
+			    }
+			    else {
+			    	echo 'insert error';
+			    }
+>>>>>>> 582a7e08937a60d8eef6cb6d518ab2cc0e07525b
 			}
 			closeConnection($link);
 
@@ -98,8 +111,10 @@
 	       		</div>
 	       		<input type="submit" value="simpan" name ="simpan" class="btn btn-primary btn-block">
 	       	</form>
+	       	<h2 class="text-primary subtitle col-xs-6">Petunjuk</h2>
+	       	<div class="form-horizontal col-xs-6 col-xs-offsets-3"> uidhfwiuehf oewih </div>
 	       	<div class="clearfix"></div>
-			<p class="text-center footer">
+	       	<p class="text-center footer">
 				<br/>
 				Copyright &copy; 2014. ParkRanger. All rights reserved.<br/>
 				Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.<br/>

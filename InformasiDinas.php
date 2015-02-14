@@ -1,6 +1,6 @@
 <?php
 	function init(){
-		$link=mysqli_connect("localhost","root","","park_ranger");
+		$link=mysqli_connect("localhost","root","","parkranger");
         // Cek koneksi ke database
         if (mysqli_connect_errno()) {
           echo "Failed to connect to MySQL: " . mysqli_connect_error();
@@ -24,8 +24,8 @@
         	case 2:	
         		$query = "";
         		break;
-        	case 3:	
-        		$query = "SELECT * FROM pengaduan ORDER BY id_taman LIMIT";
+        	case 3:
+        		$query = "SELECT * FROM pengaduan ORDER BY id_taman";
         		break;
         	case 4:	
         		$query = "SELECT * FROM pengaduan ORDER BY jenis_laporan LIMIT";
