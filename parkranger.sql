@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 13, 2015 at 11:57 AM
+-- Generation Time: Feb 14, 2015 at 05:07 AM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -48,8 +48,10 @@ CREATE TABLE IF NOT EXISTS `member` (
 --
 
 INSERT INTO `member` (`jumlah_report`, `status`, `id_user`) VALUES
-(0, '0', 3),
-(0, 'unbanned', 4);
+(0, 'unbanned', 3),
+(0, 'banned', 4),
+(0, 'unbanned', 5),
+(0, 'unbanned', 6);
 
 -- --------------------------------------------------------
 
@@ -66,15 +68,9 @@ CREATE TABLE IF NOT EXISTS `pengaduan` (
   `id_taman` int(11) NOT NULL,
   `ditangani_by` int(11) NOT NULL,
   `pelapor` int(11) NOT NULL,
-  `keterangan` text NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
-
---
--- Dumping data for table `pengaduan`
---
-
-INSERT INTO `pengaduan` (`id_laporan`, `rank_vote`, `waktu`, `status`, `file_foto`, `id_taman`, `ditangani_by`, `pelapor`, `keterangan`) VALUES
-(3, 0, '0000-00-00 00:00:00', 0, '', 2, 2, 3, 'klkl');
+  `keterangan` text NOT NULL,
+  `jenis_laporan` varchar(50) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
 
@@ -92,8 +88,8 @@ CREATE TABLE IF NOT EXISTS `pihak_berwenang` (
 --
 
 INSERT INTO `pihak_berwenang` (`kategori`, `id_user`) VALUES
-('Ketertiban', 1),
-('Kebersihan', 2);
+('Kebesihan', 1),
+('Kenyamanan', 9);
 
 -- --------------------------------------------------------
 
@@ -105,15 +101,15 @@ CREATE TABLE IF NOT EXISTS `taman` (
   `nama` varchar(50) NOT NULL,
   `alamat` text NOT NULL,
 `id_taman` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
 
 --
 -- Dumping data for table `taman`
 --
 
 INSERT INTO `taman` (`nama`, `alamat`, `id_taman`) VALUES
-('Jomblo', 'Bawah jembatan Pasopati', 1),
-('Film', 'Bawah jembatan Pasopati', 2);
+('sjokol', 'jiki', 24),
+('a', 'a', 25);
 
 -- --------------------------------------------------------
 
@@ -125,7 +121,7 @@ CREATE TABLE IF NOT EXISTS `tanggapan` (
 `id_tanggapan` int(11) NOT NULL,
   `keterangan` text NOT NULL,
   `id_penanggap` int(11) NOT NULL,
-  `tanggal_tanggapan` date NOT NULL
+  `tanggal_tanggapan` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -141,7 +137,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` varchar(20) NOT NULL,
 `id_user` int(11) NOT NULL,
   `role` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `user`
@@ -149,9 +145,11 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 INSERT INTO `user` (`nama`, `email`, `username`, `password`, `id_user`, `role`) VALUES
 ('Satpol PP', 'satpolppbdg@email.co', 'satpolpp', 'satpolpp', 1, 2),
-('Dinas Kebersihan', 'kebersihanbdg@email.', 'dinaskebersihan', 'dinaskebersihan', 2, 2),
 ('afik', 'afik@mail.com', 'afik', 'afik', 3, 3),
-('edmund', 'edmund.ophie@yahoo.c', 'tbarker', 'a', 4, 3);
+('edmund', 'edmund.ophie@yahoo.c', 'tbarker', 'a', 4, 3),
+('abang adek', 'asd@as.com', 'ferysurya', 'qwer', 5, 3),
+('asdas', 'aj@jack.com', 'Administrator', 'a', 6, 3),
+('Dinas Taman dan Kuburan', 'ads2asd@as.com', 'asd', 'qwe', 9, 2);
 
 -- --------------------------------------------------------
 
@@ -224,12 +222,12 @@ ALTER TABLE `vote_laporan`
 -- AUTO_INCREMENT for table `pengaduan`
 --
 ALTER TABLE `pengaduan`
-MODIFY `id_laporan` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `id_laporan` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `taman`
 --
 ALTER TABLE `taman`
-MODIFY `id_taman` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id_taman` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT for table `tanggapan`
 --
@@ -239,7 +237,7 @@ MODIFY `id_tanggapan` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
 -- Constraints for dumped tables
 --

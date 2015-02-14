@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
+        <title>Pendaftaran</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -16,46 +16,47 @@
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/register.css">
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
         <script>
-        	function doRegister() {
-        		var nama = $("#nama").val();
-        		var email = $("#email").val();
-        		var username = $("#username").val();
-        		var password = $("#password").val();
-        		$.post("do_register.php", {nama:nama,email:email,username:username,password:password}, 
-        			function(result) {
-        				if(result==1) {
-        					$(".subtitle,.form").css("display","none");
-        					$(".box-warning").addClass("box-success");
-        					$(".box-success").removeClass("box-warning");
-        					$(".box-success").html("<p><span class='glyphicon glyphicon-ok-circle'></span> Pendaftaran berhasil.</p><p>Anda sekarang bisa <a href='login.php'><strong>login</strong></a> sebagai member.</p>");
-        				}
-        				else {
-                            $(".box-warning").empty();
-        					$(".box-warning").append("<p><span class='glyphicon glyphicon-remove-circle'> </span> Pendaftaran gagal.<br/>Terjadi kesalahan pada sistem.</p>")
-        				}
-    			});
-    		}
+            $(function(){
+            	function doRegister() {
+            		var nama = $("#nama").val();
+            		var email = $("#email").val();
+            		var username = $("#username").val();
+            		var password = $("#password").val();
+            		$.post("do_register.php", {nama:nama,email:email,username:username,password:password}, 
+            			function(result) {
+            				if(result==1) {
+            					$(".subtitle,.form").css("display","none");
+            					$(".box-warning").addClass("box-success");
+            					$(".box-success").removeClass("box-warning");
+            					$(".box-success").html("<p><span class='glyphicon glyphicon-ok-circle'></span> Pendaftaran berhasil.</p><p>Anda sekarang bisa <a href='login.php'><strong>login</strong></a> sebagai member.</p>");
+            				}
+            				else {
+                                $(".box-warning").empty();
+            					$(".box-warning").append("<p><span class='glyphicon glyphicon-remove-circle'> </span> Pendaftaran gagal.<br/>Terjadi kesalahan pada sistem.</p>")
+            				}
+        			});
+        		}
 
-        	jQuery(function(){
-        		$("input[type='submit']").click(function(){
-					var password = document.getElementById("password").value;
-	        		var confirmPassword = document.getElementById("confirmPassword").value;
-        			console.log(password);
-        			console.log(confirmPassword);
-        			if(password==confirmPassword) {
-        				doRegister();
-        			}
-        			else {
-        				$(".box-warning").css("display","block");
-                        $(".box-warning").empty();
-        				$(".box-warning").append("<p><span class='glyphicon glyphicon-remove-circle'> </span> Password tidak cocok</p>")
-        				return false;
-        			}
-        		});
-        	});
+            	jQuery(function(){
+            		$("input[type='submit']").click(function(){
+    					var password = document.getElementById("password").value;
+    	        		var confirmPassword = document.getElementById("confirmPassword").value;
+            			console.log(password);
+            			console.log(confirmPassword);
+            			if(password==confirmPassword) {
+            				doRegister();
+            			}
+            			else {
+            				$(".box-warning").css("display","block");
+                            $(".box-warning").empty();
+            				$(".box-warning").append("<p><span class='glyphicon glyphicon-remove-circle'> </span> Password tidak cocok</p>")
+            				return false;
+            			}
+            		});
+            	});
+            });
         </script>
     </head>
     <body>

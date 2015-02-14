@@ -25,10 +25,10 @@
         		$query = "";
         		break;
         	case 3:	
-        		$query = "SELECT * FROM pengaduan ORDER BY id_taman";
+        		$query = "SELECT * FROM pengaduan ORDER BY id_taman LIMIT";
         		break;
         	case 4:	
-        		$query = "SELECT * FROM pengaduan ORDER BY jenis_laporan";
+        		$query = "SELECT * FROM pengaduan ORDER BY jenis_laporan LIMIT";
         		break;
         	default:
         		break;
@@ -48,6 +48,13 @@
         $res = mysqli_query($link,"SELECT nama FROM user WHERE id_user='$id'");
 		$name = $res->fetch_assoc();
 		return $name;
+	}
+
+	function comment($link, $id_tanggapan,$komen,$id_penanggap){
+		$sql = "INSERT INTO tanggapan (id_tanggapan, keterangan, id_penanggap) VALUES ('$id_tanggapan', '$komen', '$id_penanggap')";
+		if (!mysqli_query($link,$sql)) {
+			die('Error: ' . mysqli_error($db_link));
+		}
 	}
 
 	function reports($link, $row, $it){

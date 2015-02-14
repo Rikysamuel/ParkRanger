@@ -35,7 +35,10 @@
 	       	
 	       	<a class="btn btn-primary btn-laporan" href="manage_laporan.php" role="button">Manage Laporan</a>
 	       	<a class="btn btn-primary active btn-user" href="manage_user.php" role="button">Manage User</a>
-	       	<a class="btn-taman" href="manage_user.php" role="button">+ Tambah taman</a>
+	       	<a class="btn btn-primary btn-user" href="manage_taman.php" role="button">Manage Taman</a>
+	       	<a class="btn btn-primary btn-user" href="manage_dinas.php" role="button">Manage Dinas</a>
+	       	<a class="btn btn-primary btn-user" href="manage_kategori.php" role="button">Manage Kategori</a>
+	       	
 	       	<div class="dropdown text-right sort-menu">
 	       	Sort by : &nbsp;
 				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">

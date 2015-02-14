@@ -34,7 +34,9 @@
 	       	
 	       	<a class="btn btn-primary active btn-laporan" href="manage_laporan.php" role="button">Manage Laporan</a>
 	       	<a class="btn btn-primary btn-user" href="manage_user.php" role="button">Manage User</a>
-	       	<a class="btn-taman" href="manage_user.php" role="button">+ Tambah taman</a>
+	       	<a class="btn btn-primary btn-user" href="manage_taman.php" role="button">Manage Taman</a>
+	       	<a class="btn btn-primary btn-user" href="manage_dinas.php" role="button">Manage Dinas</a>
+	       	<a class="btn btn-primary btn-user" href="manage_kategori.php" role="button">Manage Kategori</a>
 	       	<div class="dropdown text-right sort-menu">
 	       	Sort by : &nbsp;
 				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
@@ -51,64 +53,72 @@
 			</div>
 			<div class="clearfix"></div>
 			<br />
+			<?php
+			extract($_POST);
+			$servername = "localhost";
+			$dbusername = "root";
+			$dbpassword = "";
+			$dbname = "parkranger";
+
+			// Create connection
+			$conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
+			// Check connection
+			if ($conn->connect_error) {
+			    die("Connection failed: " . $conn->connect_error);
+			} 
+
+			// 1:admin, 2:dinas, 3:member
+			$sql = "SELECT *,taman.nama as nama_taman, user.nama as nama_pelapor FROM pengaduan 
+					NATURAL JOIN taman 
+					JOIN user ON pengaduan.pelapor=user.id_user";
+			$result = $conn->query($sql);
+			
+			if($result->num_rows > 0) {
+				while($row= $result->fetch_assoc()) {
+					$taman = $row['nama_taman'];
+					$pelapor = $row['nama_pelapor'];
+					$status = ($row['status']=="0")?"Belum ditindaklanjuti":"Sudah ditindaklanjuti";
+					$color = ($row['status']==0)?"danger":"success";
+			?>
       		<div class="panel panel-default">
 				<div class="panel-body">
 					<div class="col-xs-12 deskripsi-wrapper">
 						<div class="col-xs-3">
 							<a href="#" class="thumbnail">
-								<img src="img/taman1.jpg" alt="taman">
+								<img src="img/taman/<?php echo $row['file_foto'] ?>" alt="taman">
 							</a>
 						</div>
 						<div class="col-xs-9 deskripsi">
-							<h2><a href="#"><strong>Taman Kedamaian</strong></a></h2>
-							<p class="text-warning">Jenis laporan : kerusakan</p>
+							<h2 class="text-primary"><strong>Taman <?php echo $taman ?></strong></h2>
+							<p class="text-warning">Jenis laporan : <?php echo $row['jenis_laporan'] ?></p>
 							<p>
-							Donec id elit non mi porta gravida at eget metus. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.Aenean lacinia bibendum nulla sed consectetur. Nulla vitae elit libero, a pharetra augue. Vestibulum id ligula porta felis euismod semper. </p>
+								<?php echo $row['keterangan'] ?>
+							</p>
 						</div>
 						<div class="col-xs-9 col-xs-offset-3 status-box">
 							<div class="col-xs-8 status">
-								<span class="text-danger"><span class="glyphicon glyphicon-remove"></span> Belum ditindaklanjuti</span><br />
-								<small>Pelapor : <a href="profile.html" class="text-primary">joko.wi </a> <a href="#"><span class="text-danger glyphicon glyphicon-exclamation-sign"></span></a></small>
+								<span class="text-<?php echo $color ?>"><span class="glyphicon glyphicon-remove"></span> <?php echo $status ?></span><br />
+								<small>Pelapor : <span class="text-primary"><?php echo $pelapor ?></span></small>
 							</div>
 							<div class=" col-xs-1 text-right">
-								<h1><span class="label label-success">19</span></h1>
+								<h1><span class="label label-success"><?php echo $row['rank_vote'] ?></span></h1>
 							</div>
-							<div class="col-xs-3">
-								<button class="btn btn-danger btn-block">Hapus Laporan</button>
-							</div>
+							<form class="col-xs-3" action="hapus_laporan.php" method="GET">
+								<input type="hidden" name="id_laporan" value="<?php echo $row['id_laporan'] ?>">
+								<button type="submit" class="btn btn-danger btn-block">Hapus Laporan</button>
+							</form>
 						</div>
 					</div>
 	        	</div>
       		</div><!-- End of Panel -->
-      		<div class="panel panel-default">
-				<div class="panel-body">
-					<div class="col-xs-12 deskripsi-wrapper">
-						<div class="col-xs-3">
-							<a href="#" class="thumbnail">
-								<img src="img/taman1.jpg" alt="taman">
-							</a>
-						</div>
-						<div class="col-xs-9 deskripsi">
-							<h2><a href="#"><strong>Taman Kedamaian</strong></a></h2>
-							<p class="text-warning">Jenis laporan : kerusakan</p>
-							<p>
-							Donec id elit non mi porta gravida at eget metus. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.Aenean lacinia bibendum nulla sed consectetur. Nulla vitae elit libero, a pharetra augue. Vestibulum id ligula porta felis euismod semper. </p>
-						</div>
-						<div class="col-xs-9 col-xs-offset-3 status-box">
-							<div class="col-xs-8 status">
-								<span class="text-success"><span class="glyphicon glyphicon-remove"></span> Sudah ditindaklanjuti</span><br />
-								<small>Pelapor : <a href="profile.html" class="text-primary">joko.wi </a> <a href="#"><span class="text-danger glyphicon glyphicon-exclamation-sign"></span></a></small>
-							</div>
-							<div class=" col-xs-1 text-right">
-								<h1><span class="label label-success">19</span></h1>
-							</div>
-							<div class="col-xs-3">
-								<button class="btn btn-danger btn-block">Hapus Laporan</button>
-							</div>
-						</div>
-					</div>
-	        	</div>
-      		</div><!-- End of Panel -->
+			<?php
+				}
+			}
+			else {
+				echo "Belum ada aduan yang dilaporkan.";
+			}
+			$conn->close();
+			?>
 			<nav class="text-center">
 				<ul class="pagination">
 					<li class="disabled">

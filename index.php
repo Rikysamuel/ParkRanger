@@ -21,12 +21,7 @@
     	<div class="container">
 	        <div class="top">
 		        <h1 class="text-muted"><a href="index.php">Park Ranger</a></h1>
-				<?php include ('koneksi.php'); 
-					$online = mysql_query("select * from user where role = 1");
-					while($tabel_user = mysql_fetch_array($online)){
-					    echo '<p class="text-right">Logged in as <a href="#">'.$tabel_user["nama"].'</a></p>';
-					}
-			    ?>
+			    <p class="text-right">Logged in as <a href="#">Edmund</a></p>
 			    <div class="clearfix"></div>
 		        <ul class="nav nav-justified" role="navigation">
 		        	<li class="active"><a href="index.php">Home</a></li>
@@ -45,60 +40,68 @@
 				<ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
 					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Most recent</a></li>
 					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Top votes</a></li>
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Least votes</a></li>
 					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Recently handled</a></li>
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Recently unhandled</a></li>
 				</ul>
 			</div>
 			<br />
-			  <?php include ('koneksi.php'); 
-					$query = mysql_query("select * from pengaduan natural join taman order by waktu desc");
-					while ($data = mysql_fetch_array($query)){
-				       	echo '<div class="panel panel-default">';
-						echo	'<div class="panel-body">';
-						echo		'<div class="col-xs-3">';
-						echo			'<a href="#" class="thumbnail"><img src="img/taman1.jpg" alt="taman"></a>';
-						echo '</div>';
-						echo		'<div class="col-xs-9">';
-						echo			'<h2><strong>'. $data["nama"] . '</strong></h2>';
-						echo			'<p class="text-warning">Jenis laporan : '.$data["jenis_laporan"].' </p>';
-						echo			'<p>'.$data["keterangan"].'</p>';
-						echo			'<p id="status">';
-							if($data["status"]==NULL){
-								echo	'<span class="text-danger"><span class="glyphicon glyphicon-remove"></span> Belum ditindaklanjuti</span><br />';
-							}else{
-								echo	'<span class="text-success"><span class="glyphicon glyphicon-ok"></span> Sudah ditindaklanjuti</span><br />';
-							}
-								echo	'<small>Pelapor : <a href="profile.html" class="text-primary">edmund.ophie </a> <a href="#" data-toggle="modal" data-target="#myModal"><span class="text-danger glyphicon glyphicon-exclamation-sign"></span></a></small>';					
-						echo			'</p>';
-						echo			'<div class="vote col-xs-3 text-right">';
-						echo				'<a id="upvote'.$data["id_laporan"].'" href="upvote.php?id_laporan='.$data["id_laporan"].'"><span class="glyphicon glyphicon-triangle-top" ></span></a>';
-							//$cek_vote = mysql_query("select rank_vote from pengaduan where id_laporan = (select id_laporan from vote_laporan natural join member where vote_by = id_user");
-							//while($data1 = mysql_fetch_array($cek_vote)){
-						echo				$data["rank_vote"];
-							//}
-						echo				'<a id="downvote'.$data["id_laporan"].'" href="downvote.php?id_laporan='.$data["id_laporan"].'"><span class="glyphicon glyphicon-triangle-bottom"></span></a>';
-						echo			'</div>';
-						echo	'<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> 
-											<div class="modal-dialog"> 
-												<div class="modal-content"> 
-													<div class="modal-header"> 
-														<button type="button" class="close" data-dismiss="modal" aria-hidden="true">× </button> 
-														<h4 class="modal-title" id="myModalLabel"> Blokir User  </h4> 
-													</div> 
-													<div class="modal-body">
-														Apakah Anda yakin ingin mengirimkan permintaan blokir user ini? 
-													</div> 
-													<div class="modal-footer"> 
-														<button type="button" class="btn btn-default" data-dismiss="modal"> Tidak </button> 
-														<button type="button" class="btn btn-primary"> Ya </button> 
-													</div> 
-												</div>
-											</div>
-										</div>';
-						echo		'</div>';
-				        echo	'</div>';
-			      		echo '</div>';
-			      	}
-      			?>
+	       	<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="col-xs-12 deskripsi-wrapper">
+						<div class="col-xs-3">
+							<a href="#" class="thumbnail">
+								<img src="img/taman1.jpg" alt="taman">
+							</a>
+						</div>
+						<div class="col-xs-9 deskripsi">
+							<h2><a href="#"><strong>Taman Kedamaian</strong></a></h2>
+							<p class="text-warning">Jenis laporan : kerusakan</p>
+							<p>
+							Donec id elit non mi porta gravida at eget metus. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.Aenean lacinia bibendum nulla sed consectetur. Nulla vitae elit libero, a pharetra augue. Vestibulum id ligula porta felis euismod semper. </p>
+						</div>
+						<div class="col-xs-9 col-xs-offset-3 status-box">
+								<div class="col-xs-9 status">
+									<span class="text-danger"><span class="glyphicon glyphicon-remove"></span> Belum ditindaklanjuti</span><br />
+									<small>Pelapor : <a href="profile.html" class="text-primary">edmund.ophie </a> <a href="#"><span class="text-danger glyphicon glyphicon-exclamation-sign"></span></a></small>
+								</div>
+								<div class="vote col-xs-3 text-right">
+									<a href="#"><span class="glyphicon glyphicon-triangle-top"></span></a>
+									19
+									<a href="#"><span class="glyphicon glyphicon-triangle-bottom"></span></a>
+								</div>
+						</div>
+					</div>
+	        	</div>
+      		</div><!-- End of Panel -->
+      		<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="col-xs-12 deskripsi-wrapper">
+						<div class="col-xs-3">
+							<a href="#" class="thumbnail">
+								<img src="img/taman1.jpg" alt="taman">
+							</a>
+						</div>
+						<div class="col-xs-9 deskripsi">
+							<h2><a href="#"><strong>Taman Kedamaian</strong></a></h2>
+							<p class="text-warning">Jenis laporan : kerusakan</p>
+							<p>
+							Donec id elit non mi porta gravida at eget metus. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.Aenean lacinia bibendum nulla sed consectetur. Nulla vitae elit libero, a pharetra augue. Vestibulum id ligula porta felis euismod semper. </p>
+						</div>
+						<div class="col-xs-9 col-xs-offset-3 status-box">
+								<div class="col-xs-9 status">
+									<span class="text-success"><span class="glyphicon glyphicon-ok"></span> Sudah ditindaklanjuti</span><br />
+									<small>Pelapor : <a href="profile.html" class="text-primary">joko.wi </a> <a href="#"><span class="text-danger glyphicon glyphicon-exclamation-sign"></span></a></small>
+								</div>
+								<div class="vote col-xs-3 text-right">
+									<a href="#"><span class="glyphicon glyphicon-triangle-top"></span></a>
+									07
+									<a href="#"><span class="glyphicon glyphicon-triangle-bottom"></span></a>
+								</div>
+						</div>
+					</div>
+	        	</div>
+      		</div><!-- End of Panel -->
 			<nav class="text-center">
 				<ul class="pagination">
 					<li class="disabled">
@@ -121,6 +124,8 @@
 			<p class="text-center footer">
 				<br/>
 				Copyright &copy; 2014. ParkRanger. All rights reserved.<br/>
+				Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.<br/>
+				Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
 				<br/>
 			</p>
 	    </div>
@@ -130,6 +135,6 @@
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
-        <script type="text/javascript" src="vote.js"></script>
+
     </body>
 </html>
