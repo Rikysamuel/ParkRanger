@@ -4,7 +4,8 @@
 ?>
 
 <?php
-    $id_user = 1;    //$_GET['id_user'];
+	session_start();
+    $id_user = $_SESSION["id_user"];    //$_GET['id_user'];
     $query = mysql_query("SELECT `nama`, `email`, `username`, `password` FROM `user` WHERE `id_user`=$id_user") or die(mysql_error());
     $data = mysql_fetch_array($query);
 	// $data = getAllAtributes(1);
