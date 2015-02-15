@@ -41,12 +41,11 @@
 	       	<div class="dropdown text-right">
 	       	Sort by : &nbsp;
 				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-					Most recent
+					Top votes
 					<span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
 					<li role="presentation"><a role="menuitem" tabindex="-1" href="index.php">Most recent</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="index_sortvote.php">Top votes</a></li>
 					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Recently handled</a></li>
 				</ul>
 			</div>
@@ -55,7 +54,7 @@
 			  		$arr1 = array();
 					$arr2 = array();
 					$sum = 0;
-					$query = mysql_query("select * from pengaduan natural join taman order by waktu desc");
+					$query = mysql_query("select * from pengaduan natural join taman order by rank_vote desc");
 					while ($data = mysql_fetch_array($query)){
 						array_push($arr2, $data["id_laporan"], $data["rank_vote"], $data["waktu"], $data["status"], $data["file_foto"], $data["id_taman"], $data["ditangani_by"], $data["pelapor"], $data["keterangan"], $data["nama"], $data["alamat"]);
 				        array_push($arr1, $arr2);
