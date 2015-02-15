@@ -61,7 +61,11 @@
 						echo 		'</div>';
 						echo		'<div class="col-xs-9">';
 						echo			'<h2><strong>'. $data["nama"] . '</strong></h2>';
-						echo			'<p class="text-warning">Jenis laporan : kerusakan </p>';
+							$id = $data["id_laporan"];
+							$query1 = mysql_query("SELECT `kategori` FROM `pihak_berwenang` natural join `pengaduan` WHERE `ditangani_by` = `id_user` and `id_laporan` = '$id'");
+							while($data1 = mysql_fetch_array($query1)){
+								echo	'<p class="text-warning">Jenis laporan : '.$data1["kategori"].' </p>';
+							}
 						echo			'<p>'.$data["keterangan"].'</p>';
 						echo			'<p id="status">';
 							if($data["status"]==NULL){
