@@ -1,11 +1,13 @@
 <?php
   include('DBConfig.php');
+  // include('user.php');
 ?>
 
 <?php
     $id_user = 1;    //$_GET['id_user'];
-    $query = mysql_query("SELECT `nama`, `email`, `username`, `password`, `picture` FROM `user` WHERE `id_user`=$id_user") or die(mysql_error());
+    $query = mysql_query("SELECT `nama`, `email`, `username`, `password` FROM `user` WHERE `id_user`=$id_user") or die(mysql_error());
     $data = mysql_fetch_array($query);
+	// $data = getAllAtributes(1);
 ?>
 
 <!DOCTYPE html>
@@ -49,7 +51,7 @@
     	<div class="container">
 	        <div class="top">
         	    <h1 class="text-muted"><a href="index.php">Park Ranger</a></h1>
-		    	<p class="text-right">Logged in as <a href="edit_profil.php">Edmund</a></p>
+		    	<p class="text-right">Logged in as <a href="edit_profil.php"><?php echo $data['nama'];?></a></p>
 			    <div class="clearfix"></div>
 		        <ul class="nav nav-justified" role="navigation">
 		        	<li><a href="index.php">Home</a></li>

@@ -56,4 +56,16 @@
         	
 	}
 
+    function getAllAtributes($id) {
+        $id_user = $id;    //$_GET['id_user'];
+        $query = mysql_query("SELECT `nama`, `email`, `username`, `password`, `id_user` FROM `user` WHERE `id_user`=$id_user") or die(mysql_error());
+        if($query) {
+            $data = mysql_fetch_array($query);
+            return $data;
+        }
+        else {
+            return -1;
+        }
+    }
+
 ?>
