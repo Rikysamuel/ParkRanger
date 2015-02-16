@@ -101,6 +101,7 @@
  	    }
  
 	    sendEmail($link, $ditangani_by, $taman, $keterangan);
+	}
 
 	/* Fungsi edmund */
 	function createDBConnection() {
