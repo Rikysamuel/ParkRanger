@@ -29,6 +29,9 @@
 			confirmPassword.value="";
 			newPassword.focus();
 			document.getElementById("confirmPassword").innerHTML = "not same";
+			$(".box-warning").css("display","block");
+            $(".box-warning").empty();
+			$(".box-warning").append("<p><span class='glyphicon glyphicon-remove-circle'> </span> Password tidak sama</p>")
 			output = false;
 		}
 		return output;
@@ -103,6 +106,8 @@
 	       		</div>
 	       		<input type="submit" value="Edit" class="btn btn-primary btn-block">
 	       	</form>
+	       	<div class="col-xs-3 box-warning">
+	       	</div>
 	       	<div class="clearfix"></div>
 			<p class="text-center footer">
 				<br/>
