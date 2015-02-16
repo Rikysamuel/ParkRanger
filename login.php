@@ -56,12 +56,14 @@
 		        <ul class="nav nav-justified" role="navigation">
 		        	<li><a href="index.php">Home</a></li>
 		        	<?php 
-		        		if(!isset($_SESSION(loggedIn)) || $_SESSION(loggedIn)==false){
-		        		?>
+		        		session_start();
+		        		if(!isset($_SESSION["loggedIn"])) {
+		        			$_SESSION["loggedIn"] = false;
+	        		?>
 		        		<li><a href="lapor.php">Kirim Laporan</a></li>
-		        		<?php
+	        		<?php
 		        		} 
-		        		?>
+	        		?>
 		        	<li><a href="about.php">About</a></li>
 		        	<li><a href="logout.php">Login</a></li>
 		        </ul>
