@@ -17,7 +17,7 @@
         <link rel="stylesheet" href="css/lapor.css">
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     	
-   <?php
+   		<?php
 			include 'pengaduan.php';
 			session_start();
 			$link = init();
@@ -45,28 +45,24 @@
     <body>
     	<div class="container">
 	        <div class="top">
-        	    <h1 class="text-muted"><a href="index.php">Park Ranger</a></h1>
-		    	<?php include ('koneksi.php'); 
-				    
-					if (isset($_SESSION["id_user"])){
-					 	$user = $_SESSION["id_user"];
-						$online = mysql_query("select * from user where id_user = '$user'");
-						while($tabel_user = mysql_fetch_array($online)){
-						    echo '<p class="text-right">Masuk sebagai <a href="edit_profil.php">'.$tabel_user["nama"].'</a></p>';
-						}
+        	    <h1 class="text-muted"><a href="index.php"><img src="img/diskamtam.png" alt="" class="logo">Park Ranger</a></h1>
+		    	<?php
+			    	if (isset($_SESSION["id_user"])){
+					 	$user = $_SESSION["username"];
+						echo '<p class="text-right">Masuk sebagai <a href="edit_profil.php">'.$user.'</a></p>';
+						
 					}
 					else {
-						echo '<p class="text-right">Belum masuk? <a href="login.php">login</a> or <a href="register.php">daftar</a></p>';	
+						echo '<p class="text-right">Belum masuk? <a href="login.php">login</a> or <a href="register.php">register</a></p>';	
 			    
 					}
-			    ?> 
+			    ?>
 			    <div class="clearfix"></div>
 		        <ul class="nav nav-justified" role="navigation">
 		        	<li><a href="index.php">Halaman Utama</a></li>
-		        	<li> <?php if (isset($_SESSION["id_user"])&&($_SESSION["role"]==3))
-		        					echo '<a href="lapor.php">';
-		        				else echo '<a href="login.php">';
-		        			?>Kirim Laporan</a></li>
+		        	<?php if (isset($_SESSION["id_user"])&&($_SESSION["role"]==3)) {
+		        					echo '<li class ="active"><a href="lapor.php">Kirim Laporan</a></li>';
+		        				}	?>
 		        	<li><a href="about.php">Tentang Kami</a></li>
 		        	<?php if (isset($_SESSION["id_user"]))
                                  echo '<li><a href="logout.php">Keluar</a></li>';

@@ -23,25 +23,27 @@
 		        <h1 class="text-muted"><a href="index.php"><img src="img/diskamtam.png" alt="" class="logo"> Park Ranger</a></h1>
 			    <?php
 			    	session_start();
-			    	if(!isset($_SESSION['loggedIn'])) 
-			    		$_SESSION['loggedIn'] = FALSE;
-
-			    	if($_SESSION['loggedIn']==FALSE) {
-			    		$loginText = "<a href='login.php'>Login</a>";
-			    		$status ="Not logged in yet";
-			    	}
-			    	else {
-			    		$loginText = "<a href='logout.php'>Logout</a>";
-			    		$status = "Logged in as <a href='edit_profil?id=".$_SESSION['id_user']."'>".$_SESSION['username']."</a>";
-			    	}
+					if (isset($_SESSION["id_user"])){
+					 	$user = $_SESSION["username"];
+						echo '<p class="text-right">Masuk sebagai <a href="edit_profil.php">'.$user.'</a></p>';
+						
+					}
+					else {
+						echo '<p class="text-right">Belum masuk? <a href="login.php">login</a> or <a href="register.php">register</a></p>';	
+			    
+					}
 			    ?>
-			    <p class="text-right"><?php echo $status ?></p>
 			    <div class="clearfix"></div>
 		        <ul class="nav nav-justified" role="navigation">
-		        	<li class="active"><a href="index.php">Home</a></li>
-		        	<li><a href="lapor.php">Kirim Laporan</a></li>
-		        	<li><a href="about.php">About</a></li>
-		        	<li><?php echo $loginText ?></li>
+		        	<li class="active"><a href="index.php">Halaman Utama</a></li>
+		        	 <?php if (isset($_SESSION["id_user"])&&($_SESSION["role"]==3)) {
+		        					echo '<li><a href="lapor.php">Kirim Laporan</a></li>';
+		        				}	?>
+		        				
+		        	<li><a href="about.php">Tentang Kami</a></li>
+		        	<?php if (isset($_SESSION["id_user"]))
+                                 echo '<li><a href="logout.php">Keluar</a></li>';
+                            ?>
 		        </ul>
 	       	</div>
 	       	<br/>
@@ -98,7 +100,7 @@
 						<div class="col-xs-9 col-xs-offset-3 status-box">
 								<div class="col-xs-9 status">
 									<span class="text-<?php echo $color ?>"><span class="glyphicon glyphicon-<?php echo $icon ?>"></span> <?php echo $status ?></span><br />
-									<small>Pelapor : <a href="profile.html" class="text-primary"><?php echo $pelapor ?> </a> <a href="#"><span class="text-danger glyphicon glyphicon-exclamation-sign"></span></a></small>
+									<small>Pelapor : <a href="#" class="text-primary"><?php echo $pelapor ?> </a> <a href="#"><span class="text-danger glyphicon glyphicon-exclamation-sign"></span></a></small>
 								</div>
 								<div class="vote col-xs-3 text-right">
 									<a href="#"><span class="glyphicon glyphicon-triangle-top"></span></a>
@@ -138,8 +140,6 @@
 			<p class="text-center footer">
 				<br/>
 				Copyright &copy; 2014. ParkRanger. All rights reserved.<br/>
-				Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.<br/>
-				Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
 				<br/>
 			</p>
 	    </div>

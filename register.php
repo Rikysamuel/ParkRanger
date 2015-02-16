@@ -62,13 +62,13 @@
     <body>
     	<div class="container">
 	        <div class="top">
-        	    <h1 class="text-muted"><a href="index.php">Park Ranger</a></h1>
+        	    <h1 class="text-muted"><a href="index.php"><img src="img/diskamtam.png" alt="" class="logo">Park Ranger</a></h1>
 		    	<p class="text-right">Belum login</p>
 			    <div class="clearfix"></div>
 		        <ul class="nav nav-justified" role="navigation">
 		        	<li><a href="index.php">Halaman Utama</a></li>
 		        	<li><a href="about.php">Tentang Kami</a></li>
-                    <li><a href="login.php">Login</a></li>
+                    <li><a href="login.php">Masuk</a></li>
 		        </ul>
 	       	</div>
 	       	<h2 class="text-primary subtitle col-xs-6">Pendaftaran</h2>
