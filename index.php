@@ -23,18 +23,29 @@
 		        <h1 class="text-muted"><a href="index.php">Park Ranger</a></h1>
 				 <?php include ('koneksi.php'); 
 				    session_start();
-				 	$user = $_SESSION["id_user"];
-					$online = mysql_query("select * from user where id_user = '$user'");
-					while($tabel_user = mysql_fetch_array($online)){
-					    echo '<p class="text-right">Logged in as <a href="edit_profil.php">'.$tabel_user["nama"].'</a></p>';
+					if (isset($_SESSION["id_user"])){
+					 	$user = $_SESSION["id_user"];
+						$online = mysql_query("select * from user where id_user = '$user'");
+						while($tabel_user = mysql_fetch_array($online)){
+						    echo '<p class="text-right">Masuk sebagai <a href="edit_profil.php">'.$tabel_user["nama"].'</a></p>';
+						}
+					}
+					else {
+						echo '<p class="text-right">Belum masuk? <a href="login.php">login</a> or <a href="register.php">register</a></p>';	
+			    
 					}
 			    ?> 
 			    <div class="clearfix"></div>
 		        <ul class="nav nav-justified" role="navigation">
-		        	<li class="active"><a href="index.php">Home</a></li>
-		        	<li><a href="lapor.php">Kirim Laporan</a></li>
-		        	<li><a href="about.php">About</a></li>
-		        	<li><a href="logout.php">Log Out</a></li>
+		        	<li class="active"><a href="index.php">Halaman Utama</a></li>
+		        	<li> <?php if (isset($_SESSION["id_user"])&&($_SESSION["role"]==3))
+		        					echo '<a href="lapor.php">';
+		        				else echo '<a href="login.php">';
+		        			?>Kirim Laporan</a></li>
+		        	<li><a href="about.php">Tentang Kami</a></li>
+		        	<?php if (isset($_SESSION["id_user"]))
+                                 echo '<li><a href="logout.php">Keluar</a></li>';
+                            ?>
 		        </ul>
 	       	</div>
 	       	<br/>

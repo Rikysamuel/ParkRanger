@@ -29,6 +29,9 @@
 			confirmPassword.value="";
 			newPassword.focus();
 			document.getElementById("confirmPassword").innerHTML = "not same";
+			$(".box-warning").css("display","block");
+            $(".box-warning").empty();
+			$(".box-warning").append("<p><span class='glyphicon glyphicon-remove-circle'> </span> Password tidak sama</p>")
 			output = false;
 		}
 		return output;
@@ -52,13 +55,16 @@
     	<div class="container">
 	        <div class="top">
         	    <h1 class="text-muted"><a href="index.php">Park Ranger</a></h1>
-		    	<p class="text-right">Logged in as <a href="edit_profil.php"><?php echo $data['nama'];?></a></p>
+		    	<p class="text-right">Masuk sebagai <a href="edit_profil.php"><?php echo $data['nama'];?></a></p>
 			    <div class="clearfix"></div>
 		        <ul class="nav nav-justified" role="navigation">
-		        	<li><a href="index.php">Home</a></li>
-		        	<li><a href="lapor.php">Kirim Laporan</a></li>
-		        	<li><a href="about.php">About</a></li>
-		        	<li><a href="logout.php">Log Out</a></li>
+		        	<li><a href="index.php">Halaman Utama</a></li>
+		        	<li><?php if (isset($_SESSION["id_user"])&&($_SESSION["role"]==3))
+		        					echo '<a href="lapor.php">';
+		        				else echo '<a href="login.php">';
+		        			?>Kirim Laporan</a></li>
+		        	<li><a href="about.php">Tentang Kami</a></li>
+		        	<li><a href="logout.php">Keluar</a></li>
 		        </ul>
 	       	</div>
 	       	<h2 class="text-primary subtitle col-xs-6">Edit Profil</h2>
@@ -103,6 +109,8 @@
 	       		</div>
 	       		<input type="submit" value="Edit" class="btn btn-primary btn-block">
 	       	</form>
+	       	<div class="col-xs-3 box-warning">
+	       	</div>
 	       	<div class="clearfix"></div>
 			<p class="text-center footer">
 				<br/>
