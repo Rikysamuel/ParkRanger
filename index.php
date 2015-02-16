@@ -33,7 +33,7 @@
         		$.post("upvote.php", {id_laporan:id_laporan}, 
         			function(result) {
     					$("#vote"+id).empty();
-    					$("#vote"+id).append("<a><span class='glyphicon glyphicon-triangle-top'></span></a>"+result+"<a><span class='glyphicon glyphicon-triangle-bottom'></span></a>");
+    					$("#vote"+id).append("<a><span class='glyphicon glyphicon-triangle-top'></span></a>"+result+"<a onClick='downvote("+id+")'><span class='glyphicon glyphicon-triangle-bottom'></span></a>");
     			});
     		}
 
@@ -42,7 +42,7 @@
         		$.post("downvote.php", {id_laporan:id_laporan}, 
         			function(result) {
     					$("#vote"+id).empty();
-    					$("#vote"+id).append("<a><span class='glyphicon glyphicon-triangle-top'></span></a>"+result+"<a><span class='glyphicon glyphicon-triangle-bottom'></span></a>");
+    					$("#vote"+id).append("<a onClick='upvote("+id+")'><span class='glyphicon glyphicon-triangle-top'></span></a>"+result+"<a><span class='glyphicon glyphicon-triangle-bottom'></span></a>");
     			});
     		}
     	</script>
