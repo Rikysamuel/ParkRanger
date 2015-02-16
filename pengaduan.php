@@ -127,34 +127,35 @@
 	}
 
 	function uploadFoto($gambar){
-		$uploadOk = 1;
-		$fileName = $gambar['name'];
-		$targetFile = "gambar/" . basename($gambar['name']);
-		
-		$characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-		$check = getimagesize($gambar["tmp_name"]);
-		    if($check !== false) {
-		        $uploadOk = 1;
-		    } else {
-		        $uploadOk = 0;
-		}
-		if (file_exists($targetFile)) {
-			$targetFile = $targetFile . $characters[mt_rand(0, 61)];
-		}
-		if ($gambar["size"] > 2000) {
-		    $uploadOk = 0;
-		}
-
-		if ($uploadOk == 0) {
-		    echo "Sorry, your file was not uploaded.";
-		} else {
-		    if (move_uploaded_file($gambar["tmp_name"], $target_file)) {
-		        echo "The file ". basename($gambar["name"]). " has been uploaded.";
-		    } else {
-		        echo "Sorry, there was an error uploading your file.";
-		    }
-		}
-		return $uploadOk;
+		$result = array();
+ 		$uploadOk = 1;
+ 		$fileName = basename($gambar['name']);
+ 		$targetFile = "img/taman/".$fileName;
+ 		
+ 		$characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+ 		$check = getimagesize($gambar["tmp_name"]);
+ 		    if($check !== false) {
+ 		        $uploadOk = 1;
+ 		    } else {
+ 		        $uploadOk = 0;
+		        echo "check image false <br/>";
+ 		}
+ 		if (file_exists($targetFile)) {
+ 			$targetFile = "img/taman/".$characters[mt_rand(0, 61)].$fileName;
+ 		}
+ 
+ 		if ($uploadOk == 0) {
+		    echo "Sorry, your file was not uploaded. <br/>";
+ 		} else {
+ 		    if (move_uploaded_file($gambar["tmp_name"], $targetFile)) {
+		        echo "The file ". basename($gambar["name"]). " has been uploaded. <br/>";
+ 		    } else {
+		        echo "Sorry, there was an error uploading your file. <br/>";
+ 		    }
+ 		}
+ 		$result[0] = $uploadOk;
+ 		$result[1] = $fileName;
+ 		return $result;
 	}
 
 	function countPagination($row){
@@ -164,6 +165,7 @@
 	function tambahLaporan($link, $taman, $jenis, $keterangan, $user_id, $gambar){
 		$result = mysqli_query($link, "SELECT id_taman from taman where nama='$taman'"); 
  		if (mysqli_num_rows($result) > 0) {
+ 		    // output data of each row
  		    while($row = mysqli_fetch_assoc($result)) {
  		        $id_taman = $row["id_taman"];
  		    }
@@ -207,6 +209,34 @@
  	    }
  
 	    sendEmail($link, $ditangani_by, $taman, $keterangan);
+
+	    return $ret;
+	}
+
+	function sendEmail($link, $id_dinas, $nama_taman, $keterangan){
+		// $result = mysqli_query($link, "SELECT email from user where id_user='$id_dinas'");
+		// if (mysqli_num_rows($result) > 0) {
+		//     // output data of each row
+		//     while($row = mysqli_fetch_assoc($result)) {
+		//         $email = $row["email"];
+		//     }
+		// } else {
+		//     echo "Select email return no result <br/>";
+		// }
+
+		// $subject = "ParkRanger";
+		// $message = "Anda menerima pengaduan : <br> Lokasi taman :  ". $nama_taman." <br> Deskripsi : ".$keterangan;
+		// $headers = "";
+
+		// mail("13512077@std.stei.itb.ac.id",$subject,$message,$headers);
+		// echo 'mail sent';
+		$to = "13512077@std.stei.itb.ac.id";
+		$subject = "My subject";
+		$txt = "Hello world!";
+		$headers = "From: diezzzy@gmail.com" . "\r\n" .
+		"CC: 13512077@std.stei.itb.ac.id";
+
+		mail($to,$subject,$txt,$headers);
 	}
 
 	/* Fungsi edmund */
@@ -215,22 +245,18 @@
         $dbusername = "root";
         $dbpassword = "";
         $dbname = "parkranger";
-
         // Create connection
         $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
         // Check connection
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }       
-
         return $conn;
     }
-
 	function hapusLaporan($idLaporan) {
 		$conn = createDBConnection();
 		$sql = "DELETE FROM pengaduan
 				WHERE id_laporan=$idLaporan";
-
 		if ($conn->query($sql) === TRUE)
 			header("Location: manage_laporan.php");
 		else

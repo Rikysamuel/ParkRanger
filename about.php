@@ -20,22 +20,30 @@
     <body>
     	<div class="container">
 	        <div class="top">
-        	    <h1 class="text-muted"><a href="index.php"><img src="img/diskamtam.png" alt="" class="logo"> Park Ranger</a></h1>
-		    	<p class="text-right">Not logged in yet</p>
+		        <h1 class="text-muted"><a href="index.php"><img src="img/diskamtam.png" alt="" class="logo">Park Ranger</a></h1>
+				<?php
+			    	session_start();
+					if (isset($_SESSION["id_user"])){
+					 	$user = $_SESSION["username"];
+						echo '<p class="text-right">Masuk sebagai <a href="edit_profil.php">'.$user.'</a></p>';
+						
+					}
+					else {
+						echo '<p class="text-right">Belum masuk? <a href="login.php">login</a> or <a href="register.php">register</a></p>';	
+			    
+					}
+			    ?>
 			    <div class="clearfix"></div>
 		        <ul class="nav nav-justified" role="navigation">
-		        	<li><a href="index.php">Home</a></li>
-		        	<?php 
-		        		session_start();
-		        		if(!isset($_SESSION["loggedIn"])) {
-		        			$_SESSION["loggedIn"] = false;
-	        		?>
-		        		<li><a href="lapor.php">Kirim Laporan</a></li>
-	        		<?php
-		        		} 
-	        		?>
-		        	<li><a href="about.php">About</a></li>
-		        	<li><a href="logout.php">Login</a></li>
+		        	<li ><a href="index.php">Halaman Utama</a></li>
+		        	 <?php if (isset($_SESSION["id_user"])&&($_SESSION["role"]==3)) {
+		        					echo '<li><a href="lapor.php">Kirim Laporan</a></li>';
+		        				}	?>
+		        				
+		        	<li class="active"><a href="about.php">Tentang Kami</a></li>
+		        	<?php if (isset($_SESSION["id_user"]))
+                                 echo '<li><a href="logout.php">Keluar</a></li>';
+                            ?>
 		        </ul>
 	       	</div>
 	       	<h2 class="text-primary subtitle col-xs-6">Tentang Kami</h2>

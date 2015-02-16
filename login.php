@@ -51,21 +51,13 @@
     	<div class="container">
 	        <div class="top">
         	    <h1 class="text-muted"><a href="index.php"><img src="img/diskamtam.png" alt="" class="logo"> Park Ranger</a></h1>
-		    	<p class="text-right">Not logged in yet</p>
+		    	<p class="text-right">Anda belum masuk</p>
 			    <div class="clearfix"></div>
 		        <ul class="nav nav-justified" role="navigation">
-		        	<li><a href="index.php">Home</a></li>
-		        	<?php 
-		        		session_start();
-		        		if(!isset($_SESSION["loggedIn"])) {
-		        			$_SESSION["loggedIn"] = false;
-	        		?>
-		        		<li><a href="lapor.php">Kirim Laporan</a></li>
-	        		<?php
-		        		} 
-	        		?>
-		        	<li><a href="about.php">About</a></li>
-		        	<li><a href="logout.php">Login</a></li>
+		        	<li><a href="index.php">Halaman Utama</a></li>
+		        	
+		        	<li><a href="about.php">Tentang Kami</a></li>
+		        	<li><a href="login.php">Masuk</a></li>
 		        </ul>
 	       	</div>
 	       	<h2 class="text-primary subtitle col-xs-6">Login</h2>

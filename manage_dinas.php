@@ -82,27 +82,26 @@ if ($conn->connect_error) {
     <body>
     	<div class="container">
 	        <div class="top">
-		        <h1 class="text-muted"><a href="index.php">Park Ranger</a></h1>
-			    <?php include ('koneksi.php'); 
-				    session_start();
-					if (isset($_SESSION["id_user"])){
-					 	$user = $_SESSION["id_user"];
-						$online = mysql_query("select * from user where id_user = '$user'");
-						while($tabel_user = mysql_fetch_array($online)){
-						    echo '<p class="text-right">Masuk sebagai <a href="edit_profil.php">'.$tabel_user["nama"].'</a></p>';
-						}
+		        <h1 class="text-muted"><a href="index.php"><img src="img/diskamtam.png" alt="" class="logo">Park Ranger</a></h1>
+			    <?php
+			    session_start();
+			    	if (isset($_SESSION["id_user"])){
+					 	$user = $_SESSION["username"];
+						echo '<p class="text-right">Masuk sebagai <a href="edit_profil.php">'.$user.'</a></p>';
+						
 					}
 					else {
-						echo '<p class="text-right">Belum masuk? <a href="login.php">login</a> or <a href="register.php">daftar</a></p>';	
+						echo '<p class="text-right">Belum masuk? <a href="login.php">login</a> or <a href="register.php">register</a></p>';	
 			    
 					}
-			    ?> 
+			    ?>
 			    <div class="clearfix"></div>
 		        <ul class="nav nav-justified" role="navigation">
-		        	<li><a href="manage_laporan.php">Halaman Utama</a></li>
-		        	
+		        	<li class="active"><a href="manage_laporan.php">Halaman Utama</a></li>
 		        	<li><a href="about.php">Tentang Kami</a></li>
-		        	<li><a href="logout.php">Keluar</a></li>
+		        	<?php if (isset($_SESSION["id_user"]))
+                                 echo '<li><a href="logout.php">Keluar</a></li>';
+                            ?>
 		        </ul>
 	       	</div>
 	       	<br/>
@@ -160,11 +159,11 @@ if ($conn->connect_error) {
       					<td><h3 class="text-success"><?php echo $row['nama'] ?></h3></td>
       					<td><h3 class="text-success" id="<?php echo $row['id_user'] ?>_kategori"><?php echo $row['kategori'] ?></h3></td>
       					<td>
-      						<select name="pilKategori" id="pilKategori" class="form-control" onchange="ubahKategori(this)">
+      						<!-- <select name="pilKategori" id="pilKategori" class="form-control" onchange="ubahKategori(this)">
       							<option value="0">Ubah jenis laporan...</option>
       							<option value="<?php echo $row['id_user'] ?>">Kebesihan</option>
       							<option value="<?php echo $row['id_user'] ?>">Kenyamanan</option>
-      						</select>
+      						</select> -->
   						</td>
       					<td><a class="btn btn-danger btn-block" href="hapus_dinas.php?id=<?php echo $row['id_user'] ?>">Hapus</a></td>
       				</tr>
