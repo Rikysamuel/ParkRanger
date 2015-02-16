@@ -22,11 +22,19 @@
 	        <div class="top">
 		        <h1 class="text-muted"><a href="index.php">Park Ranger</a></h1>
 				<?php include ('koneksi.php'); 
-					$online = mysql_query("select * from user where role = 1");
-					while($tabel_user = mysql_fetch_array($online)){
-					    echo '<p class="text-right">Masuk sebagai <a href="#">'.$tabel_user["nama"].'</a></p>';
+				    session_start();
+					if (isset($_SESSION["id_user"])){
+					 	$user = $_SESSION["id_user"];
+						$online = mysql_query("select * from user where id_user = '$user'");
+						while($tabel_user = mysql_fetch_array($online)){
+						    echo '<p class="text-right">Masuk sebagai <a href="edit_profil.php">'.$tabel_user["nama"].'</a></p>';
+						}
 					}
-			    ?>
+					else {
+						echo '<p class="text-right">Belum masuk? <a href="login.php">login</a> or <a href="register.php">register</a></p>';	
+			    
+					}
+			    ?> 
 			    <div class="clearfix"></div>
 		        <ul class="nav nav-justified" role="navigation">
 		        	<li><a href="index.php">Halaman Utama</a></li>
