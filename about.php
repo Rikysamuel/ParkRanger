@@ -54,15 +54,10 @@
 	       	<div class="col-xs-12">
 	       	<h2 class="text-primary subtitle">Tentang Kami</h2>
 	       	<p>
-	       		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut mollis turpis. Quisque ut finibus mauris. Quisque sagittis lobortis enim, vel tristique nibh. Nunc malesuada tempor leo sed dapibus. Quisque euismod metus ut hendrerit finibus. Donec vitae dignissim quam. Mauris hendrerit erat felis, eget pharetra tellus aliquet et. Curabitur id elit vestibulum lorem aliquet dapibus. Pellentesque congue sem purus, sed eleifend lorem fermentum sit amet. Nullam euismod sollicitudin felis vel luctus. Aliquam erat volutpat. Morbi sit amet dolor eget ex aliquet tincidunt. Nulla quis tincidunt dolor, eget dapibus mi. Suspendisse interdum orci sed ante viverra, et consectetur orci efficitur.
-
-Morbi vestibulum suscipit ligula, vitae rutrum purus pretium at. Nam libero elit, rutrum vitae tellus interdum, porttitor auctor tellus. Suspendisse quis tempus ante. Etiam ac ligula at velit viverra mollis. Nulla iaculis enim at mollis eleifend. Duis in orci vel diam placerat maximus. Proin pulvinar sed nisl consectetur tincidunt.
-
-Integer quis risus viverra, sagittis felis bibendum, vehicula diam. Etiam convallis, elit a auctor vulputate, eros felis tincidunt nunc, sit amet dictum elit nulla et diam. Phasellus suscipit, dolor vulputate viverra dictum, est augue fringilla leo, ut ornare nunc mauris eu diam. Fusce tincidunt sit amet nisi a luctus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed bibendum eu erat sed ultrices. Quisque pharetra libero id dui posuere molestie. Sed sed tempus mauris. Aenean maximus, velit sit amet gravida rutrum, nunc diam vulputate dui, in mollis tortor lectus non ante. Maecenas et ex velit. Vivamus vehicula auctor venenatis. Proin aliquam enim sit amet tempus dapibus.
-
-Aliquam tristique tristique gravida. Nam tincidunt sem ac dolor maximus, id iaculis turpis ullamcorper. Nam vel tempus arcu. Nullam volutpat, nibh eu commodo ornare, purus nisi aliquam tortor, quis fringilla tortor lacus sed nisi. Mauris semper quis augue id blandit. Cras consequat ipsum bibendum nunc aliquet viverra. Praesent placerat dui nec nibh ornare auctor. Nam facilisis, neque posuere dapibus tincidunt, lectus nibh aliquet nisi, vel convallis turpis nunc eu purus. Quisque nec venenatis massa. Integer pulvinar felis vitae odio tempus sollicitudin. Aliquam consectetur faucibus turpis, id maximus quam efficitur sit amet. Integer consequat dui sed felis varius, sit amet porttitor ipsum condimentum. Donec sit amet purus ante.
-
-Donec sem orci, interdum ac nisi tincidunt, aliquam sollicitudin mi. Maecenas ac finibus lectus. Quisque orci tortor, lobortis sit amet imperdiet et, pharetra eget ipsum. Phasellus sed efficitur turpis, molestie sollicitudin risus. Sed id tristique lacus, id blandit nunc. Morbi sit amet eros gravida ex rhoncus condimentum at ac sem. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam non posuere lectus. Nullam vitae odio sit amet neque laoreet semper vel et urna. Vivamus eleifend cursus efficitur. Donec metus justo, dictum id elit nec, maximus interdum odio. Aenean vel eros in orci luctus ornare condimentum non tellus.
+	       		Park Ranger merupakan website yang dibuat bekerja sama dengan Pemkot Bandung terkait dengan keamanan dan kenyamanan taman-taman di Bandung.
+	       	Warga dapat melaporkan situasi terkini taman-taman di kota Bandung 24 jam. Park Ranger akan menerima laporan pengaduan dari warga, dan setiap pengaduan 
+	       	yang diterima akan ditangani oleh pihak berwenang terkait. Warga yang terdaftar sebagai member juga dapat memberikan vote terhadap suatu laporan
+	       	dan melaporkan member lain terkait laporan yang diberikan.  
 	       	</p>
 	       	</div>
 	       	<div class="clearfix"></div>
