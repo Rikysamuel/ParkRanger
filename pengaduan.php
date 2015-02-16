@@ -159,7 +159,12 @@
 	}
 
 	function countPagination($row){
-		return (sizeof($row)-1)/5;
+		$temp = (sizeof($row)-1)/5;
+		if($temp==0){
+			return 1;
+		} else{
+			return $temp;
+		}
 	}
 
 	function tambahLaporan($link, $taman, $jenis, $keterangan, $user_id, $gambar){
