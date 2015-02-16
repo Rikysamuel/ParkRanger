@@ -65,7 +65,7 @@
 			    ?>
 			    <div class="clearfix"></div>
 		        <ul class="nav nav-justified" role="navigation">
-		        	<li class="active"><a href="index.php"><span class="glyphicon glyphicon-home"></span> Halaman Utama</a></li>
+		        	<li><a href="index.php"><span class="glyphicon glyphicon-home"></span> Halaman Utama</a></li>
 		        	 <?php if (isset($_SESSION["id_user"])&&($_SESSION["role"]==3)) {
 		        					echo '<li><a href="lapor.php"><span class="glyphicon glyphicon-link"></span> Kirim Laporan</a></li>';
 		        				}	?>
@@ -74,7 +74,7 @@
 		        	<?php if (isset($_SESSION["id_user"]))
                                  echo '<li><a href="logout.php"><span class="glyphicon glyphicon-ban-circle"></span> Keluar</a></li>';
                           else   
-                          		echo '<li><a href="login.php"><span class="glyphicon glyphicon-user"></span> Login</a></li>';     
+                          		echo '<li class="active"><a href="login.php"><span class="glyphicon glyphicon-user"></span> Login</a></li>';     
                             ?>
 		        </ul>
 	       	</div>
