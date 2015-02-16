@@ -41,7 +41,7 @@
         				echo 'role not found';
 					//echo "user; ".$_SESSION["id_user"]." : ".$_SESSION["role"];
 					if ($role==1)	
-						header('Location: manage_user.php');
+						header('Location: manage_laporan.php');
 					else if ($role==2)
 						header('Location: dinas.php');
 					else if($role==3)
@@ -68,6 +68,7 @@
                                 else echo '<a href="login.php">';
                             ?>Kirim Laporan</a></li>
 		        	<li><a href="about.php">Tentang Kami</a></li>
+                    <li><a href="register.php">Daftar</a></li>
 		        </ul>
 	       	</div>
 	       	<h2 class="text-primary subtitle col-xs-6">Login</h2>
@@ -88,8 +89,6 @@
 			<p class="text-center footer">
 				<br/>
 				Copyright &copy; 2014. ParkRanger. All rights reserved.<br/>
-				Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.<br/>
-				Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
 				<br/>
 			</p>
 	    </div>

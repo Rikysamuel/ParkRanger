@@ -59,7 +59,6 @@
 	function tambahLaporan($link, $taman, $jenis, $keterangan, $user_id, $gambar){
 		$result = mysqli_query($link, "SELECT id_taman from taman where nama='$taman'"); 
  		if (mysqli_num_rows($result) > 0) {
- 		    // output data of each row
  		    while($row = mysqli_fetch_assoc($result)) {
  		        $id_taman = $row["id_taman"];
  		    }
