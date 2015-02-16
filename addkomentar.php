@@ -1,6 +1,7 @@
 <?php
 	$komentar = $_POST['keterangan'];
 	$id_laporan = $_POST['id_laporan'];
+	$id_penanggap = $_POST['id_penanggap'];
 	$link=mysqli_connect("localhost","root","","parkranger");
     // Cek koneksi ke database
     if (mysqli_connect_errno()) {
@@ -8,7 +9,7 @@
     }
 
     $now = $waktu = date('Y-m-d H:i:s');
-	$sql = "INSERT INTO tanggapan (id_tanggapan, keterangan, id_penanggap, tanggal_tanggapan) VALUES ('', '$komentar', '1', '$now')";
+	$sql = "INSERT INTO tanggapan (id_tanggapan, keterangan, id_penanggap, tanggal_tanggapan) VALUES ('', '$komentar', '$id_penanggap', '$now')";
 	if (!mysqli_query($link,$sql)) {
 		die('Error: ' . mysqli_error($link));
 	}

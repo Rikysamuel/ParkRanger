@@ -99,7 +99,7 @@
 							</div>
 							<div class="col-xs-3 konfirmasi-btn">
 								<span>
-									<button type="submit"  class="btn btn-block btn-primary" data-toggle="collapse" data-target="#post'.$row[$it][0].'" onclick="addKomentar('.$row[$it][0].')">Konfirmasi</button>
+									<button type="submit"  class="btn btn-block btn-primary" data-toggle="collapse" data-target="#post'.$row[$it][0].'" onclick="addKomentar('.$row[$it][0].','.$_SESSION['id_user'].')">Konfirmasi</button>
 								</span>
 							</div>
 						</div>
