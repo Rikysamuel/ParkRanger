@@ -35,8 +35,10 @@
         }
         $result = mysqli_query($link,$query);
         while($row[] = mysqli_fetch_array($result));
-        if ($opt==3){
-        	$row[2] = $row[14];
+        if ($opt==2){
+        	for ($i=0; $i < sizeof($row)-1; $i++) { 
+        		$row[$i][2] = $row[$i][14];
+        	}
         }
         return $row;
 	}
@@ -51,13 +53,6 @@
         $res = mysqli_query($link,"SELECT nama FROM user WHERE id_user='$id'");
 		$name = $res->fetch_assoc();
 		return $name;
-	}
-
-	function comment($link, $id_tanggapan,$komen,$id_penanggap){
-		$sql = "INSERT INTO tanggapan (id_tanggapan, keterangan, id_penanggap) VALUES ('$id_tanggapan', '$komen', '$id_penanggap')";
-		if (!mysqli_query($link,$sql)) {
-			die('Error: ' . mysqli_error($db_link));
-		}
 	}
 
 	function reports($link, $row, $it){
@@ -90,15 +85,15 @@
 						</div>
 						</div>
 						<div id="post'.$row[$it][0].'" class="collapse out">
+						
 							<div class="col-xs-9 komentar">
-								<textarea name="komentar" rows="3" class="form-control" placeholder="Tanggapan"></textarea>
+								<textarea name="komentar" id="'.$row[$it][0].'_komentar" rows="3" class="form-control" placeholder="Tanggapan"></textarea>
 							</div>
 							<div class="col-xs-3 konfirmasi-btn">
 								<span>
-									<input type="submit" value="Konfirmasi" class="btn btn-block btn-primary" data-toggle="collapse" data-target="#post'.$row[$it][0].'" onclick="bt'.$row[$it][0].'.style.visibility=\'visible\'">
+									<button type="submit"  class="btn btn-block btn-primary" data-toggle="collapse" data-target="#post'.$row[$it][0].'" onclick="addKomentar('.$row[$it][0].')">Konfirmasi</button>
 								</span>
 							</div>
-
 						</div>
 	        		</div>
 	        	</div>';

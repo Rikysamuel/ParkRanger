@@ -62,7 +62,8 @@
 				</ul>
 			</div>
 			<br />
-			  <?php include ('koneksi.php'); 
+			  <?php include ('koneksi.php');
+
 			  		$arr1 = array();
 					$arr2 = array();
 					$sum = 0;
@@ -71,63 +72,59 @@
 						array_push($arr2, $data["id_laporan"], $data["rank_vote"], $data["waktu"], $data["status"], $data["file_foto"], $data["id_taman"], $data["ditangani_by"], $data["pelapor"], $data["keterangan"], $data["nama"], $data["alamat"]);
 				        array_push($arr1, $arr2);
 				        $sum = $sum + 1;
-				       	echo '<div class="panel panel-default">';
-						echo	'<div class="panel-body">';
-						echo		'<div class="col-xs-3">';
-						echo			'<a href="#" class="thumbnail"><img src="img/taman1.jpg" alt="taman"></a>';
-						echo 		'</div>';
-						echo		'<div class="col-xs-9">';
-						echo			'<h2><strong>'. $data["nama"] . '</strong></h2>';
-							$id = $data["id_laporan"];
-							$query1 = mysql_query("SELECT `kategori` FROM `pihak_berwenang` natural join `pengaduan` WHERE `ditangani_by` = `id_user` and `id_laporan` = '$id'");
-							while($data1 = mysql_fetch_array($query1)){
-								echo	'<p class="text-warning">Jenis laporan : '.$data1["kategori"].' </p>';
-							}
-						echo			'<p>'.$data["keterangan"].'</p>';
-						echo			'<p id="status">';
-							if($data["status"]==NULL){
-								echo	'<span class="text-danger"><span class="glyphicon glyphicon-remove"></span> Belum ditindaklanjuti</span><br />';
-							}else{
-								echo	'<span class="text-success"><span class="glyphicon glyphicon-ok"></span> Sudah ditindaklanjuti</span><br />';
-							}
-								echo	'<small>Pelapor : <a href="profile.html" class="text-primary">edmund.ophie </a> <a href="#" data-toggle="modal" data-target="#myModal"><span class="text-danger glyphicon glyphicon-exclamation-sign"></span></a></small>';					
-						echo			'</p>';
-						echo			'<div class="vote col-xs-3 text-right">';
-						echo				'<a id="upvote'.$data["id_laporan"].'" href="upvote.php?id_laporan='.$data["id_laporan"].'"><span class="glyphicon glyphicon-triangle-top" ></span></a>';
-							//$cek_vote = mysql_query("select rank_vote from pengaduan where id_laporan = (select id_laporan from vote_laporan natural join member where vote_by = id_user");
-							//while($data1 = mysql_fetch_array($cek_vote)){
-						echo				$data["rank_vote"];
-							//}
-						echo				'<a id="downvote'.$data["id_laporan"].'" href="downvote.php?id_laporan='.$data["id_laporan"].'"><span class="glyphicon glyphicon-triangle-bottom"></span></a>';
-						echo			'</div>';
-						echo			'<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> 
-											<div class="modal-dialog"> 
-												<div class="modal-content"> 
-													<div class="modal-header"> 
-														<button type="button" class="close" data-dismiss="modal" aria-hidden="true">× </button> 
-														<h4 class="modal-title" id="myModalLabel"> Blokir User  </h4> 
-													</div> 
-													<div class="modal-body">
-														Apakah Anda yakin ingin mengirimkan permintaan blokir user ini? 
-													</div> 
-													<div class="modal-footer"> 
-														<button type="button" class="btn btn-default" data-dismiss="modal"> Tidak </button> 
-														<button type="button" class="btn btn-primary"> Ya </button> 
-													</div> 
+					}
+
+			      	for($it=0;$it<$sum;$it++){
+	            		if(isset($arr1[$it])){
+	            			echo '<div class="panel panel-default">';
+							echo	'<div class="panel-body">';
+							echo		'<div class="col-xs-3">';
+							echo			'<a href="#" class="thumbnail"><img src="'.$arr1[$it][4].'" alt="taman"></a>';
+							echo 		'</div>';
+							echo		'<div class="col-xs-9">';
+							echo			'<h2><strong>'. $arr1[$it][9] . '</strong></h2>';
+								$id = $arr1[$it][0];
+								$query1 = mysql_query("SELECT `kategori` FROM `pihak_berwenang` natural join `pengaduan` WHERE `ditangani_by` = `id_user` and `id_laporan` = '$id'");
+								while($arr3 = mysql_fetch_array($query1)){
+									echo	'<p class="text-warning">Jenis laporan : '.$arr3[0].' </p>';
+								}
+							echo			'<p>'.$arr1[$it][8].'</p>';
+							echo			'<p id="status">';
+								if($arr1[$it][3]==NULL){
+									echo	'<span class="text-danger"><span class="glyphicon glyphicon-remove"></span> Belum ditindaklanjuti</span><br />';
+								}else{
+									echo	'<span class="text-success"><span class="glyphicon glyphicon-ok"></span> Sudah ditindaklanjuti</span><br />';
+								}
+									echo	'<small>Pelapor : <a href="profile.html" class="text-primary">edmund.ophie </a> <a href="#" data-toggle="modal" data-target="#myModal"><span class="text-danger glyphicon glyphicon-exclamation-sign"></span></a></small>';					
+							echo			'</p>';
+							echo			'<div class="vote col-xs-9 text-right">';
+							echo				'<a id="upvote'.$arr1[$it][0].'" href="upvote.php?id_laporan='.$arr1[$it][0].'"><span class="glyphicon glyphicon-triangle-top" ></span></a>';
+							echo				$arr1[$it][1];
+							echo				'<a id="downvote'.$arr1[$it][0].'" href="downvote.php?id_laporan='.$arr1[$it][0].'"><span class="glyphicon glyphicon-triangle-bottom"></span></a>';
+							echo			'</div>';
+							echo			'<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> 
+												<div class="modal-dialog"> 
+													<div class="modal-content"> 
+														<div class="modal-header"> 
+															<button type="button" class="close" data-dismiss="modal" aria-hidden="true">× </button> 
+															<h4 class="modal-title" id="myModalLabel"> Blokir User  </h4> 
+														</div> 
+														<div class="modal-body">
+															Apakah Anda yakin ingin mengirimkan permintaan blokir user ini? 
+														</div> 
+														<div class="modal-footer"> 
+															<button type="button" class="btn btn-default" data-dismiss="modal"> Tidak </button> 
+															<button type="button" class="btn btn-primary"> Ya </button> 
+														</div> 
+													</div>
 												</div>
-											</div>
-										</div>';
-						echo		'</div>';
-				        echo	'</div>';
-			      		echo '</div>';
-			      	}
-			      	for($i = 0; $i < $sum; $i++){
-			      		for($j = 0; $j < 11; $j++){
-			      			echo $arr1[$i][$j];
-			      			echo "<br>";
+											</div>';
+							echo		'</div>';
+					        echo	'</div>';
+				      		echo '</div>';
 			      		}
-			      		echo "next========<br><br>";
-			      	}
+	                }
+
       			?>
 			<nav class="text-center">
 				<ul class="pagination">
