@@ -5,11 +5,9 @@
 <!--[if gt IE 8]><!--> 
 <?php
 	$sort = 0;
-<<<<<<< HEAD
-=======
 	$sort2 = $sort;
->>>>>>> 582a7e08937a60d8eef6cb6d518ab2cc0e07525b
 	$page = 0;
+	$j=1;
 ?>
 <html class="no-js"> <!--<![endif]-->
     <head>
@@ -29,11 +27,11 @@
     <body>
     	<div class="container">
 	        <div class="top">
-		        <h1 class="text-muted"><a href="index.php">Park Ranger</a></h1>
+		        <h1 class="text-muted"><a href="dinas.php">Park Ranger</a></h1>
 			    <p class="text-right">Masuk sebagai <a href="#">Satpol PP</a></p>
 			    <div class="clearfix"></div>
 		        <ul class="nav nav-justified" role="navigation">
-		        	<li><a href="index.php">Halaman Utama</a></li>
+		        	<li><a href="dinas.php">Halaman Utama</a></li>
 		        	<li><a href="lapor.php">Kirim Laporan</a></li>
 		        	<li><a href="about.php">Tentang</a></li>
 		        	<li><a href="logout.php">Keluar</a></li>
@@ -72,14 +70,11 @@
 
 				if(isset($_POST['temp1'])){
 					$sort = $_POST['temp1'];
-<<<<<<< HEAD
-=======
 					$sort2 = $sort;
 				}
 
 				if(isset($_POST['temp3'])){
 					$sort2 = $_POST['temp3'];
->>>>>>> 582a7e08937a60d8eef6cb6d518ab2cc0e07525b
 				}
 
 				if(isset($_POST['temp2'])){
@@ -88,11 +83,7 @@
 				$start = $page * 5;
 
 				//fetch data dari sql database
-<<<<<<< HEAD
-                $row = fetchPost($link,$sort);
-=======
                 $row = fetchPost($link,$sort2);
->>>>>>> 582a7e08937a60d8eef6cb6d518ab2cc0e07525b
 
                 //data dalam array diprint ke halaman html
                 for($it=$start;$it<$start+5;$it++){
@@ -104,34 +95,6 @@
                 closeConnection($link);
             ?>
 
-      		<!-- <div class="panel panel-default">
-				<div class="panel-body">
-					<div class="col-xs-12 deskripsi-wrapper">
-						<div class="col-xs-3">
-							<a href="#" class="thumbnail">
-								<img src="img/taman1.jpg" alt="taman">
-							</a>
-						</div>
-						<div class="col-xs-9 deskripsi">
-							<h2><a href="#"><strong>Taman Kedamaian</strong></a></h2>
-							<p class="text-warning">Jenis laporan : kerusakan</p>
-							<p>
-							Donec id elit non mi porta gravida at eget metus. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.Aenean lacinia bibendum nulla sed consectetur. Nulla vitae elit libero, a pharetra augue. Vestibulum id ligula porta felis euismod semper. </p>
-						</div>
-						<div class="col-xs-9 col-xs-offset-3 status-box">
-								<div class="col-xs-8 status">
-									<span class="text-success"><span class="glyphicon glyphicon-ok"></span> Sudah ditindaklanjuti</span><br />
-									<small>Pelapor : <a href="profile.html" class="text-primary">joko.wi </a> <a href="#"><span class="text-danger glyphicon glyphicon-exclamation-sign"></span></a></small>
-								</div>
-						</div>
-						<div class="vote col-xs-3 text-right">
-							<h1><span class="label label-success">19</span></h>
-						</div>
-					</div>
-				</div>
-  			</div><!-- End of Panel -->
-
-
 		<nav class="text-center">
 			<ul class="pagination">
 				<?php
@@ -140,10 +103,6 @@
 						 		<span aria-hidden=\"true\">&laquo;</span>
 							 </a>
 						 </li>";
-<<<<<<< HEAD
-					
-=======
->>>>>>> 582a7e08937a60d8eef6cb6d518ab2cc0e07525b
 					$max = countPagination($row);
 					for($i=0;$i<$max;$i++){
 						$j = $i+1;
