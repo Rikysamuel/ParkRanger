@@ -4,6 +4,8 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> 
 <?php
+	include ('koneksi.php'); 
+	include("pengaduan.php");
 	$sort = 0;
 	$sort2 = $sort;
 	$page = 0;
@@ -30,13 +32,15 @@
     		function addKomentar(id) {
     			var id_laporan = id;
         		var komentar = $("#"+id+"_komentar").val();
-        		alert(id_penanggap);
         		$.post("addkomentar.php", {id_laporan:id_laporan,keterangan:komentar}, 
         			function(result) {
         				if(result=="ok") {
-        					
+        					$("#statustanggapan"+id).find("span").remove();
+        					$("#statustanggapan"+id).prepend("<span class='text-success'><span class='glyphicon glyphicon-ok'></span> Sudah ditanggapi</span>");
+        					$("#statustanggapan"+id).find("small").append("<a href='#' data-toggle='modal' data-target='#myModal"+id+"'><span class='text-danger glyphicon glyphicon-exclamation-sign'></span></a>");
+        					$("#statustanggapan"+id).find("br").remove();
         				} else{
-        					
+        					alert(result);
         				}
     			});
     		}
@@ -47,7 +51,7 @@
     	<div class="container">
 	        <div class="top">
 		        <h1 class="text-muted"><a href="dinas.php">Park Ranger</a></h1>
-			    <?php include ('koneksi.php'); 
+			    <?php
 				    session_start();
 					if (isset($_SESSION["id_user"])){
 					 	$user = $_SESSION["id_user"];
@@ -97,7 +101,7 @@
 				</ul>
 			</div>
 			<br />
-			<?php include("InformasiDinas.php");
+			<?php
 				$link = init();
 
 				if(isset($_POST['temp1'])){

@@ -20,53 +20,38 @@
     <body>
     	<div class="container">
 	        <div class="top">
-		        <h1 class="text-muted"><a href="index.php">Park Ranger</a></h1>
-				<?php include ('koneksi.php'); 
-				    session_start();
-					if (isset($_SESSION["id_user"])){
-					 	$user = $_SESSION["id_user"];
-						$online = mysql_query("select * from user where id_user = '$user'");
-						while($tabel_user = mysql_fetch_array($online)){
-						    echo '<p class="text-right">Masuk sebagai <a href="edit_profil.php">'.$tabel_user["nama"].'</a></p>';
-						}
-					}
-					else {
-						echo '<p class="text-right">Belum masuk? <a href="login.php">login</a> or <a href="register.php">daftar</a></p>';	
-			    
-					}
-			    ?> 
+        	    <h1 class="text-muted"><a href="index.php"><img src="img/diskamtam.png" alt="" class="logo"> Park Ranger</a></h1>
+		    	<p class="text-right">Not logged in yet</p>
 			    <div class="clearfix"></div>
 		        <ul class="nav nav-justified" role="navigation">
-		        	<li><a href="index.php">Halaman Utama</a></li>
-		        	<li><?php if (isset($_SESSION["id_user"])&&($_SESSION["role"]==3))
-		        					echo '<a href="lapor.php">';
-		        				else echo '<a href="login.php">';
-		        			?>Kirim Laporan</a></li>
-		        	<li class="active"><a href="about.php">Tentang Kami</a></li>
-		        	<li><a href="logout.php">Keluar</a></li>
+		        	<li><a href="index.php">Home</a></li>
+		        	<?php 
+		        		session_start();
+		        		if(!isset($_SESSION["loggedIn"])) {
+		        			$_SESSION["loggedIn"] = false;
+	        		?>
+		        		<li><a href="lapor.php">Kirim Laporan</a></li>
+	        		<?php
+		        		} 
+	        		?>
+		        	<li><a href="about.php">About</a></li>
+		        	<li><a href="logout.php">Login</a></li>
 		        </ul>
 	       	</div>
-	       	<br/>
+	       	<h2 class="text-primary subtitle col-xs-6">Tentang Kami</h2>
+	       	<div class="clearfix"></div>
+	       	<p>
+	       		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut mollis turpis. Quisque ut finibus mauris. Quisque sagittis lobortis enim, vel tristique nibh. Nunc malesuada tempor leo sed dapibus. Quisque euismod metus ut hendrerit finibus. Donec vitae dignissim quam. Mauris hendrerit erat felis, eget pharetra tellus aliquet et. Curabitur id elit vestibulum lorem aliquet dapibus. Pellentesque congue sem purus, sed eleifend lorem fermentum sit amet. Nullam euismod sollicitudin felis vel luctus. Aliquam erat volutpat. Morbi sit amet dolor eget ex aliquet tincidunt. Nulla quis tincidunt dolor, eget dapibus mi. Suspendisse interdum orci sed ante viverra, et consectetur orci efficitur.
 
-			<nav class="text-center">
-				<ul class="pagination">
-					<li class="disabled">
-						<a href="#" aria-label="Previous">
-							<span aria-hidden="true">&laquo;</span>
-						</a>
-					</li>
-					<li class="active"><a href="#">1</a></li>
-					<li><a href="#">2</a></li>
-					<li><a href="#">3</a></li>
-					<li><a href="#">4</a></li>
-					<li><a href="#">5</a></li>
-					<li>
-						<a href="#" aria-label="Next">
-							<span aria-hidden="true">&raquo;</span>
-						</a>
-					</li>
-				</ul>
-			</nav>
+Morbi vestibulum suscipit ligula, vitae rutrum purus pretium at. Nam libero elit, rutrum vitae tellus interdum, porttitor auctor tellus. Suspendisse quis tempus ante. Etiam ac ligula at velit viverra mollis. Nulla iaculis enim at mollis eleifend. Duis in orci vel diam placerat maximus. Proin pulvinar sed nisl consectetur tincidunt.
+
+Integer quis risus viverra, sagittis felis bibendum, vehicula diam. Etiam convallis, elit a auctor vulputate, eros felis tincidunt nunc, sit amet dictum elit nulla et diam. Phasellus suscipit, dolor vulputate viverra dictum, est augue fringilla leo, ut ornare nunc mauris eu diam. Fusce tincidunt sit amet nisi a luctus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed bibendum eu erat sed ultrices. Quisque pharetra libero id dui posuere molestie. Sed sed tempus mauris. Aenean maximus, velit sit amet gravida rutrum, nunc diam vulputate dui, in mollis tortor lectus non ante. Maecenas et ex velit. Vivamus vehicula auctor venenatis. Proin aliquam enim sit amet tempus dapibus.
+
+Aliquam tristique tristique gravida. Nam tincidunt sem ac dolor maximus, id iaculis turpis ullamcorper. Nam vel tempus arcu. Nullam volutpat, nibh eu commodo ornare, purus nisi aliquam tortor, quis fringilla tortor lacus sed nisi. Mauris semper quis augue id blandit. Cras consequat ipsum bibendum nunc aliquet viverra. Praesent placerat dui nec nibh ornare auctor. Nam facilisis, neque posuere dapibus tincidunt, lectus nibh aliquet nisi, vel convallis turpis nunc eu purus. Quisque nec venenatis massa. Integer pulvinar felis vitae odio tempus sollicitudin. Aliquam consectetur faucibus turpis, id maximus quam efficitur sit amet. Integer consequat dui sed felis varius, sit amet porttitor ipsum condimentum. Donec sit amet purus ante.
+
+Donec sem orci, interdum ac nisi tincidunt, aliquam sollicitudin mi. Maecenas ac finibus lectus. Quisque orci tortor, lobortis sit amet imperdiet et, pharetra eget ipsum. Phasellus sed efficitur turpis, molestie sollicitudin risus. Sed id tristique lacus, id blandit nunc. Morbi sit amet eros gravida ex rhoncus condimentum at ac sem. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam non posuere lectus. Nullam vitae odio sit amet neque laoreet semper vel et urna. Vivamus eleifend cursus efficitur. Donec metus justo, dictum id elit nec, maximus interdum odio. Aenean vel eros in orci luctus ornare condimentum non tellus.
+	       	</p>
+	       	<div class="clearfix"></div>
 			<p class="text-center footer">
 				<br/>
 				Copyright &copy; 2014. ParkRanger. All rights reserved.<br/>

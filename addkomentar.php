@@ -22,6 +22,12 @@
 	if (!mysqli_query($link,$sql)) {
 		die('Error: ' . mysqli_error($link));
 	}
+
+	$sql = "UPDATE pengaduan SET status='1' WHERE id_laporan='$id_laporan'";
+	if (!mysqli_query($link, $sql)) {
+	    die("Error updating record: " . mysqli_error($link));
+	}
+
 	mysqli_close($link);
 	echo "ok";
 ?>
