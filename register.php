@@ -67,7 +67,6 @@
 			    <div class="clearfix"></div>
 		        <ul class="nav nav-justified" role="navigation">
 		        	<li><a href="index.php">Halaman Utama</a></li>
-		        	
 		        	<li><a href="about.php">Tentang Kami</a></li>
                     <li><a href="login.php">Login</a></li>
 		        </ul>
@@ -103,8 +102,6 @@
 			<p class="text-center footer">
 				<br/>
 				Copyright &copy; 2014. ParkRanger. All rights reserved.<br/>
-				Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.<br/>
-				Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
 				<br/>
 			</p>
 	    </div>

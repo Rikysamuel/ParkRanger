@@ -55,7 +55,13 @@
 			    <div class="clearfix"></div>
 		        <ul class="nav nav-justified" role="navigation">
 		        	<li><a href="index.php">Home</a></li>
-		        	<li><a href="lapor.php">Kirim Laporan</a></li>
+		        	<?php 
+		        		if(!isset($_SESSION(loggedIn)) || $_SESSION(loggedIn)==false){
+		        		?>
+		        		<li><a href="lapor.php">Kirim Laporan</a></li>
+		        		<?php
+		        		} 
+		        		?>
 		        	<li><a href="about.php">About</a></li>
 		        	<li><a href="logout.php">Login</a></li>
 		        </ul>
@@ -80,8 +86,6 @@
 			<p class="text-center footer">
 				<br/>
 				Copyright &copy; 2014. ParkRanger. All rights reserved.<br/>
-				Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.<br/>
-				Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
 				<br/>
 			</p>
 	    </div>

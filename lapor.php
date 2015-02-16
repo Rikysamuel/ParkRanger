@@ -31,12 +31,12 @@
 				echo 'taman : '.$_POST["taman"]." jenis : ".$_POST["jenis"]." desk: ".$_POST["deskripsi"];
 				$res = tambahLaporan($link, $_POST["taman"], $_POST["jenis"], $_POST["deskripsi"], $user, $_FILES["gambar"]);
 				
-				// if ($res=1) {
-			 //    	header('Location: index.php');
-			 //    }
-			 //    else {
-			 //    	echo 'insert error';
-			 //    }
+				if ($res=1) {
+			    	header('Location: index.php');
+			    }
+			    else {
+			    	echo 'insert error';
+			    }
 			}
 			closeConnection($link);
 		?>
@@ -56,7 +56,7 @@
 						}
 					}
 					else {
-						echo '<p class="text-right">Belum masuk? <a href="login.php">login</a> or <a href="register.php">register</a></p>';	
+						echo '<p class="text-right">Belum masuk? <a href="login.php">login</a> or <a href="register.php">daftar</a></p>';	
 			    
 					}
 			    ?> 
@@ -112,7 +112,7 @@
 	       		<div class="form-group">
 	       			<label for="deskripsi" class="col-xs-3 control-label">Deskripsi</label>
 		       		<div class="col-xs-9">
-		       			<textarea class="form-control" rows="4" id="deskripsi" name="deskripsi"></textarea>
+		       			<textarea class="form-control" rows="4" id="deskripsi" name="deskripsi" maxlength="200"></textarea>
 	       			</div>
 	       		</div>
 	       		<input type="submit" value="simpan" name ="simpan" class="btn btn-primary btn-block">

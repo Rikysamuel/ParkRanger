@@ -57,7 +57,7 @@
 						}
 					}
 					else {
-						echo '<p class="text-right">Belum masuk? <a href="login.php">login</a> or <a href="register.php">register</a></p>';	
+						echo '<p class="text-right">Belum masuk? <a href="login.php">login</a> or <a href="register.php">daftar</a></p>';	
 			    
 					}
 			    ?> 

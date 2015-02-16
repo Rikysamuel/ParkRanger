@@ -56,22 +56,51 @@
 	}
 
 	function tambahLaporan($link, $taman, $jenis, $keterangan, $user_id, $gambar){
-		echo 'masuk';
-		$id_taman = mysql_query("SELECT id_taman from taman where nama='$taman'"); 
-	    $ditangani_by = mysql_query("SELECT id_user from pihak_berwenang where kategori='$jenis'");
-	    $waktu=time();
-	    // $pelapor=$_SESSION["user_id"];
-	    $uploadOk = uploadFoto($gambar);
-
-	    if ($uploadOk == 1) {
-	    	$query = mysql_query("INSERT INTO pengaduan(rank_vote, waktu, file_foto, id_taman, ditangani_by, pelapor, keterangan) 
-	    					  VALUES (0, ’$waktu’, ’$targetFile’, ’$id_taman’, ’$ditangani_by’, ’$user_id’, ’$keterangan’;");
-	    	return 1;
-	    }
-	    else {
-	    	return 0;
-	    }
-	}
+		$result = mysqli_query($link, "SELECT id_taman from taman where nama='$taman'"); 
+ 		if (mysqli_num_rows($result) > 0) {
+ 		    while($row = mysqli_fetch_assoc($result)) {
+ 		        $id_taman = $row["id_taman"];
+ 		    }
+ 		} else {
+		    echo "Select id_taman from nama_taman return no result <br/>";
+ 		}
+ 
+ 
+ 		if ($jenis=="Tidak tahu") {
+ 			$ditangani_by = 4;
+ 		}
+ 		else {
+ 			$result = mysqli_query($link, "SELECT id_user from pihak_berwenang where kategori='$jenis'");
+ 			if (mysqli_num_rows($result) > 0) {
+ 			    // output data of each row
+ 			    while($row = mysqli_fetch_assoc($result)) {
+ 			        $ditangani_by = $row["id_user"];
+ 			    }
+ 			} else {
+			    echo "Select dinas from kategori return no result <br/>";
+ 			}
+ 		}
+ 
+ 	    $upgambar = uploadFoto($gambar);
+ 	    $targetFile = $upgambar[1];
+ 	    $waktu = date('Y-m-d H:i:s');
+ 
+ 	    if ($upgambar[0] == 1) {
+ 	    	$query = "INSERT INTO pengaduan(rank_vote, waktu, file_foto, id_taman, ditangani_by, pelapor, keterangan) 
+ 	    					  VALUES (0, '$waktu', '$targetFile', $id_taman, $ditangani_by, $user_id, '$keterangan')";
+ 	    	if (mysqli_query($link, $query)) {
+			    echo "New record created successfully <br/>";
+			    $ret = 1;
+ 			} else {
+			    echo "Error: " . $query . "<br/>" . mysqli_error($link);
+			    $ret = 0;
+ 			}
+ 	    }
+ 	    else {
+	    	$ret = 0;
+ 	    }
+ 
+	    sendEmail($link, $ditangani_by, $taman, $keterangan);
 
 	/* Fungsi edmund */
 	function createDBConnection() {
