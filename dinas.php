@@ -28,11 +28,17 @@
     	<div class="container">
 	        <div class="top">
 		        <h1 class="text-muted"><a href="dinas.php">Park Ranger</a></h1>
-			    <p class="text-right">Masuk sebagai <a href="#">Satpol PP</a></p>
+			    <?php include ('koneksi.php'); 
+			    	$user = $_SESSION["id_user"];
+					$online = mysql_query("select * from user where id_user ='$user'");
+					while($tabel_user = mysql_fetch_array($online)){
+					    echo '<p class="text-right">Masuk sebagai <a href="#">'.$tabel_user["nama"].'</a></p>';
+					}
+			    ?>
 			    <div class="clearfix"></div>
 		        <ul class="nav nav-justified" role="navigation">
 		        	<li><a href="dinas.php">Halaman Utama</a></li>
-		        	<li><a href="lapor.php">Kirim Laporan</a></li>
+		        	
 		        	<li><a href="about.php">Tentang</a></li>
 		        	<li><a href="logout.php">Keluar</a></li>
 		        </ul>

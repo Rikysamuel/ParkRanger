@@ -24,15 +24,18 @@
 				<?php include ('koneksi.php'); 
 					$online = mysql_query("select * from user where role = 1");
 					while($tabel_user = mysql_fetch_array($online)){
-					    echo '<p class="text-right">Logged in as <a href="#">'.$tabel_user["nama"].'</a></p>';
+					    echo '<p class="text-right">Masuk sebagai <a href="#">'.$tabel_user["nama"].'</a></p>';
 					}
 			    ?>
 			    <div class="clearfix"></div>
 		        <ul class="nav nav-justified" role="navigation">
-		        	<li><a href="index.php">Home</a></li>
-		        	<li><a href="lapor.php">Kirim Laporan</a></li>
-		        	<li class="active"><a href="about.php">About</a></li>
-		        	<li><a href="logout.php">Log Out</a></li>
+		        	<li><a href="index.php">Halaman Utama</a></li>
+		        	<li><?php if (isset($_SESSION["id_user"])&&($_SESSION["role"]==3))
+		        					echo '<a href="lapor.php">';
+		        				else echo '<a href="login.php">';
+		        			?>Kirim Laporan</a></li>
+		        	<li class="active"><a href="about.php">Tentang Kami</a></li>
+		        	<li><a href="logout.php">Keluar</a></li>
 		        </ul>
 	       	</div>
 	       	<br/>

@@ -37,13 +37,13 @@ if ($conn->connect_error) {
     	<div class="container">
 	        <div class="top">
 		        <h1 class="text-muted"><a href="index.php">Park Ranger</a></h1>
-			    <p class="text-right">Logged in as <a href="#">Admin</a></p>
+			    <p class="text-right">Masuk sebagai <a href="#">Admin</a></p>
 			    <div class="clearfix"></div>
 		        <ul class="nav nav-justified" role="navigation">
-		        	<li><a href="index.php">Home</a></li>
-		        	<li><a href="lapor.php">Kirim Laporan</a></li>
-		        	<li><a href="about.php">About</a></li>
-		        	<li><a href="logout.php">Log Out</a></li>
+		        	<li><a href="index.php">Halaman Utama</a></li>
+		        	
+		        	<li><a href="about.php">Tentang Kami</a></li>
+		        	<li><a href="logout.php">Keluar</a></li>
 		        </ul>
 	       	</div>
 	       	<br/>

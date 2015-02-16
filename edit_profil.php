@@ -52,13 +52,16 @@
     	<div class="container">
 	        <div class="top">
         	    <h1 class="text-muted"><a href="index.php">Park Ranger</a></h1>
-		    	<p class="text-right">Logged in as <a href="edit_profil.php"><?php echo $data['nama'];?></a></p>
+		    	<p class="text-right">Masuk sebagai <a href="edit_profil.php"><?php echo $data['nama'];?></a></p>
 			    <div class="clearfix"></div>
 		        <ul class="nav nav-justified" role="navigation">
-		        	<li><a href="index.php">Home</a></li>
-		        	<li><a href="lapor.php">Kirim Laporan</a></li>
-		        	<li><a href="about.php">About</a></li>
-		        	<li><a href="logout.php">Log Out</a></li>
+		        	<li><a href="index.php">Halaman Utama</a></li>
+		        	<li><?php if (isset($_SESSION["id_user"])&&($_SESSION["role"]==3))
+		        					echo '<a href="lapor.php">';
+		        				else echo '<a href="login.php">';
+		        			?>Kirim Laporan</a></li>
+		        	<li><a href="about.php">Tentang Kami</a></li>
+		        	<li><a href="logout.php">Keluar</a></li>
 		        </ul>
 	       	</div>
 	       	<h2 class="text-primary subtitle col-xs-6">Edit Profil</h2>
