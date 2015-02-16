@@ -78,16 +78,18 @@
 	            		if(isset($arr1[$it])){
 	            			echo '<div class="panel panel-default">';
 							echo	'<div class="panel-body">';
+							echo 	'col-xs-12 deskripsi-wrapper';
 							echo		'<div class="col-xs-3">';
 							echo			'<a href="#" class="thumbnail"><img src="'.$arr1[$it][4].'" alt="taman"></a>';
 							echo 		'</div>';
-							echo		'<div class="col-xs-9">';
+							echo		'<div class="col-xs-9 deskripsi">';
 							echo			'<h2><strong>'. $arr1[$it][9] . '</strong></h2>';
 								$id = $arr1[$it][0];
 								$query1 = mysql_query("SELECT `kategori` FROM `pihak_berwenang` natural join `pengaduan` WHERE `ditangani_by` = `id_user` and `id_laporan` = '$id'");
 								while($arr3 = mysql_fetch_array($query1)){
 									echo	'<p class="text-warning">Jenis laporan : '.$arr3[0].' </p>';
 								}
+							echo '</div>';
 							echo			'<p>'.$arr1[$it][8].'</p>';
 							echo			'<p id="status">';
 								if($arr1[$it][3]==NULL){
@@ -97,7 +99,7 @@
 								}
 									echo	'<small>Pelapor : <a href="profile.html" class="text-primary">edmund.ophie </a> <a href="#" data-toggle="modal" data-target="#myModal"><span class="text-danger glyphicon glyphicon-exclamation-sign"></span></a></small>';					
 							echo			'</p>';
-							echo			'<div class="vote col-xs-9 text-right">';
+							echo			'<div class="vote col-xs-3 text-right">';
 							echo				'<a id="upvote'.$arr1[$it][0].'" href="upvote.php?id_laporan='.$arr1[$it][0].'"><span class="glyphicon glyphicon-triangle-top" ></span></a>';
 							echo				$arr1[$it][1];
 							echo				'<a id="downvote'.$arr1[$it][0].'" href="downvote.php?id_laporan='.$arr1[$it][0].'"><span class="glyphicon glyphicon-triangle-bottom"></span></a>';
