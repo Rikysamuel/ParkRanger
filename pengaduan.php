@@ -85,10 +85,10 @@
 		$posts = $posts .'		<span class="text-'.$color.'"><span class="glyphicon glyphicon-'.$icon.'"></span> '.$stat.'</span><br />
 									<small>Pelapor : <a href="profile.html" class="text-primary"> '.fetchPelapor($link,$row[$it][7])['nama'].' </a> <a href="#" data-toggle="modal" data-target="#myModal'.$row[$it][0].'"><span class="text-danger glyphicon glyphicon-exclamation-sign"></span></a></small>
 								</div>
-								<div class="vote col-xs-3 text-right">
-									<a href="#"><span class="glyphicon glyphicon-triangle-top"></span></a>
+								<div id="vote'.$row[$it][0].'" class="vote col-xs-3 text-right">
+									<a onClick="upvote('.$row[$it][0].')"><span class="glyphicon glyphicon-triangle-top"></span></a>
 									'.$row[$it][1].'
-									<a href="#"><span class="glyphicon glyphicon-triangle-bottom"></span></a>
+									<a onClick="downvote('.$row[$it][0].')"><span class="glyphicon glyphicon-triangle-bottom"></span></a>
 								</div>
 						</div>
 					</div>
@@ -159,7 +159,12 @@
 	}
 
 	function countPagination($row){
-		return (sizeof($row)-1)/5;
+		$temp = (sizeof($row)-1)/5;
+		if($temp==0){
+			return 1;
+		} else{
+			return $temp;
+		}
 	}
 
 	function tambahLaporan($link, $taman, $jenis, $keterangan, $user_id, $gambar){
