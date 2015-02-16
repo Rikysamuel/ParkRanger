@@ -25,6 +25,27 @@
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/home.css">
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+        <script type="text/javascript">
+    		function upvote(id) {
+    			var id_laporan = id;
+        		$.post("upvote.php", {id_laporan:id_laporan}, 
+        			function(result) {
+    					$("#vote"+id).empty();
+    					$("#vote"+id).append("<a><span class='glyphicon glyphicon-triangle-top'></span></a>"+result+"<a><span class='glyphicon glyphicon-triangle-bottom'></span></a>");
+    			});
+    		}
+
+    		function downvote(id) {
+    			var id_laporan = id;
+        		$.post("downvote.php", {id_laporan:id_laporan}, 
+        			function(result) {
+    					$("#vote"+id).empty();
+    					$("#vote"+id).append("<a><span class='glyphicon glyphicon-triangle-top'></span></a>"+result+"<a><span class='glyphicon glyphicon-triangle-bottom'></span></a>");
+    			});
+    		}
+    	</script>
     </head>
     <body>
     	<div class="container">
