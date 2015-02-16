@@ -63,13 +63,32 @@
     	<div class="container">
 	        <div class="top">
         	    <h1 class="text-muted"><a href="index.php"><img src="img/diskamtam.png" alt="" class="logo">Park Ranger</a></h1>
-		    	<p class="text-right">Belum login</p>
-			    <div class="clearfix"></div>
-		        <ul class="nav nav-justified" role="navigation">
-		        	<li><a href="index.php">Halaman Utama</a></li>
-		        	<li><a href="about.php">Tentang Kami</a></li>
-                    <li><a href="login.php">Masuk</a></li>
-		        </ul>
+		    	<?php
+                    session_start();
+                    if (isset($_SESSION["id_user"])){
+                        $user = $_SESSION["username"];
+                        echo '<p class="text-right"><span class="glyphicon glyphicon-user"></span> Masuk sebagai <a href="edit_profil.php">'.$user.'</a></p>';
+                        
+                    }
+                    else {
+                        echo '<p class="text-right"><a href="login.php"><span class="glyphicon glyphicon-user"></span> Login</a> | <a href="register.php"><span class="glyphicon glyphicon-edit"></span> Daftar</a></p>';   
+                
+                    }
+                ?>
+                <div class="clearfix"></div>
+                <ul class="nav nav-justified" role="navigation">
+                    <li class="active"><a href="index.php"><span class="glyphicon glyphicon-home"></span> Halaman Utama</a></li>
+                     <?php if (isset($_SESSION["id_user"])&&($_SESSION["role"]==3)) {
+                                    echo '<li><a href="lapor.php"><span class="glyphicon glyphicon-link"></span> Kirim Laporan</a></li>';
+                                }   ?>
+                                
+                    <li><a href="about.php"><span class="glyphicon glyphicon-tree-deciduous"></span> Tentang Kami</a></li>
+                    <?php if (isset($_SESSION["id_user"]))
+                                 echo '<li><a href="logout.php"><span class="glyphicon glyphicon-ban-circle"></span> Keluar</a></li>';
+                          else   
+                                echo '<li><a href="login.php"><span class="glyphicon glyphicon-user"></span> Login</a></li>';     
+                            ?>
+                </ul>
 	       	</div>
 	       	<h2 class="text-primary subtitle col-xs-6">Pendaftaran</h2>
 	       	<div class="clearfix"></div>

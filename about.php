@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="css/home.css">
+        <link rel="stylesheet" href="css/about.css">
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
     <body>
@@ -25,29 +25,34 @@
 			    	session_start();
 					if (isset($_SESSION["id_user"])){
 					 	$user = $_SESSION["username"];
-						echo '<p class="text-right">Masuk sebagai <a href="edit_profil.php">'.$user.'</a></p>';
+						echo '<p class="text-right"><span class="glyphicon glyphicon-user"></span> Masuk sebagai <a href="edit_profil.php">'.$user.'</a></p>';
 						
 					}
 					else {
-						echo '<p class="text-right">Belum masuk? <a href="login.php">login</a> or <a href="register.php">register</a></p>';	
+						echo '<p class="text-right"><a href="login.php"><span class="glyphicon glyphicon-user"></span> Login</a> | <a href="register.php"><span class="glyphicon glyphicon-edit"></span> Daftar</a></p>';	
 			    
 					}
 			    ?>
 			    <div class="clearfix"></div>
 		        <ul class="nav nav-justified" role="navigation">
-		        	<li ><a href="index.php">Halaman Utama</a></li>
+		        	<li><a href="index.php"><span class="glyphicon glyphicon-home"></span> Halaman Utama</a></li>
 		        	 <?php if (isset($_SESSION["id_user"])&&($_SESSION["role"]==3)) {
-		        					echo '<li><a href="lapor.php">Kirim Laporan</a></li>';
+		        					echo '<li><a href="lapor.php"><span class="glyphicon glyphicon-link"></span> Kirim Laporan</a></li>';
 		        				}	?>
 		        				
-		        	<li class="active"><a href="about.php">Tentang Kami</a></li>
+		        	<li class="active"><a href="about.php"><span class="glyphicon glyphicon-tree-deciduous"></span> Tentang Kami</a></li>
 		        	<?php if (isset($_SESSION["id_user"]))
-                                 echo '<li><a href="logout.php">Keluar</a></li>';
+                                 echo '<li><a href="logout.php"><span class="glyphicon glyphicon-ban-circle"></span> Keluar</a></li>';
+                          else   
+                          		echo '<li><a href="login.php"><span class="glyphicon glyphicon-user"></span> Login</a></li>';     
                             ?>
 		        </ul>
 	       	</div>
-	       	<h2 class="text-primary subtitle col-xs-6">Tentang Kami</h2>
+	       	
+
 	       	<div class="clearfix"></div>
+	       	<div class="col-xs-12">
+	       	<h2 class="text-primary subtitle">Tentang Kami</h2>
 	       	<p>
 	       		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut mollis turpis. Quisque ut finibus mauris. Quisque sagittis lobortis enim, vel tristique nibh. Nunc malesuada tempor leo sed dapibus. Quisque euismod metus ut hendrerit finibus. Donec vitae dignissim quam. Mauris hendrerit erat felis, eget pharetra tellus aliquet et. Curabitur id elit vestibulum lorem aliquet dapibus. Pellentesque congue sem purus, sed eleifend lorem fermentum sit amet. Nullam euismod sollicitudin felis vel luctus. Aliquam erat volutpat. Morbi sit amet dolor eget ex aliquet tincidunt. Nulla quis tincidunt dolor, eget dapibus mi. Suspendisse interdum orci sed ante viverra, et consectetur orci efficitur.
 
@@ -59,6 +64,7 @@ Aliquam tristique tristique gravida. Nam tincidunt sem ac dolor maximus, id iacu
 
 Donec sem orci, interdum ac nisi tincidunt, aliquam sollicitudin mi. Maecenas ac finibus lectus. Quisque orci tortor, lobortis sit amet imperdiet et, pharetra eget ipsum. Phasellus sed efficitur turpis, molestie sollicitudin risus. Sed id tristique lacus, id blandit nunc. Morbi sit amet eros gravida ex rhoncus condimentum at ac sem. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam non posuere lectus. Nullam vitae odio sit amet neque laoreet semper vel et urna. Vivamus eleifend cursus efficitur. Donec metus justo, dictum id elit nec, maximus interdum odio. Aenean vel eros in orci luctus ornare condimentum non tellus.
 	       	</p>
+	       	</div>
 	       	<div class="clearfix"></div>
 			<p class="text-center footer">
 				<br/>

@@ -56,25 +56,28 @@
 	        <div class="top">
         	    <h1 class="text-muted"><a href="index.php"><img src="img/diskamtam.png" alt="" class="logo">Park Ranger</a></h1>
 		    	<?php
-			    	if (isset($_SESSION["id_user"])){
+					if (isset($_SESSION["id_user"])){
 					 	$user = $_SESSION["username"];
-						echo '<p class="text-right">Masuk sebagai <a href="edit_profil.php">'.$user.'</a></p>';
+						echo '<p class="text-right"><span class="glyphicon glyphicon-user"></span> Masuk sebagai <a href="edit_profil.php">'.$user.'</a></p>';
 						
 					}
 					else {
-						echo '<p class="text-right">Belum masuk? <a href="login.php">login</a> or <a href="register.php">register</a></p>';	
+						echo '<p class="text-right"><a href="login.php"><span class="glyphicon glyphicon-user"></span> Login</a> | <a href="register.php"><span class="glyphicon glyphicon-edit"></span> Daftar</a></p>';	
 			    
 					}
 			    ?>
 			    <div class="clearfix"></div>
 		        <ul class="nav nav-justified" role="navigation">
-		        	<li><a href="index.php">Halaman Utama</a></li>
-		        	<?php if (isset($_SESSION["id_user"])&&($_SESSION["role"]==3)) {
-		        					echo '<li><a href="lapor.php">Kirim Laporan</a></li>';
+		        	<li><a href="index.php"><span class="glyphicon glyphicon-home"></span> Halaman Utama</a></li>
+		        	 <?php if (isset($_SESSION["id_user"])&&($_SESSION["role"]==3)) {
+		        					echo '<li><a href="lapor.php"><span class="glyphicon glyphicon-link"></span> Kirim Laporan</a></li>';
 		        				}	?>
-		        	<li><a href="about.php">Tentang Kami</a></li>
+		        				
+		        	<li><a href="about.php"><span class="glyphicon glyphicon-tree-deciduous"></span> Tentang Kami</a></li>
 		        	<?php if (isset($_SESSION["id_user"]))
-                                 echo '<li><a href="logout.php">Keluar</a></li>';
+                                 echo '<li><a href="logout.php"><span class="glyphicon glyphicon-ban-circle"></span> Keluar</a></li>';
+                          else   
+                          		echo '<li><a href="login.php"><span class="glyphicon glyphicon-user"></span> Login</a></li>';     
                             ?>
 		        </ul>
 	       	</div>
@@ -85,13 +88,13 @@
 	       		<div class="form-group">
 	       			<label for="username" class="col-xs-4 control-label">Username</label>
 	       			<div class="col-xs-8">
-	       				<input type="text" name="username" id="username" class="form-control" placeholder="edmund.ophie" value="<?php echo $data['username'] ?>">
+	       				<input type="text" name="username" id="username" class="form-control" disabled="disabled" placeholder="edmund.ophie" value="<?php echo $data['username'] ?>">
        				</div>
 	       		</div>
 	       		<div class="form-group">
 	       			<label for="email" class="col-xs-4 control-label">Email</label>
 	       			<div class="col-xs-8">
-	       				<input type="email" name="email" id="email" class="form-control" placeholder="edmund.ophie@yahoo.com" value="<?php echo $data['email'] ?>">
+	       				<input type="email" name="email" id="email" class="form-control" disabled="disabled" placeholder="edmund.ophie@yahoo.com" value="<?php echo $data['email'] ?>">
        				</div>
 	       		</div>
 	       		<div class="form-group">

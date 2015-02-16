@@ -1,0 +1,12 @@
+
+.subtitle{
+    border-bottom: 1px solid #ededed;
+}
+
+.pagination a {
+    color: #1d91e3 !important;
+}
+
+.pagination a:hover{
+    color:#0675c3 !important;
+}
