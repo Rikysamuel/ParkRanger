@@ -20,32 +20,28 @@
     <body>
     	<div class="container">
 	        <div class="top">
-		        <h1 class="text-muted"><a href="index.php">Park Ranger</a></h1>
-				 <?php include ('koneksi.php'); 
-				    session_start();
-					if (isset($_SESSION["id_user"])){
-					 	$user = $_SESSION["id_user"];
-						$online = mysql_query("select * from user where id_user = '$user'");
-						while($tabel_user = mysql_fetch_array($online)){
-						    echo '<p class="text-right">Masuk sebagai <a href="edit_profil.php">'.$tabel_user["nama"].'</a></p>';
-						}
-					}
-					else {
-						echo '<p class="text-right">Belum masuk? <a href="login.php">login</a> or <a href="register.php">register</a></p>';	
-			    
-					}
-			    ?> 
+		        <h1 class="text-muted"><a href="index.php"><img src="img/diskamtam.png" alt="" class="logo"> Park Ranger</a></h1>
+			    <?php
+			    	session_start();
+			    	if(!isset($_SESSION['loggedIn'])) 
+			    		$_SESSION['loggedIn'] = FALSE;
+
+			    	if($_SESSION['loggedIn']==FALSE) {
+			    		$loginText = "<a href='login.php'>Login</a>";
+			    		$status ="Not logged in yet";
+			    	}
+			    	else {
+			    		$loginText = "<a href='logout.php'>Logout</a>";
+			    		$status = "Logged in as <a href='edit_profil?id=".$_SESSION['id_user']."'>".$_SESSION['username']."</a>";
+			    	}
+			    ?>
+			    <p class="text-right"><?php echo $status ?></p>
 			    <div class="clearfix"></div>
 		        <ul class="nav nav-justified" role="navigation">
-		        	<li class="active"><a href="index.php">Halaman Utama</a></li>
-		        	<li> <?php if (isset($_SESSION["id_user"])&&($_SESSION["role"]==3))
-		        					echo '<a href="lapor.php">';
-		        				else echo '<a href="login.php">';
-		        			?>Kirim Laporan</a></li>
-		        	<li><a href="about.php">Tentang Kami</a></li>
-		        	<?php if (isset($_SESSION["id_user"]))
-                                 echo '<li><a href="logout.php">Keluar</a></li>';
-                            ?>
+		        	<li class="active"><a href="index.php">Home</a></li>
+		        	<li><a href="lapor.php">Kirim Laporan</a></li>
+		        	<li><a href="about.php">About</a></li>
+		        	<li><?php echo $loginText ?></li>
 		        </ul>
 	       	</div>
 	       	<br/>
@@ -56,78 +52,70 @@
 					<span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="index.php">Most recent</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="index_sortvote.php">Top votes</a></li>
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Most recent</a></li>
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Top votes</a></li>
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Least votes</a></li>
 					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Recently handled</a></li>
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Recently unhandled</a></li>
 				</ul>
 			</div>
 			<br />
-			  <?php include ('koneksi.php');
+			<?php
+			require_once("pengaduan.php");
+			$conn = createDBConnection();
 
-			  		$arr1 = array();
-					$arr2 = array();
-					$sum = 0;
-					$query = mysql_query("select * from pengaduan natural join taman order by waktu desc");
-					while ($data = mysql_fetch_array($query)){
-						array_push($arr2, $data["id_laporan"], $data["rank_vote"], $data["waktu"], $data["status"], $data["file_foto"], $data["id_taman"], $data["ditangani_by"], $data["pelapor"], $data["keterangan"], $data["nama"], $data["alamat"]);
-				        array_push($arr1, $arr2);
-				        $sum = $sum + 1;
-					}
-
-			      	for($it=0;$it<$sum;$it++){
-	            		if(isset($arr1[$it])){
-	            			echo '<div class="panel panel-default">';
-							echo	'<div class="panel-body">';
-							echo 	'col-xs-12 deskripsi-wrapper';
-							echo		'<div class="col-xs-3">';
-							echo			'<a href="#" class="thumbnail"><img src="'.$arr1[$it][4].'" alt="taman"></a>';
-							echo 		'</div>';
-							echo		'<div class="col-xs-9 deskripsi">';
-							echo			'<h2><strong>'. $arr1[$it][9] . '</strong></h2>';
-								$id = $arr1[$it][0];
-								$query1 = mysql_query("SELECT `kategori` FROM `pihak_berwenang` natural join `pengaduan` WHERE `ditangani_by` = `id_user` and `id_laporan` = '$id'");
-								while($arr3 = mysql_fetch_array($query1)){
-									echo	'<p class="text-warning">Jenis laporan : '.$arr3[0].' </p>';
-								}
-							echo '</div>';
-							echo			'<p>'.$arr1[$it][8].'</p>';
-							echo			'<p id="status">';
-								if($arr1[$it][3]==NULL){
-									echo	'<span class="text-danger"><span class="glyphicon glyphicon-remove"></span> Belum ditindaklanjuti</span><br />';
-								}else{
-									echo	'<span class="text-success"><span class="glyphicon glyphicon-ok"></span> Sudah ditindaklanjuti</span><br />';
-								}
-									echo	'<small>Pelapor : <a href="profile.html" class="text-primary">edmund.ophie </a> <a href="#" data-toggle="modal" data-target="#myModal"><span class="text-danger glyphicon glyphicon-exclamation-sign"></span></a></small>';					
-							echo			'</p>';
-							echo			'<div class="vote col-xs-3 text-right">';
-							echo				'<a id="upvote'.$arr1[$it][0].'" href="upvote.php?id_laporan='.$arr1[$it][0].'"><span class="glyphicon glyphicon-triangle-top" ></span></a>';
-							echo				$arr1[$it][1];
-							echo				'<a id="downvote'.$arr1[$it][0].'" href="downvote.php?id_laporan='.$arr1[$it][0].'"><span class="glyphicon glyphicon-triangle-bottom"></span></a>';
-							echo			'</div>';
-							echo			'<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> 
-												<div class="modal-dialog"> 
-													<div class="modal-content"> 
-														<div class="modal-header"> 
-															<button type="button" class="close" data-dismiss="modal" aria-hidden="true">× </button> 
-															<h4 class="modal-title" id="myModalLabel"> Blokir User  </h4> 
-														</div> 
-														<div class="modal-body">
-															Apakah Anda yakin ingin mengirimkan permintaan blokir user ini? 
-														</div> 
-														<div class="modal-footer"> 
-															<button type="button" class="btn btn-default" data-dismiss="modal"> Tidak </button> 
-															<button type="button" class="btn btn-primary"> Ya </button> 
-														</div> 
-													</div>
-												</div>
-											</div>';
-							echo		'</div>';
-					        echo	'</div>';
-				      		echo '</div>';
-			      		}
-	                }
-
-      			?>
+			// 1:admin, 2:dinas, 3:member
+			$sql = "SELECT *,taman.nama as nama_taman, user.nama as nama_pelapor FROM pengaduan 
+					JOIN pihak_berwenang ON pengaduan.ditangani_by=pihak_berwenang.id_user
+					NATURAL JOIN taman 
+					JOIN user ON pengaduan.pelapor=user.id_user";
+			$result = $conn->query($sql);
+			
+			if($result->num_rows > 0) {
+				while($row= $result->fetch_assoc()) {
+					$taman = $row['nama_taman'];
+					$pelapor = $row['nama_pelapor'];
+					$status = ($row['status']=="0")?"Belum ditindaklanjuti":"Sudah ditindaklanjuti";
+					$color = ($row['status']==0)?"danger":"success";
+					$icon = ($row['status']==0)?"remove":"ok";
+					$tgl = date_create($row['waktu']);
+					$date = date_format($tgl, "d/m/Y");
+			?>
+	       	<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="col-xs-12 deskripsi-wrapper">
+						<div class="col-xs-3">
+							<a href="#" class="thumbnail">
+								<img src="img/taman/taman.jpg" alt="taman">
+							</a>
+						</div>
+						<div class="col-xs-9 deskripsi">
+							<h2><a href="#"><strong>Taman <?php echo $taman ?></strong></a></h2>
+							<p class="text-warning">Jenis laporan : <?php echo $row['kategori'] ?></p>
+							<p><?php echo $row['keterangan'] ?></p>
+							<span class="text-warning waktu"><?php echo $date ?></span>
+						</div>
+						<div class="col-xs-9 col-xs-offset-3 status-box">
+								<div class="col-xs-9 status">
+									<span class="text-<?php echo $color ?>"><span class="glyphicon glyphicon-<?php echo $icon ?>"></span> <?php echo $status ?></span><br />
+									<small>Pelapor : <a href="profile.html" class="text-primary"><?php echo $pelapor ?> </a> <a href="#"><span class="text-danger glyphicon glyphicon-exclamation-sign"></span></a></small>
+								</div>
+								<div class="vote col-xs-3 text-right">
+									<a href="#"><span class="glyphicon glyphicon-triangle-top"></span></a>
+									<?php echo $row['rank_vote'] ?>
+									<a href="#"><span class="glyphicon glyphicon-triangle-bottom"></span></a>
+								</div>
+						</div>
+					</div>
+	        	</div>
+      		</div><!-- End of Panel -->
+      		<?php
+				}
+			}
+			else {
+				echo "Belum ada aduan yang dilaporkan.";
+			}
+			?>
 			<nav class="text-center">
 				<ul class="pagination">
 					<li class="disabled">
@@ -150,6 +138,8 @@
 			<p class="text-center footer">
 				<br/>
 				Copyright &copy; 2014. ParkRanger. All rights reserved.<br/>
+				Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.<br/>
+				Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
 				<br/>
 			</p>
 	    </div>
@@ -159,6 +149,6 @@
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
-        <script type="text/javascript" src="vote.js"></script>
+
     </body>
 </html>

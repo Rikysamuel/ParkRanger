@@ -16,74 +16,66 @@
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/login.css">
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
-
-        <?php 
-        	include 'user.php';
-
-        	if (isset($_POST["login"])) {
-        		$username = $_POST["username"];
-        		$password = $_POST["password"];
-
-        		session_start();
-        		$link = init();
-
-        		$valid = isValid($link, $username, $password);
-        		if ($valid == 1) {
-        			$id_user = getId($link, $username);
-        			if ($id_user!=-1)
-        				$_SESSION["id_user"] = $id_user;
-        			else
-        				echo 'id not found';
-        			$role = getRole($link, $username);
-        			if ($role!=-1)
-        				$_SESSION["role"] = $role;
-        			else 
-        				echo 'role not found';
-					//echo "user; ".$_SESSION["id_user"]." : ".$_SESSION["role"];
-					if ($role==1)	
-						header('Location: manage_user.php');
-					else if ($role==2)
-						header('Location: dinas.php');
-					else if($role==3)
-						header('Location: index.php');
-        		}
-        		else {
-        			echo 'Username dan password salah';
-        		}
-        		closeConnection($link);
-        	}
-
-        ?>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+		<script>
+			$(function() {
+				jQuery(function() {
+					$("input[type='submit']").click(function() {
+						var username = $("#username").val();
+						var password = $("#password").val();
+						if(username=="" || password==""){
+							$(".box-warning").empty();
+							$(".box-warning").css("display","block");
+							$(".box-warning").append("<p><span class='glyphicon glyphicon-remove-circle'> </span> Username/password masih kosong</p>")
+							
+						}
+						else{
+							$.post("do_login.php", {username:username,password:password}, 
+		            			function(result) {
+		            				if(result==0) { // Login gagal
+									   $(".box-warning").empty();
+		            					$(".box-warning").append("<p><span class='glyphicon glyphicon-remove-circle'> </span> Username/password salah</p>")
+		                                $(".box-warning").css("display","block");
+		            				}
+		            				else{
+										window.location = result;
+		            				}
+		        			});
+						}
+					});	
+				});
+			});
+		</script>
     </head>
     <body>
     	<div class="container">
 	        <div class="top">
-        	    <h1 class="text-muted"><a href="index.php">Park Ranger</a></h1>
-		    	
+        	    <h1 class="text-muted"><a href="index.php"><img src="img/diskamtam.png" alt="" class="logo"> Park Ranger</a></h1>
+		    	<p class="text-right">Not logged in yet</p>
 			    <div class="clearfix"></div>
 		        <ul class="nav nav-justified" role="navigation">
-		        	<li><a href="index.php">Halaman Utama</a></li>
-		        	<li><?php if (isset($_SESSION["id_user"])&&($_SESSION["role"]==3))
-                                    echo '<a href="lapor.php">';
-                                else echo '<a href="login.php">';
-                            ?>Kirim Laporan</a></li>
-		        	<li><a href="about.php">Tentang Kami</a></li>
+		        	<li><a href="index.php">Home</a></li>
+		        	<li><a href="lapor.php">Kirim Laporan</a></li>
+		        	<li><a href="about.php">About</a></li>
+		        	<li><a href="logout.php">Login</a></li>
 		        </ul>
 	       	</div>
 	       	<h2 class="text-primary subtitle col-xs-6">Login</h2>
 	       	<div class="clearfix"></div>
-	       	<form action="#" method="POST" class="col-xs-4 col-xs-offsets-3">
+	       	<div class="col-xs-4 col-xs-offsets-3 form">
 	       		<div class="form-group">	
 		       		<label for="username" class="control-label">Username</label>
-	       			<input type="username" name="username" class="form-control" placeholder="Username">
+	       			<input type="username" name="username" id="username" class="form-control" placeholder="Username">
 		       	</div>
 		       	<div class="form-group">	
 		       		<label for="password" class="control-label">Password</label>
-		       		<input type="password" name="password" class="form-control" placeholder="Password">
+		       		<input type="password" name="password" id="password" class="form-control" placeholder="Password">
 		       	</div>
 		       	<p>Belum menjadi anggota? Daftar <a href="register.php">disini</a>.</p>
-		       	<input type="submit" value="LOGIN" name ="login" action="login.php" class="btn btn-primary btn-block">
-	       	</form>
+		       	<div class="form-group box-warning">
+		       	</div>
+		       	<input type="submit" value="LOGIN" name ="login" class="btn btn-primary btn-block">
+	       	</div>
 	       	<div class="clearfix"></div>
 			<p class="text-center footer">
 				<br/>
@@ -94,8 +86,6 @@
 			</p>
 	    </div>
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>

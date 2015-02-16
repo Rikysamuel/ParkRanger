@@ -33,9 +33,32 @@ if ($conn->connect_error) {
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
         <script>
-        	$(function() {
 
-        	});
+            	jQuery(function(){
+            		$("input[type='submit']").click(function(){
+    					var password = $("#password").val();
+    	        		var confirmPassword = document.getElementById("confirmPassword").value;
+        				$(".box-warning").empty();
+        				var hasil=true;
+            			if(password!=confirmPassword) {
+            				$(".box-warning").append("<p><span class='glyphicon glyphicon-remove-circle'> </span> Password tidak cocok</p>")
+            				hasil = false;
+            			}
+
+            			if($("#nama").val()=="" || $("#jenisLaporan").val()=="" || $("#email").val()=="" || $("#username").val()=="" || $("#password").val()=="") {
+            				$(".box-warning").append("<p><span class='glyphicon glyphicon-remove-circle'> </span> Masih ada data yang belum diisi.</p>")
+            				hasil = false
+            			}
+            			
+            			if(!hasil) {
+							$(".box-warning").css("display","block");
+                        }
+                        else{
+                        	$(".box-warning").css("display","none");	
+                        }
+	            			return hasil;
+            		});
+            	});
         	function ubahKategori(sel) {
 
 					if(sel.value!=0) {
@@ -59,14 +82,14 @@ if ($conn->connect_error) {
     <body>
     	<div class="container">
 	        <div class="top">
-		        <h1 class="text-muted"><a href="index.php">Park Ranger</a></h1>
-			    <p class="text-right">Masuk sebagai <a href="#">Admin</a></p>
+		        <h1 class="text-muted"><a href="index.php"><img src="img/diskamtam.png" alt="" class="logo"> Park Ranger</a></h1>
+			    <p class="text-right">Logged in as <a href="#">Admin</a></p>
 			    <div class="clearfix"></div>
 		        <ul class="nav nav-justified" role="navigation">
-		        	<li><a href="index.php">Halaman Utama</a></li>
-		        	
-		        	<li><a href="about.php">Tentang Kami</a></li>
-		        	<li><a href="logout.php">Keluar</a></li>
+		        	<li><a href="index.php">Home</a></li>
+		        	<li><a href="lapor.php">Kirim Laporan</a></li>
+		        	<li><a href="about.php">About</a></li>
+		        	<li><a href="logout.php">Log Out</a></li>
 		        </ul>
 	       	</div>
 	       	<br/>
@@ -75,7 +98,6 @@ if ($conn->connect_error) {
 	       	<a class="btn btn-primary btn-user" href="manage_user.php" role="button">Manage User</a>
 	       	<a class="btn btn-primary btn-user" href="manage_taman.php" role="button">Manage Taman</a>
 	       	<a class="btn btn-primary active btn-user" href="manage_dinas.php" role="button">Manage Dinas</a>
-	       	<a class="btn btn-primary btn-user" href="manage_kategori.php" role="button">Manage Kategori</a>
 			<div class="clearfix"></div>
 			<br />
 	       	
@@ -91,13 +113,7 @@ if ($conn->connect_error) {
 		       	</div>
 		       	<div class="form-group">	
 		       		<label for="jenisLaporan" class="control-label">Jenis laporan</label>
-		       		<select name="jenisLaporan" id="jenisLaporan" class="form-control">
-		       			<option value="kenyamanan">Kenyamanan</option>
-		       			<option value="kebersihan">Kebersihan</option>
-		       			<option value="keamanan">Keamanan</option>
-		       			<option value="sarpras">Sarana dan prasarana</option>
-		       			<option value="ketertiban">Ketertiban</option>
-		       		</select>
+	          		<input type="text" name="jenisLaporan" id="jenisLaporan" class="form-control" placeholder="Jenis laporan yang ditangani">
 		       	</div>
 		       	<div class="form-group">	
 		       		<label for="email" class="control-label">Email</label>
@@ -113,7 +129,9 @@ if ($conn->connect_error) {
 		       	</div>
 		       	<div class="form-group">	
 		       		<label for="confirmPassword" class="control-label">Konfirmasi password</label>
-	       			<input type="password" name="passwordConfirm" id="confirmPassword" class="form-control" placeholder="Re-type password">	       			
+	       			<input type="password" name="confirmPassword" id="confirmPassword" class="form-control" placeholder="Re-type password">	       			
+		       	</div>
+		       	<div class="form-group box-warning">
 		       	</div>
 	       		<input type="submit" value="Daftarkan" class="btn btn-primary btn-block">
 	       	</form>

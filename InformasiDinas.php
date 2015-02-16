@@ -55,6 +55,12 @@
 		return $name;
 	}
 
+	function isTanggapanExist($link,$id){
+		$res = mysqli_query($link,"SELECT * FROM ditanggapi WHERE id_laporan='$id'");
+		$result = $res->fetch_assoc();
+		return $result;
+	}
+
 	function reports($link, $row, $it){
 		$posts = '<div class="panel panel-default">
                   <div class="panel-body">
@@ -79,8 +85,9 @@
 									<small>Pelapor : <a href="profile.html" class="text-primary"> '.fetchPelapor($link,$row[$it][7])['nama'].' </a> <a href="#"><span class="text-danger glyphicon glyphicon-exclamation-sign"></span></a></small>
 								</p>
 							</div>
-							<div class="col-xs-3">
-								<button id="bt'.$row[$it][0].'" type="button" class="btn btn-primary btn-block" data-toggle="collapse" data-target="#post'.$row[$it][0].'" onclick="this.style.visibility=\'hidden\'">Tanggapi</button>
+							<div class="col-xs-3">'
+							// $tanggapan = (isTanggapanExist($link,$row[$it][0]))?""
+		$posts = $posts . '			<button id="bt'.$row[$it][0].'" type="button" class="btn btn-primary btn-block" data-toggle="collapse" data-target="#post'.$row[$it][0].'" onclick="this.style.visibility=\'hidden\'">Tanggapi</button>
 						    </div>
 						</div>
 						</div>

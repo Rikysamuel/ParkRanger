@@ -24,8 +24,8 @@
     text-decoration: none;
 }
 
-.deskripsi > p {
-    margin-top: 0;
+.deskripsi {
+    position: relative;
 }
 
 .deskripsi > p {
@@ -39,6 +39,12 @@
 
 .status{
 	padding-left: 0;
+}
+
+.waktu {
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 .vote {

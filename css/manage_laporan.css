@@ -32,8 +32,14 @@
 
 .deskripsi{
 	padding-right: 0;
+	position: relative;
 }
 
+.waktu {
+	position: absolute;
+	right: 0;
+	top: 0;
+}
 .deskripsi > h2 {
     margin:0;
 }

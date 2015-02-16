@@ -7,7 +7,7 @@
       echo "Failed to connect to MySQL: " . mysqli_connect_error();
     }
 
-    $now = "2015-02-09 17:23:25";
+    $now = $waktu = date('Y-m-d H:i:s');
 	$sql = "INSERT INTO tanggapan (id_tanggapan, keterangan, id_penanggap, tanggal_tanggapan) VALUES ('', '$komentar', '1', '$now')";
 	if (!mysqli_query($link,$sql)) {
 		die('Error: ' . mysqli_error($link));
@@ -23,5 +23,5 @@
 		die('Error: ' . mysqli_error($link));
 	}
 	mysqli_close($link);
-	echo '1';
+	echo "ok";
 ?>

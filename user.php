@@ -67,5 +67,136 @@
             return -1;
         }
     }
+    
+    /* Fungsi edmund */
+    function createDBConnection() {
+        $servername = "localhost";
+        $dbusername = "root";
+        $dbpassword = "";
+        $dbname = "parkranger";
 
+        // Create connection
+        $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }       
+
+        return $conn;
+    }
+
+    function registerMember($nama, $email, $username, $password) {
+        $conn = createDBConnection();
+
+        // 1:admin, 2:dinas, 3:member
+        $sql = "INSERT INTO user (id_user, nama, email, username, password, role) 
+                VALUES ('', '$nama', '$email', '$username', '$password', 3)";
+
+        if ($conn->query($sql) === TRUE) {
+            // Get user id
+            $uid = $conn->insert_id;
+        
+            // Insert into 'member' table
+            $sql = "INSERT INTO member (id_user, status, jumlah_report) 
+                    VALUES ($uid, 'unbanned', 0)";
+
+            if($conn->query($sql) === TRUE)
+                $retval = 1;
+            else
+                $retval = 0;
+        
+        } else {
+            $retval = 0;
+        }
+        $conn->close();
+
+        return $retval;
+    }
+
+    function tambahDinas($nama, $email, $username, $password, $jenisLaporan) {
+        $conn = createDBConnection();
+
+        $sql = "INSERT INTO user (id_user,nama,email,username,password,role) 
+                VALUES ('', '$nama', '$email', '$username', '$password', 2)";
+
+        if($conn->query($sql)) {
+            $id = $conn->insert_id;
+            $sql = "INSERT INTO pihak_berwenang (id_user,kategori)
+                    VALUES ($id, '$jenisLaporan')";
+            if($conn->query($sql))
+                header("Location: manage_dinas.php");
+            else
+                 return "Error: " . $sql . "<br>" . mysqli_error($conn);
+        }
+        else {
+            return "Error: " . $sql . "<br>" . mysqli_error($conn);
+        }
+        $conn->close();
+    }
+
+    function hapusDinas($idDinas) {
+        $conn = createDBConnection();
+
+        $sql = "DELETE FROM user
+                WHERE id_user=$idDinas";
+
+        if($conn->query($sql)) {
+            header("Location: manage_dinas.php");
+        }
+        else {
+            return "Error: " . $sql . "<br>" . mysqli_error($conn);
+        }
+        $conn->close();
+    }
+
+    function ubahKategoriDinas($idDinas, $kategori) {
+        $conn = createDBConnection();
+        $sql = "UPDATE pihak_berwenang
+                SET kategori='$kategori'
+                WHERE id_user=$idDinas";
+
+        if($conn->query($sql)) {
+            $retval = 1;
+        }   
+        else {
+            $retval = "Error: " . $sql . "<br>" . mysqli_error($conn);
+        }   
+        $conn->close();
+        return $retval;
+    }
+
+    function login($username, $password) {
+        $conn = createDBConnection();
+        $sql = "SELECT * FROM user 
+                WHERE username='$username' AND password='$password'";
+        $result = $conn->query($sql);
+        
+        if($result->num_rows!=FALSE){
+            $row=$result->fetch_assoc();
+            // Simpan session
+            session_start();
+            $_SESSION["loggedIn"] = TRUE;
+            $_SESSION["id_user"] = $row['id_user'];
+            $_SESSION["username"] = $row['username'];
+            $_SESSION["role"] = $row['role'];
+
+            $conn->close();
+
+            if($row['role']==1) {
+                return "manage_laporan.php";
+            }
+            else if($row['role']==2) {
+                return "dinas.php";
+            }
+            else if($row['role']==3){
+                return "index.php";
+            }
+            
+        }
+        else{
+            session_start();
+            $_SESSION["loggedIn"] = FALSE;
+            return 0;
+        }
+    }
 ?>

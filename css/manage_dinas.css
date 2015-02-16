@@ -24,8 +24,8 @@ table h3 {
 }
 
 .box-warning, .box-success {
-	margin-left: 20px;
-	padding: 10px 20px;
+	
+	padding: 5px 15px;
 	border-radius: 5px;
 
 }
@@ -38,8 +38,12 @@ table h3 {
 }
 
 .box-success{
-	margin-bottom: 5px;
 	border:1px solid green;
 	box-shadow: 1px 1px 5px green;
 	color: green;
+}
+
+
+.box-warning > p, .box-success p {
+	margin:0 ;
 }

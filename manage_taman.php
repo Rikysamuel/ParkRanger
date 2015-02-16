@@ -84,12 +84,37 @@ if ($conn->connect_error) {
         		}
 	        });
 
+			$(".btn-hapus").click(function(){
+				var pil = $("select[name=taman] option:selected").val();
+    			
+    			$.post("hapus_taman.php",{id_taman:pil},
+    				function(result){
+    					if(result==1) {
+    						$("#taman option[value="+pil+"]").remove();
+    						$("#taman").val("tambahTaman");
+    						$(".box-warning").addClass("box-success");
+    						$(".box-success").removeClass("box-warning");
+    						$(".box-success").empty();
+    						$(".box-success").css("display", "block");
+    						$(".box-success").append("<p><span class='glyphicon glyphicon-ok-circle'> </span> Data taman berhasil dihapus</p>");
+    						$("#nama").val("");
+    						$("#alamat").val("");
+    					}
+    					else {
+    						alert("Data taman gagal dihapus. \n Terjadi kesalahan pada sistem.");
+    					}
+    			});
+			});
+
 	        $("#taman").on("change", function(){
 	        	if(stillLoading) return;
 				var pil = $("select[name=taman] option:selected").val();
 				$("#nama").val("");
 				$("#alamat").val("");
 	        	if(pil!="tambahTaman") {
+		        	$(".btn-edit").addClass("col-xs-5");
+		        	$(".btn-edit").removeClass("col-xs-9");
+	        		$(".btn-hapus").css("display","block");
 		        	$.post("get_data_taman.php",{id_taman:pil},
 	        				function(result){
 	        					if(result!=0) {
@@ -102,6 +127,11 @@ if ($conn->connect_error) {
 	        					}
         			},"json");
 		        }
+		        else {
+		        	$(".btn-edit").removeClass("col-xs-5");
+		        	$(".btn-edit").addClass("col-xs-9");
+	        		$(".btn-hapus").css("display","none");
+		        }
 	        });
         });
         </script>
@@ -109,13 +139,14 @@ if ($conn->connect_error) {
     <body>
     	<div class="container">
 	        <div class="top">
-		        <h1 class="text-muted"><a href="index.php">Park Ranger</a></h1>
-			    <p class="text-right">Masuk sebagai <a href="#">Admin</a></p>
+		        <h1 class="text-muted"><a href="index.php"><img src="img/diskamtam.png" alt="" class="logo"> Park Ranger</a></h1>
+			    <p class="text-right">Logged in as <a href="#">Admin</a></p>
 			    <div class="clearfix"></div>
 		        <ul class="nav nav-justified" role="navigation">
-		        	<li><a href="index.php">Halaman Utama</a></li>
-		        	<li><a href="about.php">Tentang Kami</a></li>
-		        	<li><a href="logout.php">Keluar</a></li>
+		        	<li><a href="index.php">Home</a></li>
+		        	<li><a href="lapor.php">Kirim Laporan</a></li>
+		        	<li><a href="about.php">About</a></li>
+		        	<li><a href="logout.php">Log Out</a></li>
 		        </ul>
 	       	</div>
 	       	<br/>
@@ -124,7 +155,6 @@ if ($conn->connect_error) {
 	       	<a class="btn btn-primary btn-user" href="manage_user.php" role="button">Manage User</a>
 	       	<a class="btn btn-primary active btn-user" href="manage_taman.php" role="button">Manage Taman</a>
 	       	<a class="btn btn-primary btn-user" href="manage_dinas.php" role="button">Manage Dinas</a>
-	       	<a class="btn btn-primary btn-user" href="manage_kategori.php" role="button">Manage Kategori</a>
 			<div class="clearfix"></div>
 			<br />
 	       	<h2 class="text-primary subtitle col-xs-6">Ubah Data Taman</h2>
@@ -161,7 +191,8 @@ if ($conn->connect_error) {
 	       				<input type="text" name="alamat" id="alamat" class="form-control" placeholder="Masukkan alamat taman">
        				</div>
 	       		</div>
-	       		<input type="submit" value="Edit" class="btn btn-primary btn-block">
+	       		<input type="submit" value="Edit" class="btn btn-primary col-xs-offset-3 col-xs-9 btn-edit">
+	       		<a onclick="" class="btn btn-danger col-xs-offset-1 col-xs-3 btn-hapus">Hapus</a>
 	       	</div>
 	       	<div class="col-xs-4 box-warning">
 	       	</div>

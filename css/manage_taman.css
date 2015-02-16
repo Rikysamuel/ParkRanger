@@ -34,3 +34,7 @@
 	box-shadow: 1px 1px 5px green;
 	color: green;
 }
+
+.btn-hapus{
+	display: none;
+}

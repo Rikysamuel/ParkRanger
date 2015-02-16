@@ -21,14 +21,14 @@
     <body>
     	<div class="container">
 	        <div class="top">
-		        <h1 class="text-muted"><a href="index.php">Park Ranger</a></h1>
-			    <p class="text-right">Masuk sebagai <a href="#">Admin</a></p>
+		        <h1 class="text-muted"><a href="index.php"><img src="img/diskamtam.png" alt="" class="logo"> Park Ranger</a></h1>
+			    <p class="text-right">Logged in as <a href="#">Admin</a></p>
 			    <div class="clearfix"></div>
 		        <ul class="nav nav-justified" role="navigation">
-		        	<li><a href="index.php">Halaman Utama</a></li>
-		        	
-		        	<li><a href="about.php">Tentang</a></li>
-		        	<li><a href="logout.php">Keluar</a></li>
+		        	<li><a href="index.php">Home</a></li>
+		        	<li><a href="lapor.php">Kirim Laporan</a></li>
+		        	<li><a href="about.php">About</a></li>
+		        	<li><a href="logout.php">Log Out</a></li>
 		        </ul>
 	       	</div>
 	       	<br/>
@@ -37,7 +37,6 @@
 	       	<a class="btn btn-primary active btn-user" href="manage_user.php" role="button">Manage User</a>
 	       	<a class="btn btn-primary btn-user" href="manage_taman.php" role="button">Manage Taman</a>
 	       	<a class="btn btn-primary btn-user" href="manage_dinas.php" role="button">Manage Dinas</a>
-	       	<a class="btn btn-primary btn-user" href="manage_kategori.php" role="button">Manage Kategori</a>
 	       	
 	       	<div class="dropdown text-right sort-menu">
 	       	Sort by : &nbsp;

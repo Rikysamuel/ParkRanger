@@ -20,14 +20,14 @@
     <body>
     	<div class="container">
 	        <div class="top">
-		        <h1 class="text-muted"><a href="index.php">Park Ranger</a></h1>
-			    <p class="text-right">Masuk sebagai <a href="#">Admin</a></p>
+		        <h1 class="text-muted"><a href="index.php"><img src="img/diskamtam.png" alt="" class="logo"> Park Ranger</a></h1>
+			    <p class="text-right">Logged in as <a href="#">Admin</a></p>
 			    <div class="clearfix"></div>
 		        <ul class="nav nav-justified" role="navigation">
-		        	<li><a href="index.php">Halaman utama</a></li>
-		        	  
-		        	<li><a href="about.php">Tentang Kami</a></li>
-		        	<li><a href="logout.php">Keluar</a></li>
+		        	<li><a href="index.php">Home</a></li>
+		        	<li><a href="lapor.php">Kirim Laporan</a></li>
+		        	<li><a href="about.php">About</a></li>
+		        	<li><a href="logout.php">Log Out</a></li>
 		        </ul>
 	       	</div>
 	       	<br/>
@@ -36,7 +36,6 @@
 	       	<a class="btn btn-primary btn-user" href="manage_user.php" role="button">Manage User</a>
 	       	<a class="btn btn-primary btn-user" href="manage_taman.php" role="button">Manage Taman</a>
 	       	<a class="btn btn-primary btn-user" href="manage_dinas.php" role="button">Manage Dinas</a>
-	       	<a class="btn btn-primary btn-user" href="manage_kategori.php" role="button">Manage Kategori</a>
 	       	<div class="dropdown text-right sort-menu">
 	       	Sort by : &nbsp;
 				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
@@ -54,7 +53,6 @@
 			<div class="clearfix"></div>
 			<br />
 			<?php
-			extract($_POST);
 			$servername = "localhost";
 			$dbusername = "root";
 			$dbpassword = "";
@@ -69,6 +67,7 @@
 
 			// 1:admin, 2:dinas, 3:member
 			$sql = "SELECT *,taman.nama as nama_taman, user.nama as nama_pelapor FROM pengaduan 
+					JOIN pihak_berwenang ON pengaduan.ditangani_by=pihak_berwenang.id_user
 					NATURAL JOIN taman 
 					JOIN user ON pengaduan.pelapor=user.id_user";
 			$result = $conn->query($sql);
@@ -77,8 +76,11 @@
 				while($row= $result->fetch_assoc()) {
 					$taman = $row['nama_taman'];
 					$pelapor = $row['nama_pelapor'];
-					$status = ($row['status']=="0")?"Belum ditindaklanjuti":"Sudah ditindaklanjuti";
+					$status = ($row['status']==0)?"Belum ditindaklanjuti":"Sudah ditindaklanjuti";
+					$icon = ($row['status']==0)?"remove":"ok";
 					$color = ($row['status']==0)?"danger":"success";
+					$tgl = date_create($row['waktu']);
+					$date = date_format($tgl, "d/m/Y");
 			?>
       		<div class="panel panel-default">
 				<div class="panel-body">
@@ -90,14 +92,15 @@
 						</div>
 						<div class="col-xs-9 deskripsi">
 							<h2 class="text-primary"><strong>Taman <?php echo $taman ?></strong></h2>
-							<p class="text-warning">Jenis laporan : <?php echo $row['jenis_laporan'] ?></p>
+							<p class="text-warning">Jenis laporan : <?php echo $row['kategori'] ?></p>
 							<p>
 								<?php echo $row['keterangan'] ?>
 							</p>
+							<span class="text-warning waktu"><?php echo $date ?></span>
 						</div>
 						<div class="col-xs-9 col-xs-offset-3 status-box">
 							<div class="col-xs-8 status">
-								<span class="text-<?php echo $color ?>"><span class="glyphicon glyphicon-remove"></span> <?php echo $status ?></span><br />
+								<span class="text-<?php echo $color ?>"><span class="glyphicon glyphicon-<?php echo $icon ?>"></span> <?php echo $status ?></span><br />
 								<small>Pelapor : <span class="text-primary"><?php echo $pelapor ?></span></small>
 							</div>
 							<div class=" col-xs-1 text-right">

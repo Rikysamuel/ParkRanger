@@ -30,13 +30,13 @@
     		function addKomentar(id) {
     			var id_laporan = id;
         		var komentar = $("#"+id+"_komentar").val();
-        		alert(id_laporan);
+        		alert(id_penanggap);
         		$.post("addkomentar.php", {id_laporan:id_laporan,keterangan:komentar}, 
         			function(result) {
-        				if(result=="1") {
+        				if(result=="ok") {
         					
         				} else{
-        					alert(result);
+        					
         				}
     			});
     		}
@@ -53,7 +53,7 @@
 					 	$user = $_SESSION["id_user"];
 						$online = mysql_query("select * from user where id_user = '$user'");
 						while($tabel_user = mysql_fetch_array($online)){
-						    echo '<p class="text-right">Masuk sebagai <a href="edit_profil.php">'.$tabel_user["nama"].'</a></p>';
+						    echo '<p id="user'.$user.'" class="text-right">Masuk sebagai <a href="edit_profil.php">'.$tabel_user["nama"].'</a></p>';
 						}
 					}
 					else {
