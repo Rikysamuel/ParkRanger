@@ -86,7 +86,7 @@
 					<div class="col-xs-12 deskripsi-wrapper">
 						<div class="col-xs-3">
 							<a href="#" class="thumbnail">
-								<img src="img/taman/taman.jpg" alt="taman">
+								<img src="img/taman/<?php echo $row["file_foto"]?>"alt="taman">
 							</a>
 						</div>
 						<div class="col-xs-9 deskripsi">
