@@ -30,10 +30,11 @@
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
 
         <script type="text/javascript">
-    		function addKomentar(id) {
+    		function addKomentar(id,id_user) {
     			var id_laporan = id;
         		var komentar = $("#"+id+"_komentar").val();
-        		$.post("addkomentar.php", {id_laporan:id_laporan,keterangan:komentar}, 
+        		var id_user = id_user;
+        		$.post("addkomentar.php", {id_laporan:id_laporan,keterangan:komentar,id_penanggap:id_user}, 
         			function(result) {
         				if(result=="ok") {
         					$("#statustanggapan"+id).find("span").remove();

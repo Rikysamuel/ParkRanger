@@ -58,7 +58,11 @@
 	       		Park Ranger merupakan website yang dibuat bekerja sama dengan Pemkot Bandung terkait dengan keamanan dan kenyamanan taman-taman di Bandung.
 	       	Warga dapat melaporkan situasi terkini taman-taman di kota Bandung 24 jam. Park Ranger akan menerima laporan pengaduan dari warga, dan setiap pengaduan 
 	       	yang diterima akan ditangani oleh pihak berwenang terkait. Warga yang terdaftar sebagai member juga dapat memberikan vote terhadap suatu laporan
-	       	dan melaporkan member lain terkait laporan yang diberikan.  
+	       	dan melaporkan member lain terkait laporan yang diberikan.<br /><br/>
+
+	       		Dengan adanya website ini, diharapkan situasi taman dikota Bandung dapat lebih mudah terpantau. Laporan yang didapatkan akan dikirimkan ke pihak 
+	       	berwenang terkait yang akan menangani laporan tersebut.
+
 	       	</p>
 	       	</div>
 	       	<div class="clearfix"></div>

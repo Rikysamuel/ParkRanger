@@ -5,6 +5,9 @@
 
 <?php
 	session_start();
+	if (!isset($_SESSION["id_user"])){
+		header("location:index.php");
+	}
     $id_user = $_SESSION["id_user"];    //$_GET['id_user'];
     $query = mysql_query("SELECT `nama`, `email`, `username`, `password` FROM `user` WHERE `id_user`=$id_user") or die(mysql_error());
     $data = mysql_fetch_array($query);
@@ -24,14 +27,37 @@
 		newPassword = document.formChange.newPassword;
 		confirmPassword = document.formChange.confirmPassword;
 
-		if(newPassword.value != confirmPassword.value) {
+		if(oldPassword.value == "" && newPassword.value == "" && confirmPassword.value == "") {
+			output = true;
+		} else if(oldPassword.value != "" && oldPassword.value != <?php Print $data['password'] ?>) {
 			newPassword.value="";
 			confirmPassword.value="";
-			newPassword.focus();
+			oldPassword.value="";
+			oldPassword.focus();
+			document.getElementById("confirmPassword").innerHTML = "not same";
+			$(".box-warning").css("display","block");
+            $(".box-warning").empty();
+			$(".box-warning").append("<p><span class='glyphicon glyphicon-remove-circle'> </span> Password salah</p>")
+			output = false;
+		} else if(newPassword.value != confirmPassword.value) {
+			newPassword.value="";
+			confirmPassword.value="";
+			oldPassword.value="";
+			oldPassword.focus();
 			document.getElementById("confirmPassword").innerHTML = "not same";
 			$(".box-warning").css("display","block");
             $(".box-warning").empty();
 			$(".box-warning").append("<p><span class='glyphicon glyphicon-remove-circle'> </span> Password tidak sama</p>")
+			output = false;
+		} else if(oldPassword.value=="" && (newPassword.value != "" || confirmPassword.value != "")) {
+			newPassword.value="";
+			confirmPassword.value="";
+			oldPassword.value="";
+			oldPassword.focus();
+			document.getElementById("confirmPassword").innerHTML = "not same";
+			$(".box-warning").css("display","block");
+            $(".box-warning").empty();
+			$(".box-warning").append("<p><span class='glyphicon glyphicon-remove-circle'> </span> Password harus diisi</p>")
 			output = false;
 		}
 		return output;
