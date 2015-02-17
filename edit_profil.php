@@ -5,6 +5,9 @@
 
 <?php
 	session_start();
+	if (!isset($_SESSION["id_user"])){
+		header("location:index.php");
+	}
     $id_user = $_SESSION["id_user"];    //$_GET['id_user'];
     $query = mysql_query("SELECT `nama`, `email`, `username`, `password` FROM `user` WHERE `id_user`=$id_user") or die(mysql_error());
     $data = mysql_fetch_array($query);
